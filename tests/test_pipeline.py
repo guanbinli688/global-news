@@ -103,10 +103,12 @@ class PipelineAcceptanceTests(unittest.TestCase):
             status, _ = diagnose(diagnostic_entry(), CATALOG, DEFAULTS)
             self.assertEqual(status["status"], "empty")
 
-    def test_h_source_failure_keeps_coverage_accounting(self):
+    def test_h_source_health_keeps_every_attempt_and_valid_status(self):
         report = json.loads((ROOT / "source-health.json").read_text(encoding="utf-8"))
         self.assertEqual(report["summary"]["total"], len(report["sources"]))
-        self.assertTrue(any(row["status"] != "ok" for row in report["sources"]))
+        self.assertEqual(len({row["source_id"] for row in report["sources"]}), len(report["sources"]))
+        allowed = {"ok", "empty", "partial", "not_configured", "permission_required", "stale", "failed"}
+        self.assertTrue(all(row["status"] in allowed for row in report["sources"]))
         self.assertFalse(report["policy"]["browser_cookies_used"])
 
     def test_i_future24_requires_official_calendar(self):
@@ -141,7 +143,7 @@ class PipelineAcceptanceTests(unittest.TestCase):
     def test_static_build_smoke(self):
         result = build()
         self.assertGreater(result["events"], 0)
-        for name in ("index.html", "source-health.html", "history.html", "corrections.html", "data.json"):
+        for name in ("index.html", "source-health.html", "coverage.html", "history.html", "corrections.html", "data.json"):
             self.assertTrue((ROOT / "site" / name).is_file())
 
 

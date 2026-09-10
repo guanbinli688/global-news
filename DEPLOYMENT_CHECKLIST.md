@@ -66,6 +66,7 @@
 - `requirements.txt`
 - `.gitignore`、`.env.example`
 - `README.md`、`EDITORIAL_SPEC.md`、`CODEX_TASK.md`、`SOURCE_NOTES.md`
+- `NEXT_BUILD.md`、`LOCAL_PREVIEW.md`、`PROJECT_STATUS.md`、`DEPLOYMENT_CHECKLIST.md`
 - `source-health.md`、`source-health.json`、`validation-report.json`
 
 不要上传 `.env`、`state/history/`、`state/publishable-events.json`、`state/run-report.json`、`state/run-source-health.json` 或 `restored-state/`。运行状态由 Actions artifact 保存。
@@ -79,7 +80,7 @@
 5. 把结果交给你确认。确认后才把 `ENABLE_PUBLISH=true`，再次手动运行 production，完成首次 Pages 发布。
 6. 首次发布验证通过后，才把 `ENABLE_SCHEDULED_PUBLISH=true`。计划时间为 UTC 23:37，即北京时间次日 07:37；GitHub schedule 不是准点 SLA。
 
-GitHub Pages 工作流采用官方的 `configure-pages`、`upload-pages-artifact` 和 `deploy-pages` 流程，配置依据见 [GitHub Pages 自定义 Actions 工作流](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
+GitHub Pages 工作流采用官方的 `configure-pages`、`upload-pages-artifact` 和 `deploy-pages` 流程，配置依据见 [GitHub Pages 自定义 Actions 工作流](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。工作流中的官方 Action 已在 2026-09-10 通过各自 GitHub Releases API 核对并锁定到具体版本；上传前仍应复核一次兼容性和安全公告。
 
 ## 六、保留与失败行为
 

@@ -113,7 +113,7 @@ sources:
   allow_local_preview: true
 - id: usgs
   interface_type: usgs_geojson
-  url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_day.geojson
+  url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson
   documentation_url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
   documentation_status: official_documentation
   license_status: usgs_data_policy_review_required

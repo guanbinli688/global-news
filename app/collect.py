@@ -7,8 +7,10 @@ and treats remote text as untrusted data rather than executable instructions.
 from __future__ import annotations
 
 import html
+import ipaddress
 import json
 import re
+import socket
 import time
 import urllib.error
 import urllib.request
@@ -97,16 +99,39 @@ def parse_usgs_candidates(payload: bytes, max_items: int) -> list[dict[str, Any]
         props = row.get("properties", {})
         raw_ms = props.get("time")
         published_at = iso_utc(datetime.fromtimestamp(raw_ms / 1000, timezone.utc)) if isinstance(raw_ms, (int, float)) else None
+        raw_updated_ms = props.get("updated")
+        updated_at = iso_utc(datetime.fromtimestamp(raw_updated_ms / 1000, timezone.utc)) if isinstance(raw_updated_ms, (int, float)) else None
+        coordinates = row.get("geometry", {}).get("coordinates", [])
+        longitude = coordinates[0] if len(coordinates) > 0 else None
+        latitude = coordinates[1] if len(coordinates) > 1 else None
+        depth_km = coordinates[2] if len(coordinates) > 2 else None
+        structured_data = {
+            "event_id": row.get("id"),
+            "magnitude": props.get("mag"),
+            "magnitude_type": props.get("magType"),
+            "place": props.get("place"),
+            "event_type": props.get("type"),
+            "review_status": props.get("status"),
+            "updated_at": updated_at,
+            "longitude": longitude,
+            "latitude": latitude,
+            "depth_km": depth_km,
+            "felt_reports": props.get("felt"),
+            "community_intensity": props.get("cdi"),
+            "estimated_intensity": props.get("mmi"),
+            "alert": props.get("alert"),
+            "tsunami_flag": props.get("tsunami"),
+            "significance": props.get("sig"),
+        }
         result.append({
             "title": str(props.get("title") or "USGS earthquake event"),
             "url": str(props.get("url") or ""),
             "published_at": published_at,
+            "source_updated_at": updated_at,
             "time_precision": "datetime" if published_at else "unknown",
             "original_time": str(raw_ms) if raw_ms is not None else None,
-            "feed_excerpt": json.dumps({
-                "magnitude": props.get("mag"), "place": props.get("place"),
-                "event_type": props.get("type"), "status": props.get("status"),
-            }, ensure_ascii=False),
+            "feed_excerpt": json.dumps(structured_data, ensure_ascii=False, separators=(",", ":")),
+            "structured_data": structured_data,
         })
     return result
 
@@ -157,16 +182,50 @@ def parse_ics_candidates(payload: bytes, max_items: int, excerpt_chars: int) -> 
     return result
 
 
-def request_with_retry(url: str, settings: dict[str, Any], accept: str = "application/rss+xml, application/atom+xml, application/json, text/xml;q=0.9") -> tuple[bytes, int, str, int]:
+def validate_public_http_url(url: str, allowed_hosts: set[str] | None = None) -> None:
+    parts = urlsplit(url)
+    if parts.scheme not in {"http", "https"} or not parts.hostname or parts.username or parts.password:
+        raise ValueError("URL must be a credential-free HTTP(S) URL")
+    host = parts.hostname.casefold().rstrip(".")
+    if allowed_hosts is not None and host not in {value.casefold().rstrip(".") for value in allowed_hosts}:
+        raise ValueError("URL host is outside the configured allowlist")
+    try:
+        addresses = {info[4][0] for info in socket.getaddrinfo(host, parts.port or (443 if parts.scheme == "https" else 80), type=socket.SOCK_STREAM)}
+    except socket.gaierror as exc:
+        raise ValueError(f"URL host cannot be resolved: {host}") from exc
+    for raw in addresses:
+        address = ipaddress.ip_address(raw)
+        if address.is_private or address.is_loopback or address.is_link_local or address.is_multicast or address.is_reserved or address.is_unspecified:
+            raise ValueError("URL resolves to a non-public network address")
+
+
+class PublicRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def __init__(self, allowed_hosts: set[str] | None = None) -> None:
+        super().__init__()
+        self.allowed_hosts = allowed_hosts
+
+    def redirect_request(self, req: Any, fp: Any, code: int, msg: str, headers: Any, newurl: str) -> Any:
+        validate_public_http_url(newurl, self.allowed_hosts)
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+def request_with_retry(
+    url: str,
+    settings: dict[str, Any],
+    accept: str = "application/rss+xml, application/atom+xml, application/json, text/xml;q=0.9",
+    allowed_hosts: set[str] | None = None,
+) -> tuple[bytes, int, str, int]:
     retries = int(settings.get("retries", 2))
     retry_statuses = {int(value) for value in settings.get("retry_statuses", [])}
     max_bytes = int(settings["max_response_bytes"])
     user_agent = str(settings["user_agent"])
+    validate_public_http_url(url, allowed_hosts)
+    opener = urllib.request.build_opener(PublicRedirectHandler(allowed_hosts))
     last_error: Exception | None = None
     for attempt in range(retries + 1):
         request = urllib.request.Request(url, headers={"User-Agent": user_agent, "Accept": accept})
         try:
-            with urllib.request.urlopen(request, timeout=int(settings["fetch_timeout_seconds"])) as response:
+            with opener.open(request, timeout=int(settings["fetch_timeout_seconds"])) as response:
                 payload = response.read(max_bytes + 1)
                 if len(payload) > max_bytes:
                     raise ValueError(f"response exceeded {max_bytes} bytes")
@@ -218,14 +277,14 @@ def _article_text(url: str, source: dict[str, Any], settings: dict[str, Any]) ->
         return ""
     robots_url = urljoin(url, "/robots.txt")
     robots = urllib.robotparser.RobotFileParser()
-    robots.set_url(robots_url)
     try:
-        robots.read()
-    except OSError:
+        robots_payload, _, _, _ = request_with_retry(robots_url, settings, accept="text/plain", allowed_hosts=allowed_hosts)
+        robots.parse(robots_payload.decode("utf-8", errors="replace").splitlines())
+    except (OSError, ValueError, urllib.error.URLError):
         return ""
     if not robots.can_fetch(str(settings["user_agent"]), url):
         return ""
-    payload, _, _, _ = request_with_retry(url, settings, accept="text/html,application/xhtml+xml")
+    payload, _, _, _ = request_with_retry(url, settings, accept="text/html,application/xhtml+xml", allowed_hosts=allowed_hosts)
     return plain_text(payload.decode("utf-8", errors="replace"), int(settings["max_article_chars"]))
 
 
@@ -277,16 +336,20 @@ def collect_sources(
                         evidence_text = _article_text(str(raw.get("url") or ""), source, settings)
                 meta = catalog[source_id]
                 candidates.append({
-                    **{key: raw.get(key) for key in ("title", "url", "published_at", "time_precision", "original_time")},
+                    **{key: raw.get(key) for key in ("title", "url", "published_at", "source_updated_at", "time_precision", "original_time", "structured_data")},
                     "source_id": source_id,
                     "source": meta["name"],
-                    "regions": meta.get("suggested_regions", ["global"]),
-                    "topics": meta.get("suggested_topics", ["society"]),
+                    # Article-level tags are assigned from evidence by the
+                    # structured analyzer or the model, never from a publisher's
+                    # general coverage profile.
+                    "regions": [],
+                    "topics": [],
                     "upstream_origin": meta.get("publisher_group_hint") or source_id,
                     "independence_group": meta.get("publisher_group_hint") or source_id,
                     "source_role": source.get("role"),
                     "rights_review": source.get("rights_review"),
                     "allow_public_summary": bool(source.get("allow_public_summary")),
+                    "license_url": source.get("terms_url"),
                     "evidence_text": evidence_text,
                     "access_level": "authorized_feed" if evidence_text else "metadata_only",
                 })

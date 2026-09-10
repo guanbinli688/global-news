@@ -13,7 +13,7 @@ from app.analyze import BudgetExceeded, DailyBudget, OpenAIAnalyzer
 from app.cluster import cluster_candidates
 from app.collect import in_fresh_window, in_future_window, parse_ics_candidates, parse_rss_candidates
 from app.common import load_json, load_yaml
-from app.pipeline import run_pipeline
+from app.pipeline import environment_gate_enabled, run_pipeline
 from app.verify import assess_cluster, coverage_report
 
 
@@ -58,6 +58,7 @@ class StubAnalyzer(OpenAIAnalyzer):
             "section_id": "business",
             "topic_ids": ["economy"],
             "region_ids": ["europe_russia"],
+            "countries": ["示例国"],
             "material_update": "本轮首次出现可交叉核对的政策更新。",
             "claims": [{
                 "text_zh": "两个来源均报道了该政策更新。",
@@ -116,6 +117,10 @@ class CloudPipelineTests(unittest.TestCase):
         decision = assess_cluster(pending, settings)
         self.assertFalse(decision["passed"])
         self.assertIn("no rights-approved substantive evidence", decision["reasons"])
+        mixed = {"items": [candidate("one", "Policy decision"), candidate("two", "Policy decision", approved=False)]}
+        decision = assess_cluster(mixed, settings)
+        self.assertFalse(decision["passed"])
+        self.assertEqual(decision["independent_source_count"], 1)
 
     def test_sensitive_allegation_never_auto_passes(self):
         settings = load_yaml(ROOT / "config" / "pipeline.yaml")["evidence"]
@@ -146,6 +151,12 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertFalse(report["ai_enabled"])
         self.assertEqual(report["analysis_errors"], [])
 
+    def test_production_bundle_gate_is_explicit_and_defaults_closed(self):
+        with patch.dict(os.environ, {}, clear=True):
+            self.assertFalse(environment_gate_enabled("ENABLE_PUBLISH"))
+        with patch.dict(os.environ, {"ENABLE_PUBLISH": "true"}, clear=True):
+            self.assertTrue(environment_gate_enabled("ENABLE_PUBLISH"))
+
     def test_coverage_reports_gaps_without_padding(self):
         report = coverage_report([{"region_ids": ["europe_russia"], "topic_ids": ["economy"], "section_id": "business"}], {"target_regions": 5, "target_topics": 7})
         self.assertFalse(report["region_target_met"])
@@ -173,8 +184,17 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertIn("ENABLE_SCHEDULED_PUBLISH", raw)
         self.assertIn("ENABLE_PUBLISH", raw)
         self.assertIn("retention-days: 90", raw)
+        self.assertIn("name: runtime-state", raw)
+        self.assertIn("state/budget-ledger.json", raw)
+        self.assertIn("state/analysis-cache.json", raw)
         self.assertIn("issues: write", raw)
-        self.assertIn("actions/deploy-pages@v4", raw)
+        self.assertIn("actions/checkout@v7.0.1", raw)
+        self.assertIn("actions/setup-python@v7.0.0", raw)
+        self.assertIn("actions/upload-artifact@v7.0.1", raw)
+        self.assertIn("actions/configure-pages@v6.0.0", raw)
+        self.assertIn("actions/upload-pages-artifact@v5.0.0", raw)
+        self.assertIn("actions/deploy-pages@v5.0.1", raw)
+        self.assertNotRegex(raw, r"[A-Za-z]:\\")
 
 
 if __name__ == "__main__":

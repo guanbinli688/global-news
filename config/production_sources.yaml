@@ -132,7 +132,7 @@ sources:
     article_fetch: false
 
   - id: usgs
-    url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_day.geojson"
+    url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson"
     interface_type: usgs_geojson
     role: primary_data
     content_mode: structured_public_data

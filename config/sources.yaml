@@ -1073,9 +1073,9 @@ sources:
   rights_status: review_required
   access_method: discover_documented_feed_or_api_else_review_permitted_web_access
   endpoints:
-  - url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_day.geojson
-    format: geojson
-    status: json_response_observed_2026-09-10
+      - url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson
+        format: geojson
+        status: official_programmatic_feed_tested_2026-09-10
   notes:
   - 样例端点实际返回过JSON；不代表完整网站已部署。重大地震列表为空不是请求失败。
   - 震级、位置与更新时间以数据字段为准；地震数据不能单独证明死亡人数。

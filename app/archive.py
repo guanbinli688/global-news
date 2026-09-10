@@ -5,14 +5,21 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from .common import ROOT, write_json
 
 
-def archive_success(bundle: dict[str, Any], directory: str, retention_days: int) -> Path:
+def archive_target(root: Path, as_of: datetime, edition_timezone: str) -> Path:
+    utc_time = as_of.astimezone(timezone.utc)
+    edition_time = utc_time.astimezone(ZoneInfo(edition_timezone))
+    return root / edition_time.strftime("%Y") / edition_time.strftime("%m") / edition_time.strftime("%d") / f"{utc_time.strftime('%Y-%m-%dT%H%M%SZ')}.json"
+
+
+def archive_success(bundle: dict[str, Any], directory: str, retention_days: int, edition_timezone: str = "Asia/Shanghai") -> Path:
     as_of = datetime.fromisoformat(str(bundle["as_of"]).replace("Z", "+00:00")).astimezone(timezone.utc)
     root = ROOT / directory
-    target = root / as_of.strftime("%Y") / as_of.strftime("%m") / f"{as_of.strftime('%Y-%m-%dT%H%M%SZ')}.json"
+    target = archive_target(root, as_of, edition_timezone)
     write_json(target, bundle)
     write_json(ROOT / "state" / "last-success.json", {
         "schema_version": "1.0", "as_of": bundle["as_of"], "archive_path": target.relative_to(ROOT).as_posix(),

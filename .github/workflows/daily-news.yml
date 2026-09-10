@@ -45,10 +45,10 @@ jobs:
       GLOBAL_NEWS_CONTACT_URL: ${{ vars.GLOBAL_NEWS_CONTACT_URL }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.1
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7.0.0
         with:
           python-version: "3.13"
           cache: pip
@@ -72,6 +72,21 @@ jobs:
             if [ -f restored-state/last-success.json ]; then
               cp restored-state/last-success.json state/last-success.json
             fi
+          fi
+
+      - name: Restore the latest analysis cache and budget ledger
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          runtime_run="$(gh api "repos/${REPOSITORY}/actions/artifacts?name=runtime-state&per_page=100" --jq '.artifacts | sort_by(.created_at) | reverse | .[0].workflow_run.id // empty')"
+          if [ -n "$runtime_run" ]; then
+            gh run download "$runtime_run" --name runtime-state --dir restored-runtime || true
+            mkdir -p state
+            for file in analysis-cache.json budget-ledger.json; do
+              if [ -f "restored-runtime/$file" ]; then cp "restored-runtime/$file" "state/$file"; fi
+            done
           fi
 
       - name: Validate configuration
@@ -102,7 +117,7 @@ jobs:
 
       - name: Upload run diagnostics
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: run-diagnostics-${{ github.run_id }}
           path: |
@@ -114,9 +129,20 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Save analysis cache and conservative budget ledger
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: runtime-state
+          path: |
+            state/analysis-cache.json
+            state/budget-ledger.json
+          if-no-files-found: ignore
+          retention-days: 30
+
       - name: Save successful archive state
         if: steps.pipeline_run.outcome == 'success'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: news-state
           path: |
@@ -127,11 +153,11 @@ jobs:
 
       - name: Configure Pages
         if: steps.gate.outputs.pages_ready == 'true'
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6.0.0
 
       - name: Upload Pages artifact
         if: steps.gate.outputs.pages_ready == 'true'
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: site
 
@@ -155,7 +181,7 @@ jobs:
     steps:
       - name: Deploy GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5.0.1
 
   alert:
     if: always() && (needs.pipeline.result == 'failure' || needs.deploy.result == 'failure')

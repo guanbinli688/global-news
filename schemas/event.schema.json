@@ -6,6 +6,7 @@
   "required": [
     "event_id",
     "title_zh",
+    "original_title",
     "topic_ids",
     "region_ids",
     "countries",
@@ -14,6 +15,9 @@
     "publication_time",
     "fetched_at",
     "as_of",
+    "edition_cutoff",
+    "generated_at",
+    "published_success_at",
     "material_update",
     "summary_zh",
     "claims",
@@ -23,6 +27,9 @@
     "unknowns",
     "corrections",
     "human_review_required"
+    ,"analysis_method"
+    ,"version"
+    ,"verification"
   ],
   "properties": {
     "event_id": {
@@ -32,6 +39,9 @@
     "title_zh": {
       "type": "string",
       "minLength": 1
+    },
+    "original_title": {
+      "type": ["string", "null"]
     },
     "topic_ids": {
       "type": "array",
@@ -110,6 +120,18 @@
       "type": "string",
       "format": "date-time"
     },
+    "edition_cutoff": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_success_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
     "material_update": {
       "type": "string",
       "minLength": 1
@@ -182,6 +204,10 @@
           "upstream_origin",
           "independence_group",
           "retrieved_at"
+          ,"evidence_method"
+          ,"evidence_excerpt"
+          ,"attribution"
+          ,"license_url"
         ],
         "properties": {
           "id": {
@@ -224,6 +250,21 @@
           "retrieved_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "evidence_method": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_excerpt": {
+            "type": ["string", "null"],
+            "maxLength": 1200
+          },
+          "attribution": {
+            "type": ["string", "null"]
+          },
+          "license_url": {
+            "type": ["string", "null"],
+            "format": "uri"
           }
         }
       }
@@ -323,6 +364,24 @@
     },
     "human_review_required": {
       "type": "boolean"
+    },
+    "analysis_method": {
+      "enum": ["metadata_preview", "deterministic_public_data", "openai", "cached_openai"]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reasons", "evidence_chain_count", "substantive_source_count"],
+      "properties": {
+        "status": {"enum": ["passed", "blocked", "preview_only"]},
+        "reasons": {"type": "array", "items": {"type": "string"}},
+        "evidence_chain_count": {"type": "integer", "minimum": 0},
+        "substantive_source_count": {"type": "integer", "minimum": 0}
+      }
     }
   },
   "$defs": {

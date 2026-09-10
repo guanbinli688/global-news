@@ -17,6 +17,13 @@
   let activeTopic = 'all';
   let activeRegion = 'all';
   const cards = [...document.querySelectorAll('.story-card')];
+  const filterToggle = document.querySelector('.filter-toggle');
+  const filterBody = document.querySelector('#filter-body');
+  filterToggle?.addEventListener('click', () => {
+    const expanded = filterToggle.getAttribute('aria-expanded') === 'true';
+    filterToggle.setAttribute('aria-expanded', String(!expanded));
+    filterBody?.classList.toggle('is-collapsed', expanded);
+  });
 
   function applyFilters() {
     cards.forEach((card) => {
@@ -44,6 +51,7 @@
   const dialog = document.querySelector('#evidence-dialog');
   const content = document.querySelector('#evidence-content');
   let eventIndex = new Map();
+  let lastEvidenceTrigger = null;
 
   fetch('data.json')
     .then((response) => {
@@ -55,6 +63,10 @@
     })
     .catch(() => {
       document.querySelectorAll('.evidence-button').forEach((button) => { button.disabled = true; });
+      const warning = document.createElement('p');
+      warning.className = 'data-error';
+      warning.textContent = '证据数据暂时无法载入；当前页面仍可阅读，但证据按钮已停用。';
+      document.querySelector('.status-ribbon')?.insertAdjacentElement('afterend', warning);
     });
 
   function addText(tag, text, parent = content) {
@@ -69,8 +81,15 @@
     if (!button || !dialog) return;
     const record = eventIndex.get(button.dataset.openEvidence);
     if (!record) return;
+    lastEvidenceTrigger = button;
     content.replaceChildren();
-    addText('p', 'EVIDENCE RECORD · 元数据级', content).className = 'eyebrow';
+    const methodNames = {
+      metadata_preview: '元数据预览',
+      deterministic_public_data: '公共数据规则化解读',
+      openai: '模型结构化分析',
+      cached_openai: '复用已核验模型分析',
+    };
+    addText('p', `EVIDENCE RECORD · ${methodNames[record.analysis_method] || '来源核验'}`, content).className = 'eyebrow';
     addText('h2', record.title_zh);
     addText('h4', '逐条主张与证据');
     const claimList = document.createElement('ul');
@@ -110,4 +129,5 @@
 
   document.querySelector('.dialog-close')?.addEventListener('click', () => dialog.close());
   dialog?.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+  dialog?.addEventListener('close', () => lastEvidenceTrigger?.focus());
 })();

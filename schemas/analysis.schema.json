@@ -3,13 +3,14 @@
   "title": "Evidence-bound AI analysis",
   "type": "object",
   "additionalProperties": false,
-  "required": ["title_zh", "summary_zh", "section_id", "topic_ids", "region_ids", "material_update", "claims", "analysis", "unknowns"],
+  "required": ["title_zh", "summary_zh", "section_id", "topic_ids", "region_ids", "countries", "material_update", "claims", "analysis", "unknowns"],
   "properties": {
     "title_zh": {"type": "string", "minLength": 1, "maxLength": 120},
     "summary_zh": {"type": "string", "minLength": 1, "maxLength": 500},
     "section_id": {"enum": ["headlines", "under_currents", "science_technology", "business", "society_world", "controversies", "corrections", "next24h"]},
     "topic_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["politics", "war", "economy", "business", "science", "society", "culture", "climate", "health", "education", "energy", "food", "disasters", "sport", "law"]}},
     "region_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["north_america", "europe_russia", "east_asia", "southeast_asia", "south_asia", "central_asia_caucasus", "mena", "sub_saharan_africa", "latin_america_caribbean", "oceania_pacific", "global"]}},
+    "countries": {"type": "array", "uniqueItems": true, "maxItems": 12, "items": {"type": "string", "minLength": 1, "maxLength": 80}},
     "material_update": {"type": "string", "minLength": 1, "maxLength": 300},
     "claims": {
       "type": "array", "minItems": 1, "maxItems": 8,

@@ -1,931 +1,390 @@
 {
-  "as_of": "2026-09-10T22:15:09.584673Z",
-  "publication_mode": "preview",
+  "as_of": "2026-09-10T23:35:16.502661Z",
+  "publication_mode": "candidate",
   "events": [
     {
-      "event_id": "evt_c28ae45e8d7b5e2f",
-      "title_zh": "Israel destroys Hezbollah tunnel network in south Lebanon, triggering 4.1-magnitude tremor",
+      "event_id": "evt_2498626c5865aefe",
+      "title_zh": "USGS记录：瓦努阿图 Sola以北偏西北65公里发生4.9级地震",
+      "original_title": "M 4.9 - 65 km NNW of Sola, Vanuatu",
       "topic_ids": [
-        "politics",
-        "war",
-        "society",
-        "culture"
-      ],
-      "region_ids": [
-        "europe_russia",
-        "sub_saharan_africa",
-        "mena"
-      ],
-      "countries": [],
-      "section_id": "headlines",
-      "event_time": {
-        "value": "2026-09-10T21:50:24Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 21:50:24 GMT",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T21:50:24Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 21:50:24 GMT",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "France 24 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_c28ae45e8d7b5e2f",
-          "text_zh": "France 24 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_c28ae45e8d7b5e2f"
-          ],
-          "attribution": "France 24",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
-      ],
-      "sources": [
-        {
-          "id": "src_c28ae45e8d7b5e2f",
-          "publisher": "France 24",
-          "url": "https://www.france24.com/en/middle-east/20260910-israel-hezbollah-tunnels-lebanon-earthquake",
-          "title": "Israel destroys Hezbollah tunnel network in south Lebanon, triggering 4.1-magnitude tremor",
-          "source_time": {
-            "value": "2026-09-10T21:50:24Z",
-            "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 21:50:24 GMT",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "france_medias_monde",
-          "independence_group": "france_medias_monde",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_4e9ef008bea133c0",
-      "title_zh": "Spain’s Parliament backs citizenship for Western Saharans born before 1977",
-      "topic_ids": [
-        "war",
-        "politics",
-        "society"
-      ],
-      "region_ids": [
-        "mena",
-        "global"
-      ],
-      "countries": [],
-      "section_id": "headlines",
-      "event_time": {
-        "value": "2026-09-10T21:47:14Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 21:47:14 +0000",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T21:47:14Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 21:47:14 +0000",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "Al Jazeera 半岛电视台 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_4e9ef008bea133c0",
-          "text_zh": "Al Jazeera 半岛电视台 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_4e9ef008bea133c0"
-          ],
-          "attribution": "Al Jazeera 半岛电视台",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
-      ],
-      "sources": [
-        {
-          "id": "src_4e9ef008bea133c0",
-          "publisher": "Al Jazeera 半岛电视台",
-          "url": "https://www.aljazeera.com/news/2026/9/10/spains-parliament-backs-citizenship-for-western-saharans-born-before-1977?traffic_source=rss",
-          "title": "Spain’s Parliament backs citizenship for Western Saharans born before 1977",
-          "source_time": {
-            "value": "2026-09-10T21:47:14Z",
-            "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 21:47:14 +0000",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "aljazeera",
-          "independence_group": "aljazeera",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_bc37aa3fd62728f2",
-      "title_zh": "DRC: Bukavu residents reel in aftermath of deadly school blaze",
-      "topic_ids": [
-        "politics",
-        "economy",
-        "society",
-        "culture"
-      ],
-      "region_ids": [
-        "sub_saharan_africa"
-      ],
-      "countries": [],
-      "section_id": "headlines",
-      "event_time": {
-        "value": "2026-09-10T20:50:46Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 20:50:46 +0000",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T20:50:46Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 20:50:46 +0000",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "Africanews 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_bc37aa3fd62728f2",
-          "text_zh": "Africanews 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_bc37aa3fd62728f2"
-          ],
-          "attribution": "Africanews",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
-      ],
-      "sources": [
-        {
-          "id": "src_bc37aa3fd62728f2",
-          "publisher": "Africanews",
-          "url": "http://www.africanews.com/2026/09/10/drc-bukavu-residents-reel-in-aftermath-of-deadly-school-blaze",
-          "title": "DRC: Bukavu residents reel in aftermath of deadly school blaze",
-          "source_time": {
-            "value": "2026-09-10T20:50:46Z",
-            "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 20:50:46 +0000",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "africanews",
-          "independence_group": "africanews",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_c7ef8d35beddc4f3",
-      "title_zh": "Court rules residents of a US city don’t have a constitutional right to lead-free water",
-      "topic_ids": [
-        "climate",
-        "food",
-        "society"
-      ],
-      "region_ids": [
-        "global"
-      ],
-      "countries": [],
-      "section_id": "headlines",
-      "event_time": {
-        "value": "2026-09-10T20:38:33Z",
-        "precision": "datetime",
-        "original_text": "10 Sep 2026 20:38:33 +0000",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T20:38:33Z",
-        "precision": "datetime",
-        "original_text": "10 Sep 2026 20:38:33 +0000",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "Mongabay 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_c7ef8d35beddc4f3",
-          "text_zh": "Mongabay 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_c7ef8d35beddc4f3"
-          ],
-          "attribution": "Mongabay",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
-      ],
-      "sources": [
-        {
-          "id": "src_c7ef8d35beddc4f3",
-          "publisher": "Mongabay",
-          "url": "https://news.mongabay.com/short-article/2026/09/court-rules-residents-of-a-us-city-dont-have-a-constitutional-right-to-lead-free-water",
-          "title": "Court rules residents of a US city don’t have a constitutional right to lead-free water",
-          "source_time": {
-            "value": "2026-09-10T20:38:33Z",
-            "precision": "datetime",
-            "original_text": "10 Sep 2026 20:38:33 +0000",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "mongabay",
-          "independence_group": "mongabay",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_6217568e345c1194",
-      "title_zh": "Saiba qual é a rotina ideal de consultas para cuidar da visão",
-      "topic_ids": [
-        "politics",
-        "economy",
-        "society",
-        "climate"
-      ],
-      "region_ids": [
-        "latin_america_caribbean"
-      ],
-      "countries": [],
-      "section_id": "headlines",
-      "event_time": {
-        "value": "2026-09-10T20:17:00Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 17:17:00 -0300",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T20:17:00Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 17:17:00 -0300",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "Agência Brasil 巴西通讯社 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_6217568e345c1194",
-          "text_zh": "Agência Brasil 巴西通讯社 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_6217568e345c1194"
-          ],
-          "attribution": "Agência Brasil 巴西通讯社",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
-      ],
-      "sources": [
-        {
-          "id": "src_6217568e345c1194",
-          "publisher": "Agência Brasil 巴西通讯社",
-          "url": "https://agenciabrasil.ebc.com.br/saude/noticia/2026-09/saiba-qual-e-rotina-ideal-de-consultas-para-cuidar-da-visao",
-          "title": "Saiba qual é a rotina ideal de consultas para cuidar da visão",
-          "source_time": {
-            "value": "2026-09-10T20:17:00Z",
-            "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 17:17:00 -0300",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "ebc",
-          "independence_group": "ebc",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_2c4f857a80db4135",
-      "title_zh": "Space: Europe urged to find its path, from crewed spaceflight to communications",
-      "topic_ids": [
-        "politics",
-        "war",
-        "society",
-        "culture"
-      ],
-      "region_ids": [
-        "europe_russia",
-        "sub_saharan_africa",
-        "mena"
-      ],
-      "countries": [],
-      "section_id": "science_technology",
-      "event_time": {
-        "value": "2026-09-10T21:05:39Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 21:05:39 GMT",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T21:05:39Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 21:05:39 GMT",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "France 24 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_2c4f857a80db4135",
-          "text_zh": "France 24 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_2c4f857a80db4135"
-          ],
-          "attribution": "France 24",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
-      ],
-      "sources": [
-        {
-          "id": "src_2c4f857a80db4135",
-          "publisher": "France 24",
-          "url": "https://www.france24.com/en/tv-shows/a-propos/20260910-space-europe-urged-to-find-its-path-from-crewed-spaceflight-to-communications",
-          "title": "Space: Europe urged to find its path, from crewed spaceflight to communications",
-          "source_time": {
-            "value": "2026-09-10T21:05:39Z",
-            "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 21:05:39 GMT",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "france_medias_monde",
-          "independence_group": "france_medias_monde",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_18a063e11b9e4f0f",
-      "title_zh": "Agencies reduce regulatory burden for community banks, increase eligibility for 18-month exam cycle",
-      "topic_ids": [
-        "economy"
-      ],
-      "region_ids": [
-        "north_america",
-        "global"
-      ],
-      "countries": [],
-      "section_id": "business",
-      "event_time": {
-        "value": "2026-09-10T20:00:00Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 20:00:00 GMT",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T20:00:00Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 20:00:00 GMT",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "美联储 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_18a063e11b9e4f0f",
-          "text_zh": "美联储 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_18a063e11b9e4f0f"
-          ],
-          "attribution": "美联储",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
-      ],
-      "sources": [
-        {
-          "id": "src_18a063e11b9e4f0f",
-          "publisher": "美联储",
-          "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20260910a.htm",
-          "title": "Agencies reduce regulatory burden for community banks, increase eligibility for 18-month exam cycle",
-          "source_time": {
-            "value": "2026-09-10T20:00:00Z",
-            "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 20:00:00 GMT",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "fed",
-          "independence_group": "fed",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_5d2d7256b8b443ed",
-      "title_zh": "More than 20 children killed in DR Congo school fire",
-      "topic_ids": [
-        "politics",
-        "war",
-        "society",
-        "culture",
+        "disasters",
         "science"
       ],
       "region_ids": [
-        "global"
+        "oceania_pacific"
       ],
-      "countries": [],
+      "countries": [
+        "瓦努阿图"
+      ],
       "section_id": "society_world",
       "event_time": {
-        "value": "2026-09-10T19:16:24Z",
+        "value": "2026-09-10T22:54:14.162000Z",
         "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 19:16:24 GMT",
+        "original_text": "1789080854162",
         "timezone": "UTC"
       },
       "publication_time": {
-        "value": "2026-09-10T19:16:24Z",
+        "value": "2026-09-10T23:18:39.040000Z",
         "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 19:16:24 GMT",
+        "original_text": "1789080854162",
         "timezone": "UTC"
       },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "BBC News 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "fetched_at": "2026-09-10T23:35:16.502661Z",
+      "as_of": "2026-09-10T23:35:16.502661Z",
+      "edition_cutoff": "2026-09-10T23:35:16.502661Z",
+      "generated_at": "2026-09-10T23:35:16.502661Z",
+      "published_success_at": null,
+      "material_update": "USGS过去24小时目录新增或更新了这条4.9级地震记录。",
+      "summary_zh": "美国地质调查局（USGS）的过去24小时地震数据记录显示，瓦努阿图 Sola以北偏西北65公里发生4.9级地震，震源深度约49.9公里，数据审核状态为“reviewed”。该数据条目的海啸标记为0。该记录不包含人员伤亡或设施损失结论。",
       "claims": [
         {
-          "id": "claim_5d2d7256b8b443ed",
-          "text_zh": "BBC News 的订阅源在所示时间列出了这一标题。",
+          "id": "claim_1",
+          "text_zh": "USGS记录的地震震级为4.9，位置为瓦努阿图 Sola以北偏西北65公里。",
+          "kind": "fact",
+          "source_ids": [
+            "src_usgs_1"
+          ],
+          "attribution": "美国地质调查局（USGS）",
+          "verification_note": "由USGS GeoJSON的 magnitude、place 与坐标字段直接生成。"
+        },
+        {
+          "id": "claim_2",
+          "text_zh": "该记录给出的震源深度约为49.9公里，审核状态为“reviewed”。",
+          "kind": "fact",
+          "source_ids": [
+            "src_usgs_1"
+          ],
+          "attribution": "美国地质调查局（USGS）",
+          "verification_note": "由USGS GeoJSON的 geometry.coordinates[2] 与 status 字段直接生成。"
+        },
+        {
+          "id": "claim_3",
+          "text_zh": "该数据条目的海啸标记为0；这不等同于对所有海啸风险作出独立判断。",
           "kind": "attributed_claim",
           "source_ids": [
-            "src_5d2d7256b8b443ed"
+            "src_usgs_1"
           ],
-          "attribution": "BBC News",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+          "attribution": "USGS数据字段",
+          "verification_note": "仅陈述数据字段，不外推地方预警机构结论。"
         }
       ],
       "sources": [
         {
-          "id": "src_5d2d7256b8b443ed",
-          "publisher": "BBC News",
-          "url": "https://www.bbc.co.uk/news/articles/cgjq15j7318o",
-          "title": "More than 20 children killed in DR Congo school fire",
+          "id": "src_usgs_1",
+          "publisher": "美国地质调查局（USGS）",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tghk",
+          "title": "M 4.9 - 65 km NNW of Sola, Vanuatu",
           "source_time": {
-            "value": "2026-09-10T19:16:24Z",
+            "value": "2026-09-10T23:18:39.040000Z",
             "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 19:16:24 GMT",
+            "original_text": "1789080854162",
             "timezone": "UTC"
           },
-          "access_level": "metadata_only",
-          "upstream_origin": "bbc",
-          "independence_group": "bbc",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+          "access_level": "authorized_feed",
+          "upstream_origin": "usgs",
+          "independence_group": "usgs",
+          "retrieved_at": "2026-09-10T23:35:16.502661Z",
+          "evidence_method": "USGS GeoJSON字段抽取",
+          "evidence_excerpt": "{\"event_id\":\"us7000tghk\",\"magnitude\":4.9,\"magnitude_type\":\"mb\",\"place\":\"65 km NNW of Sola, Vanuatu\",\"event_type\":\"earthquake\",\"review_status\":\"reviewed\",\"updated_at\":\"2026-09-10T23:18:39.040000Z\",\"longitude\":167.3321,\"latitude\":-13.3249,\"depth_km\":49.877,\"felt_reports\":null,\"community_intensity\":null,\"estimated_intensity\":null,\"alert\":null,\"tsunami_flag\":0,\"significance\":369}",
+          "attribution": "U.S. Geological Survey",
+          "license_url": "https://www.usgs.gov/data-management/data-licensing"
         }
       ],
       "evidence_status": "attributed_report",
       "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
+        "why_it_matters": "这是一条可复核的地震监测记录，可用于定位需要继续关注的区域；单条地震目录不能证明已经造成人员伤亡或基础设施损失。",
+        "mechanism": "震级描述释放能量的规模，震源深度和距聚居地位置会影响震感与潜在影响，但这些字段不足以单独判断灾情。",
+        "affected_groups": "瓦努阿图 Sola以北偏西北65公里周边居民、交通与应急部门可能需要关注后续信息；实际影响范围尚无充分证据。",
+        "counter_evidence": "USGS会随更多台站数据修订震级、位置和深度；未出现人员报告或警报字段，不能据此断言当地没有影响。",
+        "watch_next": "继续核对USGS事件页的参数修订，并等待当地应急部门关于震感、损失或预警的独立信息。"
       },
       "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
+        "当地是否有人员伤亡或财产损失",
+        "地方机构是否发布独立预警或情况通报",
+        "震级与震源参数是否会继续修订"
       ],
       "corrections": [],
-      "human_review_required": true
+      "human_review_required": false,
+      "analysis_method": "deterministic_public_data",
+      "version": 1,
+      "verification": {
+        "status": "passed",
+        "reasons": [],
+        "evidence_chain_count": 1,
+        "substantive_source_count": 1
+      }
     },
     {
-      "event_id": "evt_a85ffd8d17c3fd89",
-      "title_zh": "Japan deploys equipment to Indonesia’s Borneo to help fight wildfires causing toxic haze",
+      "event_id": "evt_347c4bb779c34f14",
+      "title_zh": "USGS记录：东帝汶 Lospalos以东83公里发生5.3级地震",
+      "original_title": "M 5.3 - 83 km E of Lospalos, Timor Leste",
       "topic_ids": [
-        "climate",
-        "food",
-        "society"
-      ],
-      "region_ids": [
-        "global"
-      ],
-      "countries": [],
-      "section_id": "society_world",
-      "event_time": {
-        "value": "2026-09-10T18:47:51Z",
-        "precision": "datetime",
-        "original_text": "10 Sep 2026 18:47:51 +0000",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T18:47:51Z",
-        "precision": "datetime",
-        "original_text": "10 Sep 2026 18:47:51 +0000",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "Mongabay 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_a85ffd8d17c3fd89",
-          "text_zh": "Mongabay 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_a85ffd8d17c3fd89"
-          ],
-          "attribution": "Mongabay",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
-      ],
-      "sources": [
-        {
-          "id": "src_a85ffd8d17c3fd89",
-          "publisher": "Mongabay",
-          "url": "https://news.mongabay.com/short-article/2026/09/japan-deploys-equipment-to-indonesias-borneo-to-help-fight-wildfires-causing-toxic-haze",
-          "title": "Japan deploys equipment to Indonesia’s Borneo to help fight wildfires causing toxic haze",
-          "source_time": {
-            "value": "2026-09-10T18:47:51Z",
-            "precision": "datetime",
-            "original_text": "10 Sep 2026 18:47:51 +0000",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "mongabay",
-          "independence_group": "mongabay",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_087922ed5d227700",
-      "title_zh": "Yemen's Houthis reportedly seize strategic Red Sea port of Mokha",
-      "topic_ids": [
-        "politics",
-        "war",
-        "society",
-        "culture",
+        "disasters",
         "science"
       ],
       "region_ids": [
-        "global"
+        "southeast_asia"
       ],
-      "countries": [],
-      "section_id": "business",
-      "event_time": {
-        "value": "2026-09-10T18:15:47Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 18:15:47 GMT",
-        "timezone": "UTC"
-      },
-      "publication_time": {
-        "value": "2026-09-10T18:15:47Z",
-        "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 18:15:47 GMT",
-        "timezone": "UTC"
-      },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "BBC News 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
-      "claims": [
-        {
-          "id": "claim_087922ed5d227700",
-          "text_zh": "BBC News 的订阅源在所示时间列出了这一标题。",
-          "kind": "attributed_claim",
-          "source_ids": [
-            "src_087922ed5d227700"
-          ],
-          "attribution": "BBC News",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
-        }
+      "countries": [
+        "东帝汶"
       ],
-      "sources": [
-        {
-          "id": "src_087922ed5d227700",
-          "publisher": "BBC News",
-          "url": "https://www.bbc.co.uk/news/articles/c4g7vr0lngwo",
-          "title": "Yemen's Houthis reportedly seize strategic Red Sea port of Mokha",
-          "source_time": {
-            "value": "2026-09-10T18:15:47Z",
-            "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 18:15:47 GMT",
-            "timezone": "UTC"
-          },
-          "access_level": "metadata_only",
-          "upstream_origin": "bbc",
-          "independence_group": "bbc",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
-        }
-      ],
-      "evidence_status": "attributed_report",
-      "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
-      },
-      "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
-      ],
-      "corrections": [],
-      "human_review_required": true
-    },
-    {
-      "event_id": "evt_efb8949730b75681",
-      "title_zh": "Amazon Fund grantees fear a new funding freeze after Brazil’s election",
-      "topic_ids": [
-        "climate",
-        "food",
-        "society"
-      ],
-      "region_ids": [
-        "global"
-      ],
-      "countries": [],
       "section_id": "society_world",
       "event_time": {
-        "value": "2026-09-10T17:34:37Z",
+        "value": "2026-09-10T18:44:40.243000Z",
         "precision": "datetime",
-        "original_text": "10 Sep 2026 17:34:37 +0000",
+        "original_text": "1789065880243",
         "timezone": "UTC"
       },
       "publication_time": {
-        "value": "2026-09-10T17:34:37Z",
+        "value": "2026-09-10T19:04:20.040000Z",
         "precision": "datetime",
-        "original_text": "10 Sep 2026 17:34:37 +0000",
+        "original_text": "1789065880243",
         "timezone": "UTC"
       },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "Mongabay 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "fetched_at": "2026-09-10T23:35:16.502661Z",
+      "as_of": "2026-09-10T23:35:16.502661Z",
+      "edition_cutoff": "2026-09-10T23:35:16.502661Z",
+      "generated_at": "2026-09-10T23:35:16.502661Z",
+      "published_success_at": null,
+      "material_update": "USGS过去24小时目录新增或更新了这条5.3级地震记录。",
+      "summary_zh": "美国地质调查局（USGS）的过去24小时地震数据记录显示，东帝汶 Lospalos以东83公里发生5.3级地震，震源深度约10公里，数据审核状态为“reviewed”。该数据条目的海啸标记为0。该记录不包含人员伤亡或设施损失结论。",
       "claims": [
         {
-          "id": "claim_efb8949730b75681",
-          "text_zh": "Mongabay 的订阅源在所示时间列出了这一标题。",
+          "id": "claim_1",
+          "text_zh": "USGS记录的地震震级为5.3，位置为东帝汶 Lospalos以东83公里。",
+          "kind": "fact",
+          "source_ids": [
+            "src_usgs_1"
+          ],
+          "attribution": "美国地质调查局（USGS）",
+          "verification_note": "由USGS GeoJSON的 magnitude、place 与坐标字段直接生成。"
+        },
+        {
+          "id": "claim_2",
+          "text_zh": "该记录给出的震源深度约为10公里，审核状态为“reviewed”。",
+          "kind": "fact",
+          "source_ids": [
+            "src_usgs_1"
+          ],
+          "attribution": "美国地质调查局（USGS）",
+          "verification_note": "由USGS GeoJSON的 geometry.coordinates[2] 与 status 字段直接生成。"
+        },
+        {
+          "id": "claim_3",
+          "text_zh": "该数据条目的海啸标记为0；这不等同于对所有海啸风险作出独立判断。",
           "kind": "attributed_claim",
           "source_ids": [
-            "src_efb8949730b75681"
+            "src_usgs_1"
           ],
-          "attribution": "Mongabay",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+          "attribution": "USGS数据字段",
+          "verification_note": "仅陈述数据字段，不外推地方预警机构结论。"
         }
       ],
       "sources": [
         {
-          "id": "src_efb8949730b75681",
-          "publisher": "Mongabay",
-          "url": "https://news.mongabay.com/2026/09/amazon-fund-grantees-fear-a-new-funding-freeze-after-brazils-election",
-          "title": "Amazon Fund grantees fear a new funding freeze after Brazil’s election",
+          "id": "src_usgs_1",
+          "publisher": "美国地质调查局（USGS）",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tgf2",
+          "title": "M 5.3 - 83 km E of Lospalos, Timor Leste",
           "source_time": {
-            "value": "2026-09-10T17:34:37Z",
+            "value": "2026-09-10T19:04:20.040000Z",
             "precision": "datetime",
-            "original_text": "10 Sep 2026 17:34:37 +0000",
+            "original_text": "1789065880243",
             "timezone": "UTC"
           },
-          "access_level": "metadata_only",
-          "upstream_origin": "mongabay",
-          "independence_group": "mongabay",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+          "access_level": "authorized_feed",
+          "upstream_origin": "usgs",
+          "independence_group": "usgs",
+          "retrieved_at": "2026-09-10T23:35:16.502661Z",
+          "evidence_method": "USGS GeoJSON字段抽取",
+          "evidence_excerpt": "{\"event_id\":\"us7000tgf2\",\"magnitude\":5.3,\"magnitude_type\":\"mb\",\"place\":\"83 km E of Lospalos, Timor Leste\",\"event_type\":\"earthquake\",\"review_status\":\"reviewed\",\"updated_at\":\"2026-09-10T19:04:20.040000Z\",\"longitude\":127.7505,\"latitude\":-8.5914,\"depth_km\":10,\"felt_reports\":null,\"community_intensity\":null,\"estimated_intensity\":null,\"alert\":null,\"tsunami_flag\":0,\"significance\":432}",
+          "attribution": "U.S. Geological Survey",
+          "license_url": "https://www.usgs.gov/data-management/data-licensing"
         }
       ],
       "evidence_status": "attributed_report",
       "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
+        "why_it_matters": "这是一条可复核的地震监测记录，可用于定位需要继续关注的区域；单条地震目录不能证明已经造成人员伤亡或基础设施损失。",
+        "mechanism": "震级描述释放能量的规模，震源深度和距聚居地位置会影响震感与潜在影响，但这些字段不足以单独判断灾情。",
+        "affected_groups": "东帝汶 Lospalos以东83公里周边居民、交通与应急部门可能需要关注后续信息；实际影响范围尚无充分证据。",
+        "counter_evidence": "USGS会随更多台站数据修订震级、位置和深度；未出现人员报告或警报字段，不能据此断言当地没有影响。",
+        "watch_next": "继续核对USGS事件页的参数修订，并等待当地应急部门关于震感、损失或预警的独立信息。"
       },
       "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
+        "当地是否有人员伤亡或财产损失",
+        "地方机构是否发布独立预警或情况通报",
+        "震级与震源参数是否会继续修订"
       ],
       "corrections": [],
-      "human_review_required": true
+      "human_review_required": false,
+      "analysis_method": "deterministic_public_data",
+      "version": 1,
+      "verification": {
+        "status": "passed",
+        "reasons": [],
+        "evidence_chain_count": 1,
+        "substantive_source_count": 1
+      }
     },
     {
-      "event_id": "evt_53f8bc8100c107f1",
-      "title_zh": "Chester Zoo celebrates the arrival of rare baby rock hyraxes",
+      "event_id": "evt_f7be0c44a6369328",
+      "title_zh": "USGS记录：墨西哥 Puerto Madero以西南84公里发生4.5级地震",
+      "original_title": "M 4.5 - 84 km SW of Puerto Madero, Mexico",
       "topic_ids": [
-        "politics",
-        "economy",
-        "society",
-        "culture"
+        "disasters",
+        "science"
       ],
       "region_ids": [
-        "sub_saharan_africa"
+        "north_america"
       ],
-      "countries": [],
-      "section_id": "business",
+      "countries": [
+        "墨西哥"
+      ],
+      "section_id": "society_world",
       "event_time": {
-        "value": "2026-09-10T15:23:13Z",
+        "value": "2026-09-10T13:29:03.015000Z",
         "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 15:23:13 +0000",
+        "original_text": "1789046943015",
         "timezone": "UTC"
       },
       "publication_time": {
-        "value": "2026-09-10T15:23:13Z",
+        "value": "2026-09-10T14:12:37.040000Z",
         "precision": "datetime",
-        "original_text": "Thu, 10 Sep 2026 15:23:13 +0000",
+        "original_text": "1789046943015",
         "timezone": "UTC"
       },
-      "fetched_at": "2026-09-10T22:15:09.584673Z",
-      "as_of": "2026-09-10T22:15:09.584673Z",
-      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
-      "summary_zh": "Africanews 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "fetched_at": "2026-09-10T23:35:16.502661Z",
+      "as_of": "2026-09-10T23:35:16.502661Z",
+      "edition_cutoff": "2026-09-10T23:35:16.502661Z",
+      "generated_at": "2026-09-10T23:35:16.502661Z",
+      "published_success_at": null,
+      "material_update": "USGS过去24小时目录新增或更新了这条4.5级地震记录。",
+      "summary_zh": "美国地质调查局（USGS）的过去24小时地震数据记录显示，墨西哥 Puerto Madero以西南84公里发生4.5级地震，震源深度约10公里，数据审核状态为“reviewed”。该数据条目的海啸标记为0。该记录不包含人员伤亡或设施损失结论。",
       "claims": [
         {
-          "id": "claim_53f8bc8100c107f1",
-          "text_zh": "Africanews 的订阅源在所示时间列出了这一标题。",
+          "id": "claim_1",
+          "text_zh": "USGS记录的地震震级为4.5，位置为墨西哥 Puerto Madero以西南84公里。",
+          "kind": "fact",
+          "source_ids": [
+            "src_usgs_1"
+          ],
+          "attribution": "美国地质调查局（USGS）",
+          "verification_note": "由USGS GeoJSON的 magnitude、place 与坐标字段直接生成。"
+        },
+        {
+          "id": "claim_2",
+          "text_zh": "该记录给出的震源深度约为10公里，审核状态为“reviewed”。",
+          "kind": "fact",
+          "source_ids": [
+            "src_usgs_1"
+          ],
+          "attribution": "美国地质调查局（USGS）",
+          "verification_note": "由USGS GeoJSON的 geometry.coordinates[2] 与 status 字段直接生成。"
+        },
+        {
+          "id": "claim_3",
+          "text_zh": "该数据条目的海啸标记为0；这不等同于对所有海啸风险作出独立判断。",
           "kind": "attributed_claim",
           "source_ids": [
-            "src_53f8bc8100c107f1"
+            "src_usgs_1"
           ],
-          "attribution": "Africanews",
-          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+          "attribution": "USGS数据字段",
+          "verification_note": "仅陈述数据字段，不外推地方预警机构结论。"
         }
       ],
       "sources": [
         {
-          "id": "src_53f8bc8100c107f1",
-          "publisher": "Africanews",
-          "url": "http://www.africanews.com/2026/09/10/chester-zoo-celebrates-the-arrival-of-rare-baby-rock-hyraxes",
-          "title": "Chester Zoo celebrates the arrival of rare baby rock hyraxes",
+          "id": "src_usgs_1",
+          "publisher": "美国地质调查局（USGS）",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tgb4",
+          "title": "M 4.5 - 84 km SW of Puerto Madero, Mexico",
           "source_time": {
-            "value": "2026-09-10T15:23:13Z",
+            "value": "2026-09-10T14:12:37.040000Z",
             "precision": "datetime",
-            "original_text": "Thu, 10 Sep 2026 15:23:13 +0000",
+            "original_text": "1789046943015",
             "timezone": "UTC"
           },
-          "access_level": "metadata_only",
-          "upstream_origin": "africanews",
-          "independence_group": "africanews",
-          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+          "access_level": "authorized_feed",
+          "upstream_origin": "usgs",
+          "independence_group": "usgs",
+          "retrieved_at": "2026-09-10T23:35:16.502661Z",
+          "evidence_method": "USGS GeoJSON字段抽取",
+          "evidence_excerpt": "{\"event_id\":\"us7000tgb4\",\"magnitude\":4.5,\"magnitude_type\":\"mb\",\"place\":\"84 km SW of Puerto Madero, Mexico\",\"event_type\":\"earthquake\",\"review_status\":\"reviewed\",\"updated_at\":\"2026-09-10T14:12:37.040000Z\",\"longitude\":-92.8815,\"latitude\":14.0976,\"depth_km\":10,\"felt_reports\":null,\"community_intensity\":null,\"estimated_intensity\":null,\"alert\":null,\"tsunami_flag\":0,\"significance\":312}",
+          "attribution": "U.S. Geological Survey",
+          "license_url": "https://www.usgs.gov/data-management/data-licensing"
         }
       ],
       "evidence_status": "attributed_report",
       "analysis": {
-        "why_it_matters": null,
-        "mechanism": null,
-        "affected_groups": null,
-        "counter_evidence": null,
-        "watch_next": null
+        "why_it_matters": "这是一条可复核的地震监测记录，可用于定位需要继续关注的区域；单条地震目录不能证明已经造成人员伤亡或基础设施损失。",
+        "mechanism": "震级描述释放能量的规模，震源深度和距聚居地位置会影响震感与潜在影响，但这些字段不足以单独判断灾情。",
+        "affected_groups": "墨西哥 Puerto Madero以西南84公里周边居民、交通与应急部门可能需要关注后续信息；实际影响范围尚无充分证据。",
+        "counter_evidence": "USGS会随更多台站数据修订震级、位置和深度；未出现人员报告或警报字段，不能据此断言当地没有影响。",
+        "watch_next": "继续核对USGS事件页的参数修订，并等待当地应急部门关于震感、损失或预警的独立信息。"
       },
       "unknowns": [
-        "正文内容未抓取",
-        "核心主张未独立核验",
-        "事件国家未进行实体识别"
+        "当地是否有人员伤亡或财产损失",
+        "地方机构是否发布独立预警或情况通报",
+        "震级与震源参数是否会继续修订"
       ],
       "corrections": [],
-      "human_review_required": true
+      "human_review_required": false,
+      "analysis_method": "deterministic_public_data",
+      "version": 1,
+      "verification": {
+        "status": "passed",
+        "reasons": [],
+        "evidence_chain_count": 1,
+        "substantive_source_count": 1
+      }
     }
   ],
   "source_health": {
     "total": 13,
-    "preview_eligible": 1,
-    "ok": 12,
-    "empty": 1,
+    "preview_eligible": 2,
+    "ok": 13,
+    "empty": 0,
     "partial": 0,
     "not_configured": 0,
     "permission_required": 0,
     "stale": 0,
     "failed": 0
+  },
+  "source_stats": {
+    "planned_sources": 13,
+    "attempted_sources": 13,
+    "successful_sources": 13,
+    "time_eligible_sources": 13,
+    "evidence_eligible_sources": 1,
+    "cited_sources": 1,
+    "fetched_candidates": 185,
+    "evidence_eligible_events": 8,
+    "analyzed_events": 3
+  },
+  "coverage": {
+    "region_count": 3,
+    "topic_count": 2,
+    "section_count": 1,
+    "regions": [
+      "north_america",
+      "oceania_pacific",
+      "southeast_asia"
+    ],
+    "topics": [
+      "disasters",
+      "science"
+    ],
+    "sections": [
+      "society_world"
+    ],
+    "region_target_met": false,
+    "topic_target_met": false,
+    "tech_business_share": 0.0,
+    "tech_business_share_target_met": true,
+    "gaps": [
+      "地区覆盖 3/5",
+      "领域覆盖 2/7"
+    ]
   },
   "stale_after_hours": 30
 }

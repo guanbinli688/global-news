@@ -37,7 +37,7 @@ publication:
   minimum_publishable_events: 5
   maximum_events: 26
   stale_after_hours: 30
-  require_ai_analysis: true
+  allowed_analysis_methods: [deterministic_public_data, openai, cached_openai]
   require_all_claim_sources: true
   preserve_previous_on_failure: true
   publication_gate_env: ENABLE_PUBLISH
@@ -47,6 +47,11 @@ archive:
   retention_days: 90
   directory: state/history
   keep_last_success: true
+
+state:
+  analysis_cache_file: state/analysis-cache.json
+  budget_ledger_file: state/budget-ledger.json
+  candidate_edition_file: state/candidate-edition.json
 
 ai:
   provider: openai

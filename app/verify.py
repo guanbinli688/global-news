@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 
@@ -12,6 +13,44 @@ def validate_claim_sources(event: dict[str, Any]) -> list[str]:
         for source_id in claim.get("source_ids", []):
             if source_id not in source_ids:
                 errors.append(f"{event.get('event_id')}: unknown source id {source_id}")
+    return errors
+
+
+def validate_claim_evidence(event: dict[str, Any]) -> list[str]:
+    sources = {source.get("id"): source for source in event.get("sources", [])}
+    errors: list[str] = []
+    for claim in event.get("claims", []):
+        for source_id in claim.get("source_ids", []):
+            source = sources.get(source_id)
+            if source is None:
+                continue
+            if not source.get("evidence_method"):
+                errors.append(f"{claim.get('id')}: source {source_id} has no evidence method")
+            if event.get("analysis_method") != "metadata_preview" and not source.get("evidence_excerpt"):
+                errors.append(f"{claim.get('id')}: source {source_id} has no evidence excerpt")
+    return errors
+
+
+def validate_event_times(event: dict[str, Any], future_tolerance_minutes: int = 5) -> list[str]:
+    errors: list[str] = []
+    try:
+        cutoff = datetime.fromisoformat(str(event["edition_cutoff"]).replace("Z", "+00:00")).astimezone(timezone.utc)
+    except (KeyError, ValueError):
+        return ["edition_cutoff is missing or invalid"]
+    for field in ("event_time", "publication_time"):
+        record = event.get(field, {})
+        value = record.get("value")
+        if not value or record.get("precision") != "datetime":
+            continue
+        try:
+            parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00")).astimezone(timezone.utc)
+        except ValueError:
+            errors.append(f"{field} is not a valid datetime")
+            continue
+        if event.get("section_id") != "next24h" and parsed > cutoff + timedelta(minutes=future_tolerance_minutes):
+            errors.append(f"{field} is later than the edition cutoff")
+        if event.get("section_id") == "next24h" and not (cutoff <= parsed <= cutoff + timedelta(hours=24)):
+            errors.append(f"{field} is outside the next-24-hours window")
     return errors
 
 
@@ -36,6 +75,12 @@ def conflicts_are_attributed(event: dict[str, Any]) -> bool:
 
 
 def editorial_event_safe(event: dict[str, Any]) -> tuple[bool, str | None]:
+    evidence_errors = validate_claim_evidence(event)
+    if evidence_errors:
+        return False, evidence_errors[0]
+    time_errors = validate_event_times(event)
+    if time_errors:
+        return False, time_errors[0]
     for claim in event.get("claims", []):
         if not claim.get("source_ids"):
             return False, "claim has no evidence source"
@@ -78,17 +123,17 @@ def preview_payload_safe(events: list[dict[str, Any]]) -> bool:
 
 def assess_cluster(cluster: dict[str, Any], settings: dict[str, Any]) -> dict[str, Any]:
     items = cluster.get("items", [])
-    independent = {
-        item.get("independence_group") or item.get("source_id")
-        for item in items
-        if item.get("independence_group") or item.get("source_id")
-    }
     substantive = [
         item for item in items
         if item.get("evidence_text")
         and item.get("rights_review") == "approved"
         and item.get("allow_public_summary") is True
     ]
+    independent = {
+        item.get("independence_group") or item.get("source_id")
+        for item in substantive
+        if item.get("independence_group") or item.get("source_id")
+    }
     primary = [
         item for item in substantive
         if item.get("source_role") in {"primary_document", "primary_data", "primary_institution", "official_calendar"}
