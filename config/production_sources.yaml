@@ -1,0 +1,148 @@
+schema_version: "1.0"
+purpose: >-
+  Production policy overlay. A reachable feed is not automatically licensed for
+  analysis or publication. Only entries with rights_review=approved may provide
+  substantive text; metadata-only entries can discover and corroborate leads.
+
+sources:
+  - id: bbc
+    url: "https://feeds.bbci.co.uk/news/world/rss.xml"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: guardian
+    url: "https://www.theguardian.com/world/rss"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: dw
+    url: "https://rss.dw.com/rdf/rss-en-world"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: france24
+    url: "https://www.france24.com/en/rss"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: aljazeera
+    url: "https://www.aljazeera.com/xml/rss/all.xml"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: dawn
+    url: "https://www.dawn.com/feeds/home"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: africanews
+    url: "https://www.africanews.com/feed/"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: agencia_brasil
+    url: "https://agenciabrasil.ebc.com.br/rss/ultimasnoticias/feed.xml"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://www.ebc.com.br/sobre/agencia-brasil"
+    license_note: >-
+      EBC states that Agencia Brasil content may be reproduced free of charge
+      when the source is credited. Keep attribution and links on every use.
+    attribution_required: "Agencia Brasil / EBC"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
+  - id: rnz
+    url: "https://www.rnz.co.nz/rss/world.xml"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: un_news
+    url: "https://news.un.org/feed/subscribe/en/news/all/rss.xml"
+    interface_type: rss
+    role: primary_institution
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: mongabay
+    url: "https://news.mongabay.com/feed/"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: fed
+    url: "https://www.federalreserve.gov/feeds/press_all.xml"
+    interface_type: rss
+    role: primary_document
+    content_mode: metadata_only
+    rights_review: pending
+    allow_substantive_analysis: false
+    allow_public_summary: false
+    article_fetch: false
+
+  - id: usgs
+    url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_day.geojson"
+    interface_type: usgs_geojson
+    role: primary_data
+    content_mode: structured_public_data
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://www.usgs.gov/data-management/data-licensing"
+    license_note: >-
+      USGS-authored data are public-domain U.S. government data unless a
+      third-party notice says otherwise. Attribute USGS and retain source URLs.
+    attribution_required: "U.S. Geological Survey"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false

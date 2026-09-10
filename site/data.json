@@ -1,0 +1,931 @@
+{
+  "as_of": "2026-09-10T22:15:09.584673Z",
+  "publication_mode": "preview",
+  "events": [
+    {
+      "event_id": "evt_c28ae45e8d7b5e2f",
+      "title_zh": "Israel destroys Hezbollah tunnel network in south Lebanon, triggering 4.1-magnitude tremor",
+      "topic_ids": [
+        "politics",
+        "war",
+        "society",
+        "culture"
+      ],
+      "region_ids": [
+        "europe_russia",
+        "sub_saharan_africa",
+        "mena"
+      ],
+      "countries": [],
+      "section_id": "headlines",
+      "event_time": {
+        "value": "2026-09-10T21:50:24Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 21:50:24 GMT",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T21:50:24Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 21:50:24 GMT",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "France 24 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_c28ae45e8d7b5e2f",
+          "text_zh": "France 24 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_c28ae45e8d7b5e2f"
+          ],
+          "attribution": "France 24",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_c28ae45e8d7b5e2f",
+          "publisher": "France 24",
+          "url": "https://www.france24.com/en/middle-east/20260910-israel-hezbollah-tunnels-lebanon-earthquake",
+          "title": "Israel destroys Hezbollah tunnel network in south Lebanon, triggering 4.1-magnitude tremor",
+          "source_time": {
+            "value": "2026-09-10T21:50:24Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 21:50:24 GMT",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "france_medias_monde",
+          "independence_group": "france_medias_monde",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_4e9ef008bea133c0",
+      "title_zh": "Spain’s Parliament backs citizenship for Western Saharans born before 1977",
+      "topic_ids": [
+        "war",
+        "politics",
+        "society"
+      ],
+      "region_ids": [
+        "mena",
+        "global"
+      ],
+      "countries": [],
+      "section_id": "headlines",
+      "event_time": {
+        "value": "2026-09-10T21:47:14Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 21:47:14 +0000",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T21:47:14Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 21:47:14 +0000",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "Al Jazeera 半岛电视台 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_4e9ef008bea133c0",
+          "text_zh": "Al Jazeera 半岛电视台 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_4e9ef008bea133c0"
+          ],
+          "attribution": "Al Jazeera 半岛电视台",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_4e9ef008bea133c0",
+          "publisher": "Al Jazeera 半岛电视台",
+          "url": "https://www.aljazeera.com/news/2026/9/10/spains-parliament-backs-citizenship-for-western-saharans-born-before-1977?traffic_source=rss",
+          "title": "Spain’s Parliament backs citizenship for Western Saharans born before 1977",
+          "source_time": {
+            "value": "2026-09-10T21:47:14Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 21:47:14 +0000",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "aljazeera",
+          "independence_group": "aljazeera",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_bc37aa3fd62728f2",
+      "title_zh": "DRC: Bukavu residents reel in aftermath of deadly school blaze",
+      "topic_ids": [
+        "politics",
+        "economy",
+        "society",
+        "culture"
+      ],
+      "region_ids": [
+        "sub_saharan_africa"
+      ],
+      "countries": [],
+      "section_id": "headlines",
+      "event_time": {
+        "value": "2026-09-10T20:50:46Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 20:50:46 +0000",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T20:50:46Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 20:50:46 +0000",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "Africanews 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_bc37aa3fd62728f2",
+          "text_zh": "Africanews 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_bc37aa3fd62728f2"
+          ],
+          "attribution": "Africanews",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_bc37aa3fd62728f2",
+          "publisher": "Africanews",
+          "url": "http://www.africanews.com/2026/09/10/drc-bukavu-residents-reel-in-aftermath-of-deadly-school-blaze",
+          "title": "DRC: Bukavu residents reel in aftermath of deadly school blaze",
+          "source_time": {
+            "value": "2026-09-10T20:50:46Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 20:50:46 +0000",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "africanews",
+          "independence_group": "africanews",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_c7ef8d35beddc4f3",
+      "title_zh": "Court rules residents of a US city don’t have a constitutional right to lead-free water",
+      "topic_ids": [
+        "climate",
+        "food",
+        "society"
+      ],
+      "region_ids": [
+        "global"
+      ],
+      "countries": [],
+      "section_id": "headlines",
+      "event_time": {
+        "value": "2026-09-10T20:38:33Z",
+        "precision": "datetime",
+        "original_text": "10 Sep 2026 20:38:33 +0000",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T20:38:33Z",
+        "precision": "datetime",
+        "original_text": "10 Sep 2026 20:38:33 +0000",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "Mongabay 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_c7ef8d35beddc4f3",
+          "text_zh": "Mongabay 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_c7ef8d35beddc4f3"
+          ],
+          "attribution": "Mongabay",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_c7ef8d35beddc4f3",
+          "publisher": "Mongabay",
+          "url": "https://news.mongabay.com/short-article/2026/09/court-rules-residents-of-a-us-city-dont-have-a-constitutional-right-to-lead-free-water",
+          "title": "Court rules residents of a US city don’t have a constitutional right to lead-free water",
+          "source_time": {
+            "value": "2026-09-10T20:38:33Z",
+            "precision": "datetime",
+            "original_text": "10 Sep 2026 20:38:33 +0000",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "mongabay",
+          "independence_group": "mongabay",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_6217568e345c1194",
+      "title_zh": "Saiba qual é a rotina ideal de consultas para cuidar da visão",
+      "topic_ids": [
+        "politics",
+        "economy",
+        "society",
+        "climate"
+      ],
+      "region_ids": [
+        "latin_america_caribbean"
+      ],
+      "countries": [],
+      "section_id": "headlines",
+      "event_time": {
+        "value": "2026-09-10T20:17:00Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 17:17:00 -0300",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T20:17:00Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 17:17:00 -0300",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "Agência Brasil 巴西通讯社 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_6217568e345c1194",
+          "text_zh": "Agência Brasil 巴西通讯社 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_6217568e345c1194"
+          ],
+          "attribution": "Agência Brasil 巴西通讯社",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_6217568e345c1194",
+          "publisher": "Agência Brasil 巴西通讯社",
+          "url": "https://agenciabrasil.ebc.com.br/saude/noticia/2026-09/saiba-qual-e-rotina-ideal-de-consultas-para-cuidar-da-visao",
+          "title": "Saiba qual é a rotina ideal de consultas para cuidar da visão",
+          "source_time": {
+            "value": "2026-09-10T20:17:00Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 17:17:00 -0300",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "ebc",
+          "independence_group": "ebc",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_2c4f857a80db4135",
+      "title_zh": "Space: Europe urged to find its path, from crewed spaceflight to communications",
+      "topic_ids": [
+        "politics",
+        "war",
+        "society",
+        "culture"
+      ],
+      "region_ids": [
+        "europe_russia",
+        "sub_saharan_africa",
+        "mena"
+      ],
+      "countries": [],
+      "section_id": "science_technology",
+      "event_time": {
+        "value": "2026-09-10T21:05:39Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 21:05:39 GMT",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T21:05:39Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 21:05:39 GMT",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "France 24 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_2c4f857a80db4135",
+          "text_zh": "France 24 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_2c4f857a80db4135"
+          ],
+          "attribution": "France 24",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_2c4f857a80db4135",
+          "publisher": "France 24",
+          "url": "https://www.france24.com/en/tv-shows/a-propos/20260910-space-europe-urged-to-find-its-path-from-crewed-spaceflight-to-communications",
+          "title": "Space: Europe urged to find its path, from crewed spaceflight to communications",
+          "source_time": {
+            "value": "2026-09-10T21:05:39Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 21:05:39 GMT",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "france_medias_monde",
+          "independence_group": "france_medias_monde",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_18a063e11b9e4f0f",
+      "title_zh": "Agencies reduce regulatory burden for community banks, increase eligibility for 18-month exam cycle",
+      "topic_ids": [
+        "economy"
+      ],
+      "region_ids": [
+        "north_america",
+        "global"
+      ],
+      "countries": [],
+      "section_id": "business",
+      "event_time": {
+        "value": "2026-09-10T20:00:00Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 20:00:00 GMT",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T20:00:00Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 20:00:00 GMT",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "美联储 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_18a063e11b9e4f0f",
+          "text_zh": "美联储 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_18a063e11b9e4f0f"
+          ],
+          "attribution": "美联储",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_18a063e11b9e4f0f",
+          "publisher": "美联储",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20260910a.htm",
+          "title": "Agencies reduce regulatory burden for community banks, increase eligibility for 18-month exam cycle",
+          "source_time": {
+            "value": "2026-09-10T20:00:00Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 20:00:00 GMT",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "fed",
+          "independence_group": "fed",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_5d2d7256b8b443ed",
+      "title_zh": "More than 20 children killed in DR Congo school fire",
+      "topic_ids": [
+        "politics",
+        "war",
+        "society",
+        "culture",
+        "science"
+      ],
+      "region_ids": [
+        "global"
+      ],
+      "countries": [],
+      "section_id": "society_world",
+      "event_time": {
+        "value": "2026-09-10T19:16:24Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 19:16:24 GMT",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T19:16:24Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 19:16:24 GMT",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "BBC News 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_5d2d7256b8b443ed",
+          "text_zh": "BBC News 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_5d2d7256b8b443ed"
+          ],
+          "attribution": "BBC News",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_5d2d7256b8b443ed",
+          "publisher": "BBC News",
+          "url": "https://www.bbc.co.uk/news/articles/cgjq15j7318o",
+          "title": "More than 20 children killed in DR Congo school fire",
+          "source_time": {
+            "value": "2026-09-10T19:16:24Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 19:16:24 GMT",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "bbc",
+          "independence_group": "bbc",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_a85ffd8d17c3fd89",
+      "title_zh": "Japan deploys equipment to Indonesia’s Borneo to help fight wildfires causing toxic haze",
+      "topic_ids": [
+        "climate",
+        "food",
+        "society"
+      ],
+      "region_ids": [
+        "global"
+      ],
+      "countries": [],
+      "section_id": "society_world",
+      "event_time": {
+        "value": "2026-09-10T18:47:51Z",
+        "precision": "datetime",
+        "original_text": "10 Sep 2026 18:47:51 +0000",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T18:47:51Z",
+        "precision": "datetime",
+        "original_text": "10 Sep 2026 18:47:51 +0000",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "Mongabay 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_a85ffd8d17c3fd89",
+          "text_zh": "Mongabay 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_a85ffd8d17c3fd89"
+          ],
+          "attribution": "Mongabay",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_a85ffd8d17c3fd89",
+          "publisher": "Mongabay",
+          "url": "https://news.mongabay.com/short-article/2026/09/japan-deploys-equipment-to-indonesias-borneo-to-help-fight-wildfires-causing-toxic-haze",
+          "title": "Japan deploys equipment to Indonesia’s Borneo to help fight wildfires causing toxic haze",
+          "source_time": {
+            "value": "2026-09-10T18:47:51Z",
+            "precision": "datetime",
+            "original_text": "10 Sep 2026 18:47:51 +0000",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "mongabay",
+          "independence_group": "mongabay",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_087922ed5d227700",
+      "title_zh": "Yemen's Houthis reportedly seize strategic Red Sea port of Mokha",
+      "topic_ids": [
+        "politics",
+        "war",
+        "society",
+        "culture",
+        "science"
+      ],
+      "region_ids": [
+        "global"
+      ],
+      "countries": [],
+      "section_id": "business",
+      "event_time": {
+        "value": "2026-09-10T18:15:47Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 18:15:47 GMT",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T18:15:47Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 18:15:47 GMT",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "BBC News 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_087922ed5d227700",
+          "text_zh": "BBC News 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_087922ed5d227700"
+          ],
+          "attribution": "BBC News",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_087922ed5d227700",
+          "publisher": "BBC News",
+          "url": "https://www.bbc.co.uk/news/articles/c4g7vr0lngwo",
+          "title": "Yemen's Houthis reportedly seize strategic Red Sea port of Mokha",
+          "source_time": {
+            "value": "2026-09-10T18:15:47Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 18:15:47 GMT",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "bbc",
+          "independence_group": "bbc",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_efb8949730b75681",
+      "title_zh": "Amazon Fund grantees fear a new funding freeze after Brazil’s election",
+      "topic_ids": [
+        "climate",
+        "food",
+        "society"
+      ],
+      "region_ids": [
+        "global"
+      ],
+      "countries": [],
+      "section_id": "society_world",
+      "event_time": {
+        "value": "2026-09-10T17:34:37Z",
+        "precision": "datetime",
+        "original_text": "10 Sep 2026 17:34:37 +0000",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T17:34:37Z",
+        "precision": "datetime",
+        "original_text": "10 Sep 2026 17:34:37 +0000",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "Mongabay 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_efb8949730b75681",
+          "text_zh": "Mongabay 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_efb8949730b75681"
+          ],
+          "attribution": "Mongabay",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_efb8949730b75681",
+          "publisher": "Mongabay",
+          "url": "https://news.mongabay.com/2026/09/amazon-fund-grantees-fear-a-new-funding-freeze-after-brazils-election",
+          "title": "Amazon Fund grantees fear a new funding freeze after Brazil’s election",
+          "source_time": {
+            "value": "2026-09-10T17:34:37Z",
+            "precision": "datetime",
+            "original_text": "10 Sep 2026 17:34:37 +0000",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "mongabay",
+          "independence_group": "mongabay",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    },
+    {
+      "event_id": "evt_53f8bc8100c107f1",
+      "title_zh": "Chester Zoo celebrates the arrival of rare baby rock hyraxes",
+      "topic_ids": [
+        "politics",
+        "economy",
+        "society",
+        "culture"
+      ],
+      "region_ids": [
+        "sub_saharan_africa"
+      ],
+      "countries": [],
+      "section_id": "business",
+      "event_time": {
+        "value": "2026-09-10T15:23:13Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 15:23:13 +0000",
+        "timezone": "UTC"
+      },
+      "publication_time": {
+        "value": "2026-09-10T15:23:13Z",
+        "precision": "datetime",
+        "original_text": "Thu, 10 Sep 2026 15:23:13 +0000",
+        "timezone": "UTC"
+      },
+      "fetched_at": "2026-09-10T22:15:09.584673Z",
+      "as_of": "2026-09-10T22:15:09.584673Z",
+      "material_update": "首次出现在本次元数据抓取中；正文内容尚未核验。",
+      "summary_zh": "Africanews 的订阅源列出了这一标题。本地预览仅保留标题、链接和时间，未抓取正文，也未生成新闻摘要。",
+      "claims": [
+        {
+          "id": "claim_53f8bc8100c107f1",
+          "text_zh": "Africanews 的订阅源在所示时间列出了这一标题。",
+          "kind": "attributed_claim",
+          "source_ids": [
+            "src_53f8bc8100c107f1"
+          ],
+          "attribution": "Africanews",
+          "verification_note": "仅核对订阅源元数据；未将标题内容视为已独立证实的事实。"
+        }
+      ],
+      "sources": [
+        {
+          "id": "src_53f8bc8100c107f1",
+          "publisher": "Africanews",
+          "url": "http://www.africanews.com/2026/09/10/chester-zoo-celebrates-the-arrival-of-rare-baby-rock-hyraxes",
+          "title": "Chester Zoo celebrates the arrival of rare baby rock hyraxes",
+          "source_time": {
+            "value": "2026-09-10T15:23:13Z",
+            "precision": "datetime",
+            "original_text": "Thu, 10 Sep 2026 15:23:13 +0000",
+            "timezone": "UTC"
+          },
+          "access_level": "metadata_only",
+          "upstream_origin": "africanews",
+          "independence_group": "africanews",
+          "retrieved_at": "2026-09-10T22:15:09.584673Z"
+        }
+      ],
+      "evidence_status": "attributed_report",
+      "analysis": {
+        "why_it_matters": null,
+        "mechanism": null,
+        "affected_groups": null,
+        "counter_evidence": null,
+        "watch_next": null
+      },
+      "unknowns": [
+        "正文内容未抓取",
+        "核心主张未独立核验",
+        "事件国家未进行实体识别"
+      ],
+      "corrections": [],
+      "human_review_required": true
+    }
+  ],
+  "source_health": {
+    "total": 13,
+    "preview_eligible": 1,
+    "ok": 12,
+    "empty": 1,
+    "partial": 0,
+    "not_configured": 0,
+    "permission_required": 0,
+    "stale": 0,
+    "failed": 0
+  },
+  "stale_after_hours": 30
+}

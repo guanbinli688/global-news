@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "passed": true,
+  "checks": [
+    {
+      "name": "site schema version",
+      "passed": true,
+      "detail": "1.0"
+    },
+    {
+      "name": "15 topic filters",
+      "passed": true,
+      "detail": "count=15"
+    },
+    {
+      "name": "10 region filters",
+      "passed": true,
+      "detail": "count=10"
+    },
+    {
+      "name": "8 editorial sections",
+      "passed": true,
+      "detail": "count=8"
+    },
+    {
+      "name": "declared source count",
+      "passed": true,
+      "detail": "declared=70, actual=70"
+    },
+    {
+      "name": "unique source IDs",
+      "passed": true,
+      "detail": "count=70"
+    },
+    {
+      "name": "all candidate ingestion disabled",
+      "passed": true,
+      "detail": "no registry source auto-enabled"
+    },
+    {
+      "name": "all public republication disabled",
+      "passed": true,
+      "detail": "no registry source cleared for republication"
+    },
+    {
+      "name": "diagnostic IDs are registered",
+      "passed": true,
+      "detail": "diagnostic_count=19"
+    },
+    {
+      "name": "diagnostic IDs unique",
+      "passed": true,
+      "detail": "diagnostic_count=19"
+    },
+    {
+      "name": "production IDs are registered",
+      "passed": true,
+      "detail": "production_count=13"
+    },
+    {
+      "name": "production IDs unique",
+      "passed": true,
+      "detail": "production_count=13"
+    },
+    {
+      "name": "calendar IDs are registered",
+      "passed": true,
+      "detail": "calendar_count=0"
+    },
+    {
+      "name": "calendar sources require approved rights",
+      "passed": true,
+      "detail": "unapproved calendar entries are rejected"
+    },
+    {
+      "name": "article fetch requires approved rights",
+      "passed": true,
+      "detail": "no pending or unscoped source permits article fetch"
+    },
+    {
+      "name": "analysis text requires approved public-summary rights",
+      "passed": true,
+      "detail": "only explicitly approved sources may provide substantive inputs"
+    },
+    {
+      "name": "24-hour collection window",
+      "passed": true,
+      "detail": "24"
+    },
+    {
+      "name": "publication has evidence minimum",
+      "passed": true,
+      "detail": "5"
+    },
+    {
+      "name": "AI response storage disabled",
+      "passed": true,
+      "detail": "store=false"
+    },
+    {
+      "name": "publication requires explicit gate",
+      "passed": true,
+      "detail": "ENABLE_PUBLISH"
+    },
+    {
+      "name": "event schema is closed",
+      "passed": true,
+      "detail": "additionalProperties=false"
+    },
+    {
+      "name": "model remains unconfigured",
+      "passed": true,
+      "detail": "metadata-only fallback active"
+    },
+    {
+      "name": "deployment remains disabled",
+      "passed": true,
+      "detail": "not_deployed"
+    }
+  ]
+}

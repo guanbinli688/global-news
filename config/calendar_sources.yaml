@@ -1,0 +1,5 @@
+schema_version: "1.0"
+purpose: >-
+  Optional official event calendars for the next-24-hours section. Add only
+  documented first-party RSS/Atom/ICS endpoints after rights and timezone review.
+sources: []

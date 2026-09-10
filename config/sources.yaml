@@ -1,0 +1,1811 @@
+schema_version: '1.0'
+prepared_on: '2026-09-10'
+purpose: 国际综合新闻站候选信息源目录，不是已经连通的爬虫配置。
+source_entry_count: 70
+global_policy:
+  enable_only_after_runtime_and_rights_review: true
+  do_not_guess_api_endpoints: true
+  respect_rate_limits_and_access_controls: true
+  no_paywall_or_captcha_bypass: true
+  no_browser_cookies_in_ci: true
+  no_full_article_public_archive_by_default: true
+  independence_is_article_provenance_not_domain_count: true
+  publisher_group_is_a_hint_not_independence_proof: true
+  new_local_sources_may_be_added_after_review: true
+sources:
+- id: reuters
+  name: Reuters 路透社
+  homepage_url: https://www.reuters.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - economy
+  - business
+  publisher_group_hint: reuters
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 先核对公开访问、订阅及机器使用条款；不假设存在免费全文/API，不绕过登录或付费墙。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://reutersagency.com/about/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: ap
+  name: AP 美联社
+  homepage_url: https://apnews.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - society
+  - culture
+  - health
+  - sport
+  publisher_group_hint: ap
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 先核对公开访问、订阅及机器使用条款；不假设存在免费全文/API，不绕过登录或付费墙。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.ap.org/about/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: afp
+  name: AFP 法新社
+  homepage_url: https://www.afp.com/en
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - society
+  - climate
+  publisher_group_hint: afp
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 先核对公开访问、订阅及机器使用条款；不假设存在免费全文/API，不绕过登录或付费墙。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.afp.com/en
+- id: bbc
+  name: BBC News
+  homepage_url: https://www.bbc.com/news
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - society
+  - culture
+  - science
+  publisher_group_hint: bbc
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://bbcnews.bbcstudios.com/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: dw
+  name: Deutsche Welle 德国之声
+  homepage_url: https://www.dw.com/
+  source_type: newsroom
+  suggested_regions:
+  - europe_russia
+  suggested_topics:
+  - politics
+  - society
+  - culture
+  - climate
+  publisher_group_hint: dw
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://www.dw.com/
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: france24
+  name: France 24
+  homepage_url: https://www.france24.com/en/
+  source_type: newsroom
+  suggested_regions:
+  - europe_russia
+  - sub_saharan_africa
+  - mena
+  suggested_topics:
+  - politics
+  - war
+  - society
+  - culture
+  publisher_group_hint: france_medias_monde
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://www.france24.com/en/
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: aljazeera
+  name: Al Jazeera 半岛电视台
+  homepage_url: https://www.aljazeera.com/
+  source_type: newsroom
+  suggested_regions:
+  - mena
+  - global
+  suggested_topics:
+  - war
+  - politics
+  - society
+  publisher_group_hint: aljazeera
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 涉及外交或战争争议时，记录报道的实际引述方及证据；不得用立场相反的两个说法机械平均来求真。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.aljazeera.com/
+- id: guardian
+  name: The Guardian 卫报
+  homepage_url: https://www.theguardian.com/international
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - society
+  - climate
+  - culture
+  - sport
+  publisher_group_hint: guardian
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: personal_noncommercial_feed_terms_and_api_terms_require_review
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 官方RSS帮助说明个人非商业用途；公共网站、生成式摘要及API的允许用途必须另核对，不能由免费阅读推断授权。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.theguardian.com/help/feeds
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: cna
+  name: CNA 新加坡亚洲新闻台
+  homepage_url: https://www.channelnewsasia.com/
+  source_type: newsroom
+  suggested_regions:
+  - southeast_asia
+  - east_asia
+  suggested_topics:
+  - politics
+  - business
+  - society
+  - climate
+  publisher_group_hint: mediacorp
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.channelnewsasia.com/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: nhk
+  name: NHK WORLD-JAPAN
+  homepage_url: https://www3.nhk.or.jp/nhkworld/
+  source_type: newsroom
+  suggested_regions:
+  - east_asia
+  suggested_topics:
+  - politics
+  - economy
+  - disasters
+  - culture
+  publisher_group_hint: nhk
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://www3.nhk.or.jp/nhkworld/
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: yonhap
+  name: Yonhap 韩国联合通讯社
+  homepage_url: https://en.yna.co.kr/
+  source_type: newsroom
+  suggested_regions:
+  - east_asia
+  suggested_topics:
+  - politics
+  - war
+  - economy
+  - culture
+  publisher_group_hint: yonhap
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://en.yna.co.kr/
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: the_hindu
+  name: The Hindu 印度教徒报
+  homepage_url: https://www.thehindu.com/
+  source_type: newsroom
+  suggested_regions:
+  - south_asia
+  suggested_topics:
+  - politics
+  - economy
+  - society
+  - culture
+  publisher_group_hint: the_hindu
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://www.thehindu.com/
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: dawn
+  name: Dawn 黎明报
+  homepage_url: https://www.dawn.com/
+  source_type: newsroom
+  suggested_regions:
+  - south_asia
+  suggested_topics:
+  - politics
+  - war
+  - society
+  - economy
+  publisher_group_hint: dawn
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.dawn.com/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: africanews
+  name: Africanews
+  homepage_url: https://www.africanews.com/
+  source_type: newsroom
+  suggested_regions:
+  - sub_saharan_africa
+  suggested_topics:
+  - politics
+  - economy
+  - society
+  - culture
+  publisher_group_hint: africanews
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.africanews.com/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: daily_maverick
+  name: Daily Maverick
+  homepage_url: https://www.dailymaverick.co.za/
+  source_type: newsroom
+  suggested_regions:
+  - sub_saharan_africa
+  suggested_topics:
+  - politics
+  - society
+  - climate
+  - business
+  publisher_group_hint: daily_maverick
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://www.dailymaverick.co.za/
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: agencia_brasil
+  name: Agência Brasil 巴西通讯社
+  homepage_url: https://agenciabrasil.ebc.com.br/en
+  source_type: newsroom
+  suggested_regions:
+  - latin_america_caribbean
+  suggested_topics:
+  - politics
+  - economy
+  - society
+  - climate
+  publisher_group_hint: ebc
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://agenciabrasil.ebc.com.br/en
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: el_pais
+  name: EL PAÍS
+  homepage_url: https://english.elpais.com/
+  source_type: newsroom
+  suggested_regions:
+  - latin_america_caribbean
+  - europe_russia
+  suggested_topics:
+  - politics
+  - society
+  - culture
+  - economy
+  publisher_group_hint: el_pais
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://english.elpais.com/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: rnz
+  name: RNZ Pacific
+  homepage_url: https://www.rnz.co.nz/international
+  source_type: newsroom
+  suggested_regions:
+  - oceania_pacific
+  suggested_topics:
+  - politics
+  - climate
+  - society
+  - disasters
+  publisher_group_hint: rnz
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://www.rnz.co.nz/international
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: abc_australia
+  name: ABC Australia
+  homepage_url: https://www.abc.net.au/news/
+  source_type: newsroom
+  suggested_regions:
+  - oceania_pacific
+  suggested_topics:
+  - politics
+  - climate
+  - society
+  - science
+  publisher_group_hint: abc_australia
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.abc.net.au/news/
+- id: xinhua
+  name: 新华社国际报道
+  homepage_url: https://english.news.cn/
+  source_type: newsroom
+  suggested_regions:
+  - east_asia
+  - global
+  suggested_topics:
+  - politics
+  - economy
+  - society
+  - culture
+  publisher_group_hint: xinhua
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 涉及外交或战争争议时，记录报道的实际引述方及证据；不得用立场相反的两个说法机械平均来求真。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://english.news.cn/
+- id: eurasianet
+  name: Eurasianet
+  homepage_url: https://eurasianet.org/
+  source_type: newsroom
+  suggested_regions:
+  - central_asia_caucasus
+  suggested_topics:
+  - politics
+  - economy
+  - society
+  publisher_group_hint: eurasianet
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://eurasianet.org/
+- id: meduza
+  name: Meduza
+  homepage_url: https://meduza.io/en
+  source_type: newsroom
+  suggested_regions:
+  - europe_russia
+  suggested_topics:
+  - politics
+  - war
+  - society
+  publisher_group_hint: meduza
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 涉及外交或战争争议时，记录报道的实际引述方及证据；不得用立场相反的两个说法机械平均来求真。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://meduza.io/en
+- id: tass
+  name: TASS 塔斯社
+  homepage_url: https://tass.com/
+  source_type: newsroom
+  suggested_regions:
+  - europe_russia
+  suggested_topics:
+  - politics
+  - war
+  - economy
+  publisher_group_hint: tass
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 涉及外交或战争争议时，记录报道的实际引述方及证据；不得用立场相反的两个说法机械平均来求真。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://tass.com/
+- id: nikkei_asia
+  name: Nikkei Asia
+  homepage_url: https://asia.nikkei.com/
+  source_type: newsroom
+  suggested_regions:
+  - east_asia
+  - southeast_asia
+  - south_asia
+  suggested_topics:
+  - economy
+  - business
+  - science
+  publisher_group_hint: nikkei
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 先核对公开访问、订阅及机器使用条款；不假设存在免费全文/API，不绕过登录或付费墙。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://asia.nikkei.com/
+- id: scmp
+  name: South China Morning Post
+  homepage_url: https://www.scmp.com/
+  source_type: newsroom
+  suggested_regions:
+  - east_asia
+  - southeast_asia
+  suggested_topics:
+  - politics
+  - economy
+  - business
+  - society
+  publisher_group_hint: scmp
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 先核对公开访问、订阅及机器使用条款；不假设存在免费全文/API，不绕过登录或付费墙。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.scmp.com/
+- id: un_news
+  name: UN News 联合国新闻
+  homepage_url: https://news.un.org/en/
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - society
+  - health
+  - climate
+  publisher_group_hint: un
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://news.un.org/en/
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: un_press
+  name: 联合国会议报道与新闻稿
+  homepage_url: https://press.un.org/en
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - law
+  publisher_group_hint: un
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://press.un.org/en
+- id: reliefweb
+  name: ReliefWeb / OCHA
+  homepage_url: https://reliefweb.int/
+  source_type: aggregator
+  suggested_regions:
+  - global
+  suggested_topics:
+  - war
+  - disasters
+  - health
+  - food
+  - society
+  publisher_group_hint: ocha_reliefweb
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: documented_api_requires_approved_appname
+  endpoints:
+  - url: https://api.reliefweb.int/v2/reports
+    format: json
+    status: documented_not_runtime_tested
+    parameters:
+      appname: READ_FROM_ENV_RELIEFWEB_APPNAME
+  notes:
+  - 必须保存每篇内容的真正发布者和上游出处；聚合站不增加独立证据数量。
+  - 官方文档：API V2；从2025-11-01起要求预先批准的appname；本方案不替用户申请。
+  - 文档公布限额为每天1000次调用、每次最多1000条；部署前再次核对。原始合作方内容可能受版权保护。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://apidoc.reliefweb.int/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+  credential_env: RELIEFWEB_APPNAME
+- id: icrc
+  name: ICRC 红十字国际委员会
+  homepage_url: https://www.icrc.org/en/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - war
+  - society
+  - law
+  - health
+  publisher_group_hint: icrc
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.icrc.org/en/news
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: who
+  name: WHO 疾病暴发通报
+  homepage_url: https://www.who.int/emergencies/disease-outbreak-news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - health
+  publisher_group_hint: who
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.who.int/emergencies/disease-outbreak-news
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: ilo
+  name: ILO 国际劳工组织
+  homepage_url: https://www.ilo.org/resource/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - society
+  - economy
+  - law
+  publisher_group_hint: ilo
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.ilo.org/resource/news
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: unhcr
+  name: UNHCR 联合国难民署
+  homepage_url: https://www.unhcr.org/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - war
+  - society
+  - disasters
+  publisher_group_hint: unhcr
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: access_limited_in_research_tool
+    checked_on: '2026-09-10'
+    url: https://www.unhcr.org/news
+    note: 本次研究工具访问受限；不是该网站全球不可用的结论。部署端须单独合规测试。
+- id: iom
+  name: IOM 国际移民组织
+  homepage_url: https://www.iom.int/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - society
+  - war
+  - disasters
+  publisher_group_hint: iom
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.iom.int/news
+- id: unesco
+  name: UNESCO 世界遗产中心
+  homepage_url: https://whc.unesco.org/en/news/
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - culture
+  - climate
+  - education
+  publisher_group_hint: unesco
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: syndication_requires_written_permission_per_official_terms
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints:
+  - url: https://whc.unesco.org/en/news/?index=1&maxrows=20&mode=rss
+    format: rss
+    status: official_link_found_rights_review_required
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  - UNESCO/WHC syndication条款要求再发布事先书面授权；存在RSS不等于可直接公开转载。默认不启用再发布。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://whc.unesco.org/en/syndication
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: unep
+  name: UNEP 联合国环境规划署
+  homepage_url: https://www.unep.org/news-and-stories
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - climate
+  - energy
+  - food
+  publisher_group_hint: unep
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.unep.org/news-and-stories
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: wmo
+  name: WMO 世界气象组织
+  homepage_url: https://wmo.int/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - climate
+  - disasters
+  publisher_group_hint: wmo
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://wmo.int/news
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: fao
+  name: FAO 联合国粮农组织
+  homepage_url: https://www.fao.org/newsroom/en
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - food
+  - climate
+  - economy
+  publisher_group_hint: fao
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.fao.org/newsroom/en
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: imf
+  name: IMF 国际货币基金组织
+  homepage_url: https://www.imf.org/en/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - economy
+  publisher_group_hint: imf
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.imf.org/en/news
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: world_bank
+  name: 世界银行
+  homepage_url: https://www.worldbank.org/ext/en/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - economy
+  - society
+  - energy
+  - climate
+  publisher_group_hint: world_bank
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.worldbank.org/ext/en/news
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: wto
+  name: WTO 世界贸易组织
+  homepage_url: https://www.wto.org/english/news_e/news_e.htm
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - economy
+  - business
+  - law
+  publisher_group_hint: wto
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.wto.org/english/news_e/news_e.htm
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: iea
+  name: IEA 国际能源署
+  homepage_url: https://www.iea.org/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - energy
+  - climate
+  - economy
+  publisher_group_hint: iea
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.iea.org/news
+- id: usgs
+  name: USGS 地震数据
+  homepage_url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
+  source_type: official_data
+  suggested_regions:
+  - global
+  suggested_topics:
+  - disasters
+  publisher_group_hint: usgs
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints:
+  - url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_day.geojson
+    format: geojson
+    status: json_response_observed_2026-09-10
+  notes:
+  - 样例端点实际返回过JSON；不代表完整网站已部署。重大地震列表为空不是请求失败。
+  - 震级、位置与更新时间以数据字段为准；地震数据不能单独证明死亡人数。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: nasa
+  name: NASA
+  homepage_url: https://www.nasa.gov/rss-feeds/
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - science
+  - climate
+  - education
+  publisher_group_hint: nasa
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  - 官方RSS目录已核对；由Codex从目录解析现行端点，不猜测接口地址。图片和第三方素材单独审查使用权。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.nasa.gov/rss-feeds/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: esa
+  name: ESA 欧洲空间局
+  homepage_url: https://www.esa.int/
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - science
+  - climate
+  publisher_group_hint: esa
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.esa.int/
+- id: ohchr
+  name: 联合国人权高专办
+  homepage_url: https://www.ohchr.org/en/latest
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - society
+  - war
+  - law
+  publisher_group_hint: ohchr
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.ohchr.org/en/latest
+- id: icj
+  name: 国际法院 ICJ
+  homepage_url: https://www.icj-cij.org/
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - law
+  - politics
+  - war
+  publisher_group_hint: icj
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.icj-cij.org/
+- id: icc
+  name: 国际刑事法院 ICC
+  homepage_url: https://www.icc-cpi.int/
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - law
+  - war
+  - politics
+  publisher_group_hint: icc
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.icc-cpi.int/
+- id: fed
+  name: 美联储
+  homepage_url: https://www.federalreserve.gov/feeds/feeds.htm
+  source_type: institution
+  suggested_regions:
+  - north_america
+  - global
+  suggested_topics:
+  - economy
+  publisher_group_hint: fed
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints:
+  - url: https://www.federalreserve.gov/feeds/press_all.xml
+    format: rss
+    status: documentation_link_requires_runtime_test
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.federalreserve.gov/feeds/feeds.htm
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: ecb
+  name: 欧洲央行
+  homepage_url: https://www.ecb.europa.eu/press/html/index.en.html
+  source_type: institution
+  suggested_regions:
+  - europe_russia
+  - global
+  suggested_topics:
+  - economy
+  publisher_group_hint: ecb
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.ecb.europa.eu/press/html/index.en.html
+- id: boj
+  name: 日本银行
+  homepage_url: https://www.boj.or.jp/en/
+  source_type: institution
+  suggested_regions:
+  - east_asia
+  - global
+  suggested_topics:
+  - economy
+  publisher_group_hint: boj
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.boj.or.jp/en/
+- id: ft
+  name: Financial Times 金融时报
+  homepage_url: https://www.ft.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - economy
+  - business
+  - politics
+  publisher_group_hint: ft
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 先核对公开访问、订阅及机器使用条款；不假设存在免费全文/API，不绕过登录或付费墙。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.ft.com/
+- id: bloomberg
+  name: Bloomberg 彭博
+  homepage_url: https://www.bloomberg.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - economy
+  - business
+  - energy
+  publisher_group_hint: bloomberg
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 先核对公开访问、订阅及机器使用条款；不假设存在免费全文/API，不绕过登录或付费墙。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.bloomberg.com/
+- id: wsj
+  name: The Wall Street Journal 华尔街日报
+  homepage_url: https://www.wsj.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - economy
+  - business
+  - politics
+  publisher_group_hint: wsj
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 先核对公开访问、订阅及机器使用条款；不假设存在免费全文/API，不绕过登录或付费墙。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.wsj.com/
+- id: cnbc
+  name: CNBC
+  homepage_url: https://www.cnbc.com/world/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - economy
+  - business
+  - science
+  publisher_group_hint: cnbc
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.cnbc.com/world/
+- id: techcrunch
+  name: TechCrunch
+  homepage_url: https://techcrunch.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - science
+  - business
+  publisher_group_hint: techcrunch
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://techcrunch.com/
+- id: the_verge
+  name: The Verge
+  homepage_url: https://www.theverge.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - science
+  - business
+  - culture
+  publisher_group_hint: the_verge
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.theverge.com/
+- id: rest_of_world
+  name: Rest of World
+  homepage_url: https://restofworld.org/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - science
+  - society
+  - business
+  publisher_group_hint: rest_of_world
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://restofworld.org/about/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: nature
+  name: Nature 新闻及研究入口
+  homepage_url: https://www.nature.com/nature/articles?type=news
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - science
+  - health
+  - climate
+  - education
+  publisher_group_hint: nature
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 新闻用于发现研究；技术、医疗结论须回到研究原文，区分预印本、同行评议、动物实验与临床研究。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.nature.com/nature/articles?type=news
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: science
+  name: Science 新闻及研究入口
+  homepage_url: https://www.science.org/news
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - science
+  - health
+  - climate
+  - education
+  publisher_group_hint: science
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 新闻用于发现研究；技术、医疗结论须回到研究原文，区分预印本、同行评议、动物实验与临床研究。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.science.org/news
+- id: mongabay
+  name: Mongabay
+  homepage_url: https://news.mongabay.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - climate
+  - food
+  - society
+  publisher_group_hint: mongabay
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://news.mongabay.com/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: carbon_brief
+  name: Carbon Brief
+  homepage_url: https://www.carbonbrief.org/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - climate
+  - energy
+  - science
+  publisher_group_hint: carbon_brief
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.carbonbrief.org/
+- id: the_art_newspaper
+  name: The Art Newspaper
+  homepage_url: https://www.theartnewspaper.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - culture
+  - law
+  publisher_group_hint: the_art_newspaper
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.theartnewspaper.com/
+- id: variety
+  name: Variety
+  homepage_url: https://variety.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - culture
+  - business
+  publisher_group_hint: variety
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 赛程、奖项、财务、诉讼等有独立新闻价值的内容优先；机构自身争议需另外核验。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://variety.com/
+- id: hollywood_reporter
+  name: The Hollywood Reporter
+  homepage_url: https://www.hollywoodreporter.com/
+  source_type: newsroom
+  suggested_regions:
+  - global
+  suggested_topics:
+  - culture
+  - business
+  publisher_group_hint: hollywood_reporter
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 赛程、奖项、财务、诉讼等有独立新闻价值的内容优先；机构自身争议需另外核验。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.hollywoodreporter.com/
+- id: full_fact
+  name: Full Fact
+  homepage_url: https://fullfact.org/
+  source_type: factcheck
+  suggested_regions:
+  - europe_russia
+  - global
+  suggested_topics:
+  - politics
+  - health
+  - society
+  publisher_group_hint: full_fact
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://fullfact.org/
+- id: afp_factcheck
+  name: AFP Fact Check
+  homepage_url: https://factcheck.afp.com/
+  source_type: factcheck
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - health
+  - society
+  publisher_group_hint: afp
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://factcheck.afp.com/
+- id: reuters_factcheck
+  name: Reuters Fact Check
+  homepage_url: https://www.reuters.com/fact-check/
+  source_type: factcheck
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - health
+  - society
+  publisher_group_hint: reuters
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes: []
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.reuters.com/fact-check/
+- id: gdelt
+  name: GDELT DOC API
+  homepage_url: https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/
+  source_type: aggregator
+  suggested_regions:
+  - global
+  suggested_topics:
+  - politics
+  - war
+  - economy
+  - business
+  - science
+  - society
+  - culture
+  - climate
+  - health
+  - education
+  - energy
+  - food
+  - disasters
+  - sport
+  - law
+  publisher_group_hint: gdelt
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints:
+  - url: https://api.gdeltproject.org/api/v2/doc/doc
+    format: json
+    status: documented_not_runtime_tested
+    parameters:
+      mode: artlist
+      format: json
+      query: SET_PER_TOPIC_AND_REGION
+      timespan: 24h
+      maxrecords: 50
+  notes:
+  - 必须保存每篇内容的真正发布者和上游出处；聚合站不增加独立证据数量。
+  - 跨语言新闻发现层，不是事实验证器；查询条件和接口能力以部署时官方文档为准。
+  - 索引时间不得直接当作原报道发布时间；必须回到原始链接核查。
+  reference_review:
+    status: official_page_or_documentation_reviewed
+    checked_on: '2026-09-10'
+    url: https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/
+    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+- id: olympics
+  name: IOC / Olympics
+  homepage_url: https://olympics.com/ioc/news
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - sport
+  - culture
+  - politics
+  publisher_group_hint: ioc
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  - 赛程、奖项、财务、诉讼等有独立新闻价值的内容优先；机构自身争议需另外核验。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://olympics.com/ioc/news
+- id: un_women
+  name: UN Women
+  homepage_url: https://www.unwomen.org/en/news-stories
+  source_type: institution
+  suggested_regions:
+  - global
+  suggested_topics:
+  - society
+  - economy
+  - education
+  - law
+  publisher_group_hint: un_women
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: not_tested
+  rights_status: review_required
+  access_method: discover_documented_feed_or_api_else_review_permitted_web_access
+  endpoints: []
+  notes:
+  - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
+  reference_review:
+    status: candidate_not_individually_verified
+    checked_on: null
+    url: https://www.unwomen.org/en/news-stories
+optional_social_discovery:
+- platform: X
+  purpose: 线索与传播观察，不能单独确认重大争议事实
+  enabled_in_cloud: false
+  access: 仅经用户确认的受支持API/服务或本地脱敏结果导入
+  notes: 本机启用不等于GitHub Actions已经获得授权；不输出Cookie、token或私人账号数据。
+- platform: Reddit
+  purpose: 线索与传播观察，不能单独确认重大争议事实
+  enabled_in_cloud: false
+  access: 仅经用户确认的受支持API/服务或本地脱敏结果导入
+  notes: 本机启用不等于GitHub Actions已经获得授权；不输出Cookie、token或私人账号数据。
+- platform: YouTube
+  purpose: 线索与传播观察，不能单独确认重大争议事实
+  enabled_in_cloud: false
+  access: 仅经用户确认的受支持API/服务或本地脱敏结果导入
+  notes: 本机启用不等于GitHub Actions已经获得授权；不输出Cookie、token或私人账号数据。
+- platform: TikTok
+  purpose: 线索与传播观察，不能单独确认重大争议事实
+  enabled_in_cloud: false
+  access: 仅经用户确认的受支持API/服务或本地脱敏结果导入
+  notes: 本机启用不等于GitHub Actions已经获得授权；不输出Cookie、token或私人账号数据。
+- platform: Instagram
+  purpose: 线索与传播观察，不能单独确认重大争议事实
+  enabled_in_cloud: false
+  access: 仅经用户确认的受支持API/服务或本地脱敏结果导入
+  notes: 本机启用不等于GitHub Actions已经获得授权；不输出Cookie、token或私人账号数据。
+- platform: Hacker News
+  purpose: 线索与传播观察，不能单独确认重大争议事实
+  enabled_in_cloud: false
+  access: 仅经用户确认的受支持API/服务或本地脱敏结果导入
+  notes: 本机启用不等于GitHub Actions已经获得授权；不输出Cookie、token或私人账号数据。

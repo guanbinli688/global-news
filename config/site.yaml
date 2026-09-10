@@ -1,0 +1,318 @@
+schema_version: '1.0'
+site:
+  title: 世界观察 · Global News Radar
+  output_language: zh-CN
+  display_timezone: Asia/Shanghai
+  storage_timezone: UTC
+  site_type: static
+  deployment_state: not_deployed
+  future_visibility: public_requires_review
+  preview_label: 开发预览，不是已发布新闻
+coverage:
+  topics:
+  - id: politics
+    name: 政治与外交
+    keywords:
+    - 选举
+    - 外交谈判
+    - 国际组织
+    - 制裁与国际秩序
+  - id: war
+    name: 战争与安全
+    keywords:
+    - 战况
+    - 停火
+    - 军控
+    - 平民保护
+    - 人道援助
+  - id: economy
+    name: 经济与贸易
+    keywords:
+    - 通胀
+    - 利率
+    - 就业
+    - 债务
+    - 贸易
+    - 发展中国家
+  - id: business
+    name: 商业与产业
+    keywords:
+    - 并购
+    - 财报
+    - 供应链
+    - 劳资
+    - 消费
+    - 竞争政策
+  - id: science
+    name: 科学与科技
+    keywords:
+    - AI
+    - 基础科学
+    - 航天
+    - 生物科技
+    - 网络安全
+    - 机器人
+  - id: society
+    name: 社会与人口
+    keywords:
+    - 移民
+    - 住房
+    - 劳动
+    - 性别
+    - 老龄化
+    - 公共治理
+  - id: culture
+    name: 文化与思想
+    keywords:
+    - 艺术
+    - 文学
+    - 电影
+    - 音乐
+    - 宗教
+    - 考古
+    - 文化遗产
+  - id: climate
+    name: 生态与气候
+    keywords:
+    - 生物多样性
+    - 森林
+    - 海洋
+    - 污染
+    - 水资源
+    - 气候政策
+  - id: health
+    name: 公共健康与医疗
+    keywords:
+    - 疫情
+    - 公共卫生
+    - 药品监管
+    - 医疗体系
+    - 食品安全
+  - id: education
+    name: 教育与知识
+    keywords:
+    - 学校与大学
+    - 科研经费
+    - 教育公平
+    - 学术诚信
+  - id: energy
+    name: 能源与资源
+    keywords:
+    - 石油天然气
+    - 电网
+    - 核能
+    - 新能源
+    - 关键矿产
+  - id: food
+    name: 农业与粮食
+    keywords:
+    - 粮价
+    - 收成
+    - 饥荒
+    - 渔业
+    - 农产品贸易
+  - id: disasters
+    name: 灾害与基础设施
+    keywords:
+    - 地震
+    - 洪水
+    - 野火
+    - 风暴
+    - 交通事故调查
+    - 救援
+  - id: sport
+    name: 体育与国际公共生活
+    keywords:
+    - 重大赛事
+    - 体育治理
+    - 兴奋剂案件
+    - 体育外交
+  - id: law
+    name: 法律与权利
+    keywords:
+    - 国际司法
+    - 重大判决
+    - 人权
+    - 隐私
+    - 法治变化
+  regions:
+  - id: north_america
+    name: 北美
+  - id: europe_russia
+    name: 欧洲与俄罗斯
+  - id: east_asia
+    name: 东亚
+  - id: southeast_asia
+    name: 东南亚
+  - id: south_asia
+    name: 南亚
+  - id: central_asia_caucasus
+    name: 中亚与高加索
+  - id: mena
+    name: 中东与北非
+  - id: sub_saharan_africa
+    name: 撒哈拉以南非洲
+  - id: latin_america_caribbean
+    name: 拉美与加勒比
+  - id: oceania_pacific
+    name: 大洋洲与太平洋
+  initial_languages:
+  - en
+  - zh
+  - es
+  - fr
+  - ar
+  - pt
+  expansion_languages:
+  - ja
+  - ko
+  - de
+  - ru
+  - hi
+  language_mode: 按地区与议题分配检索，未实现的语言不得显示为已覆盖
+  global_relevance: 跨境影响、全球趋势价值、显著人道/文化/科学意义，或重要地区事实；不强求涉及两个国家。
+  daily_scan_all_topics: true
+  daily_scan_all_regions: true
+  soft_coverage_targets:
+    target_regions_in_full_digest: 5
+    target_topics_in_full_digest: 7
+    target_max_top5_from_one_country: 2
+    target_max_frontpage_tech_business_share: 0.35
+    policy: 仅在达到证据与新闻价值门槛的候选池内优化；不够就报告缺口，重大事件可说明理由后例外。
+windows:
+  fresh_hours: 24
+  ongoing_followup_days: 7
+  background_days: 30
+  date_basis: 最后一个可验证的实质进展时间，不是抓取时间或仅修改页面排版的时间
+  unknown_publication_time: exclude_from_fresh_or_label_time_uncertain
+  timestamp_rules:
+  - retain_original_timestamp_and_timezone
+  - do_not_invent_missing_hours
+  - record_asof_cutoff_per_run
+  - future_events_are_not_past_news
+sections:
+- id: headlines
+  name: 五大硬新闻
+  target_max: 5
+  min_required: 0
+  rule: 从全部领域选择，不能只选政治财经科技。
+- id: under_currents
+  name: 三条暗线
+  target_max: 3
+  min_required: 0
+  rule: 至少3个具体证据点、至少2条独立证据链；有反证与可证伪条件。最多1条时就只刊1条。
+- id: science_technology
+  name: 三大科学 / 科技 / AI
+  target_max: 3
+  min_required: 0
+  rule: 覆盖基础科学、航天、生命科学等，不只模型发布。
+- id: business
+  name: 三大商业 / 产业
+  target_max: 3
+  min_required: 0
+  rule: 公司公告与市场效果分开。
+- id: society_world
+  name: 社会 · 文化 · 生态 · 健康
+  target_max: 5
+  min_required: 0
+  rule: 原三大社会热点扩展；重要文化生态事件同样可进五大硬新闻。
+- id: controversies
+  name: 网络热点 / 公共争议
+  target_max: 3
+  min_required: 0
+  rule: 有公共价值和可核查依据；不凑绯闻、不传播隐私泄露。
+- id: corrections
+  name: 今日反转 / 辟谣 / 更正
+  target_max: 3
+  min_required: 0
+  rule: 区分官方否认、证据不足与已被证伪；安全关键更正不受数量上限限制。
+- id: next24h
+  name: 未来24小时关注
+  target_max: 5
+  min_required: 0
+  rule: 只收有活动主办方/官方日历支持的计划，时间未知写待定。
+presentation:
+  max_unique_current_events_frontpage: 26
+  max_calendar_items: 5
+  history_archive: true
+  topic_tabs: true
+  region_tabs: true
+  source_drawer: true
+  correction_log: true
+  source_health_page: true
+  daily_methodology_footer: true
+  homepage_card_zh_chars_target:
+  - 90
+  - 160
+  expanded_headline_zh_chars_target:
+  - 300
+  - 600
+  expanded_context_label: 背景 / 分析，不是新增事实
+evidence:
+  require_claim_level_sources: true
+  require_source_excerpt_for_internal_review: true
+  publish_source_excerpt_only_with_permission: true
+  headline_verification: 对实际核心主张核对证据；有决定性原始文件可单源确认该文件的发布或决定，多方争议不能仅凭双方转述。
+  statuses:
+  - confirmed
+  - attributed_report
+  - disputed
+  - unverified_lead
+  - analysis
+  - corrected
+  public_unverified_leads: false
+  default_controversial_allegation_review: human_review_before_publication
+  war_rules:
+  - separate_claims_by_each_party
+  - attribute_casualty_counts_with_asof_and_method
+  - never_average_conflicting_tallies
+  - distinguish_geolocated_video_from_reposted_claim
+  - no_graphic_autoplay_or_precise_live_tactical_locations
+  science_rules:
+  - trace_technical_claims_to_original_research
+  - label_preprint_vs_peer_review
+  - identify_design_and_sample_limitations
+  - company_claim_is_not_independent_benchmark
+  dedup:
+  - canonical_url
+  - upstream_wire_and_release
+  - entities_action_location_time
+  - preserve_material_updates
+  - one_primary_section_with_crosslinks
+ranking:
+  type: editorial_heuristic_not_probability
+  evidence_gate_before_scoring: true
+  weights:
+    public_impact: 0.35
+    substantive_novelty: 0.25
+    evidence_strength: 0.25
+    international_relevance: 0.1
+    observed_attention: 0.05
+  cross_platform_raw_counts_may_be_added: false
+  no_quality_uplift_percent_without_benchmark: true
+  missing_heat_data: unknown_not_zero
+  editor_can_override_with_reason: true
+automation_proposal:
+  enabled: false
+  timezone: Asia/Shanghai
+  full_digest:
+    cron: 37 7 * * *
+    target_ready_local: 约08:00；不是准点保证
+  incremental_updates:
+    cron: 37 13,19 * * *
+    scope: 仅重大新增事实、追踪与纠错
+  manual_trigger: true
+  no_exact_delivery_sla: true
+  initial_review_runs: 7
+  failure_policy: 保留最近一次有效报告与原始时间；写入失败/部分覆盖状态，不用旧内容冒充今日新闻。
+security_costs:
+  paid_calls_require_user_approval: true
+  model_provider: null
+  model: null
+  daily_api_budget_usd: null
+  on_unconfigured_model: fetch_and_preview_only_no_invented_analysis
+  browser_cookies_in_ci: false
+  secrets_in_client_or_git: false
+  untrusted_news_is_data_not_instructions: true
+  fetcher_does_not_receive_model_credentials: true
+  public_storage: 自己的摘要、已允许的元数据与链接；不默认发布抓取全文、截图、凭据、私密日志。

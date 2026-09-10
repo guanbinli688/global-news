@@ -1,0 +1,183 @@
+name: Daily evidence-gated news
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_mode:
+        description: "validate only, or build a publish candidate"
+        required: true
+        default: validate
+        type: choice
+        options:
+          - validate
+          - production
+  schedule:
+    # 07:37 Beijing time. The scheduled job remains skipped until the
+    # repository variable ENABLE_SCHEDULED_PUBLISH is explicitly set to true.
+    - cron: "37 23 * * *"
+
+concurrency:
+  group: global-news-daily
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    if: github.event_name == 'workflow_dispatch' || vars.ENABLE_SCHEDULED_PUBLISH == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      actions: read
+      pages: read
+    outputs:
+      pages_ready: ${{ steps.gate.outputs.pages_ready }}
+    env:
+      PYTHONUTF8: "1"
+      ENABLE_AI_ANALYSIS: ${{ vars.ENABLE_AI_ANALYSIS }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      NEWS_AI_MODEL: ${{ vars.NEWS_AI_MODEL }}
+      NEWS_AI_MAX_EVENTS: ${{ vars.NEWS_AI_MAX_EVENTS }}
+      NEWS_AI_MAX_INPUT_TOKENS: ${{ vars.NEWS_AI_MAX_INPUT_TOKENS }}
+      NEWS_AI_MAX_OUTPUT_TOKENS: ${{ vars.NEWS_AI_MAX_OUTPUT_TOKENS }}
+      NEWS_AI_MAX_DAILY_USD: ${{ vars.NEWS_AI_MAX_DAILY_USD }}
+      NEWS_AI_INPUT_USD_PER_1M: ${{ vars.NEWS_AI_INPUT_USD_PER_1M }}
+      NEWS_AI_OUTPUT_USD_PER_1M: ${{ vars.NEWS_AI_OUTPUT_USD_PER_1M }}
+      GLOBAL_NEWS_CONTACT_URL: ${{ vars.GLOBAL_NEWS_CONTACT_URL }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install pinned dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Restore the most recent successful archive
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          previous_run="$(gh api "repos/${REPOSITORY}/actions/artifacts?name=news-state&per_page=100" --jq '.artifacts | sort_by(.created_at) | reverse | .[0].workflow_run.id // empty')"
+          if [ -n "$previous_run" ]; then
+            gh run download "$previous_run" --name news-state --dir restored-state || true
+            if [ -d restored-state/history ]; then
+              mkdir -p state/history
+              cp -R restored-state/history/. state/history/
+            fi
+            if [ -f restored-state/last-success.json ]; then
+              cp restored-state/last-success.json state/last-success.json
+            fi
+          fi
+
+      - name: Validate configuration
+        run: python -m app.validate
+
+      - name: Collect, verify, analyze, and build
+        id: pipeline_run
+        continue-on-error: true
+        shell: bash
+        run: |
+          mode="${{ github.event.inputs.run_mode }}"
+          if [ "${{ github.event_name }}" = "schedule" ]; then mode="production"; fi
+          python -m app.pipeline --mode "$mode"
+
+      - name: Read publication gate
+        id: gate
+        if: always()
+        shell: bash
+        run: |
+          ready="$(python -c "import json,pathlib; p=pathlib.Path('state/run-report.json'); print(str(p.exists() and json.loads(p.read_text(encoding='utf-8')).get('publish_ready') is True).lower())")"
+          requested="${{ github.event.inputs.run_mode }}"
+          if [ "${{ github.event_name }}" = "schedule" ]; then requested="production"; fi
+          if [ "$ready" = "true" ] && [ "$requested" = "production" ] && [ "${{ vars.ENABLE_PUBLISH }}" = "true" ]; then
+            echo "pages_ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pages_ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload run diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-diagnostics-${{ github.run_id }}
+          path: |
+            state/run-report.json
+            state/run-source-health.json
+            source-health.json
+            source-health.md
+            validation-report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Save successful archive state
+        if: steps.pipeline_run.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: news-state
+          path: |
+            state/history
+            state/last-success.json
+          if-no-files-found: ignore
+          retention-days: 90
+
+      - name: Configure Pages
+        if: steps.gate.outputs.pages_ready == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: steps.gate.outputs.pages_ready == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Enforce pipeline result
+        if: steps.pipeline_run.outcome == 'failure'
+        shell: bash
+        run: exit 1
+
+  deploy:
+    if: needs.pipeline.outputs.pages_ready == 'true'
+    needs: pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  alert:
+    if: always() && (needs.pipeline.result == 'failure' || needs.deploy.result == 'failure')
+    needs: [pipeline, deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Open or update the failure issue
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Daily news automation failed"
+          body="The evidence-gated news workflow failed. Run: ${RUN_URL}"
+          issue="$(gh issue list --repo "$REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" --repo "$REPOSITORY" --body "$body"
+          else
+            gh issue create --repo "$REPOSITORY" --title "$title" --body "$body"
+          fi

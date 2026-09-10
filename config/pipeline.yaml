@@ -1,0 +1,73 @@
+schema_version: "1.0"
+
+collection:
+  fresh_hours: 24
+  fetch_timeout_seconds: 18
+  max_response_bytes: 2500000
+  max_feed_items_per_source: 40
+  max_article_chars: 12000
+  retries: 2
+  retry_backoff_seconds: 2
+  retry_statuses: [429, 500, 502, 503, 504]
+  user_agent: "GlobalNewsRadar/1.0 (+public contact URL required before activation)"
+  contact_url_env: GLOBAL_NEWS_CONTACT_URL
+
+evidence:
+  min_independent_sources: 2
+  allow_single_primary_document: true
+  require_substantive_text_for_analysis: true
+  title_similarity_threshold: 0.72
+  cluster_window_hours: 36
+  auto_exclude_patterns:
+    - casualty
+    - death toll
+    - unverified video
+    - allegation
+    - allegedly
+  blocked_auto_sections: [controversies, corrections]
+
+coverage:
+  target_regions: 5
+  target_topics: 7
+  max_events_per_source_group: 3
+  max_frontpage_tech_business_share: 0.35
+  report_gaps_without_fabricating: true
+
+publication:
+  minimum_publishable_events: 5
+  maximum_events: 26
+  stale_after_hours: 30
+  require_ai_analysis: true
+  require_all_claim_sources: true
+  preserve_previous_on_failure: true
+  publication_gate_env: ENABLE_PUBLISH
+
+archive:
+  enabled: true
+  retention_days: 90
+  directory: state/history
+  keep_last_success: true
+
+ai:
+  provider: openai
+  provider_enabled_env: ENABLE_AI_ANALYSIS
+  api_key_env: OPENAI_API_KEY
+  model_env: NEWS_AI_MODEL
+  max_events_env: NEWS_AI_MAX_EVENTS
+  max_input_tokens_env: NEWS_AI_MAX_INPUT_TOKENS
+  max_output_tokens_env: NEWS_AI_MAX_OUTPUT_TOKENS
+  max_daily_usd_env: NEWS_AI_MAX_DAILY_USD
+  input_price_env: NEWS_AI_INPUT_USD_PER_1M
+  output_price_env: NEWS_AI_OUTPUT_USD_PER_1M
+  endpoint: "https://api.openai.com/v1/responses"
+  store_responses: false
+  request_timeout_seconds: 90
+  retries: 2
+
+automation:
+  timezone: Asia/Shanghai
+  daily_cron_utc: "37 23 * * *"
+  scheduled_publish_gate_variable: ENABLE_SCHEDULED_PUBLISH
+  pages_publish_gate_variable: ENABLE_PUBLISH
+  history_artifact_retention_days: 90
+  diagnostics_artifact_retention_days: 14

@@ -1,0 +1,368 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Global news event record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "title_zh",
+    "topic_ids",
+    "region_ids",
+    "countries",
+    "section_id",
+    "event_time",
+    "publication_time",
+    "fetched_at",
+    "as_of",
+    "material_update",
+    "summary_zh",
+    "claims",
+    "sources",
+    "evidence_status",
+    "analysis",
+    "unknowns",
+    "corrections",
+    "human_review_required"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title_zh": {
+      "type": "string",
+      "minLength": 1
+    },
+    "topic_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "politics",
+          "war",
+          "economy",
+          "business",
+          "science",
+          "society",
+          "culture",
+          "climate",
+          "health",
+          "education",
+          "energy",
+          "food",
+          "disasters",
+          "sport",
+          "law"
+        ]
+      }
+    },
+    "region_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "north_america",
+          "europe_russia",
+          "east_asia",
+          "southeast_asia",
+          "south_asia",
+          "central_asia_caucasus",
+          "mena",
+          "sub_saharan_africa",
+          "latin_america_caribbean",
+          "oceania_pacific",
+          "global"
+        ]
+      }
+    },
+    "countries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "事件涉及国，而不是媒体总部所在国。"
+    },
+    "section_id": {
+      "enum": [
+        "headlines",
+        "under_currents",
+        "science_technology",
+        "business",
+        "society_world",
+        "controversies",
+        "corrections",
+        "next24h"
+      ]
+    },
+    "event_time": {
+      "$ref": "#/$defs/time"
+    },
+    "publication_time": {
+      "$ref": "#/$defs/time"
+    },
+    "fetched_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "material_update": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary_zh": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text_zh",
+          "kind",
+          "source_ids",
+          "attribution",
+          "verification_note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text_zh": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "fact",
+              "attributed_claim",
+              "analysis",
+              "scheduled_event"
+            ]
+          },
+          "source_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "attribution": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "verification_note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "publisher",
+          "url",
+          "title",
+          "source_time",
+          "access_level",
+          "upstream_origin",
+          "independence_group",
+          "retrieved_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "publisher": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": "string"
+          },
+          "source_time": {
+            "$ref": "#/$defs/time"
+          },
+          "access_level": {
+            "enum": [
+              "full_text",
+              "authorized_feed",
+              "excerpt",
+              "metadata_only",
+              "unavailable"
+            ]
+          },
+          "upstream_origin": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "independence_group": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "retrieved_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "evidence_status": {
+      "enum": [
+        "confirmed",
+        "attributed_report",
+        "disputed",
+        "unverified_lead",
+        "analysis",
+        "corrected"
+      ]
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "why_it_matters",
+        "mechanism",
+        "affected_groups",
+        "counter_evidence",
+        "watch_next"
+      ],
+      "properties": {
+        "why_it_matters": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mechanism": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "affected_groups": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "counter_evidence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "watch_next": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "corrections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "at",
+          "old_claim",
+          "new_claim",
+          "reason",
+          "source_ids"
+        ],
+        "properties": {
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "old_claim": {
+            "type": "string"
+          },
+          "new_claim": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "human_review_required": {
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "time": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "precision",
+        "original_text",
+        "timezone"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "precision": {
+          "enum": [
+            "datetime",
+            "date",
+            "unknown"
+          ]
+        },
+        "original_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timezone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "description": "仅有日期时不得虚构时分秒；跨时区转换只对已知时区的时间进行。"
+    }
+  }
+}
