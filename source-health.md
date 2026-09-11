@@ -1,6 +1,6 @@
 # 信息源健康诊断
 
-运行时间（UTC）：2026-09-11T01:02:32.008612Z
+运行时间（UTC）：2026-09-11T01:08:54.819812Z
 
 本报告只验证本地环境中的接口响应、格式和日期解析。它不构成转载许可，也不把候选源改为正式启用。测试只保存标题、链接和时间等元数据。
 
@@ -12,7 +12,7 @@
 | 来源 | 接口 | 状态 | HTTP | 条目 | 日期可解析 | 最新时间 | 许可/使用边界 | 失败原因 |
 |---|---|---:|---:|---:|---:|---|---|---|
 | [BBC News](https://feeds.bbci.co.uk/news/world/rss.xml) | rss | ok | 200 | 23 | 23 | 2026-09-11T01:01:18Z | rights_review=pending; public_summary=False |  |
-| [The Guardian 卫报](https://www.theguardian.com/world/rss) | rss | ok | 200 | 40 | 40 | 2026-09-11T00:30:48Z | rights_review=pending; public_summary=False |  |
+| [The Guardian 卫报](https://www.theguardian.com/world/rss) | rss | ok | 200 | 40 | 40 | 2026-09-11T01:04:08Z | rights_review=pending; public_summary=False |  |
 | [Deutsche Welle 德国之声](https://rss.dw.com/rdf/rss-en-world) | rss | ok | 200 | 13 | 13 | 2026-09-10T19:08:00Z | rights_review=pending; public_summary=False |  |
 | [France 24](https://www.france24.com/en/rss) | rss | ok | 200 | 23 | 23 | 2026-09-10T22:55:18Z | rights_review=pending; public_summary=False |  |
 | [Al Jazeera 半岛电视台](https://www.aljazeera.com/xml/rss/all.xml) | rss | ok | 200 | 25 | 25 | 2026-09-11T00:24:24Z | rights_review=pending; public_summary=False |  |

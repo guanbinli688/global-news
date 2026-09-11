@@ -17,7 +17,7 @@ from .build import build
 from .cluster import cluster_candidates
 from .collect import collect_calendar_sources, collect_sources
 from .common import CONFIG_DIR, ROOT, load_json, load_yaml, write_json
-from .normalize import event_id, sortable_time
+from .normalize import event_id, normalize_analysis_geography, sortable_time
 from .run_state import AnalysisCache, evidence_cache_key
 from .source_diagnostics import markdown_report
 from .structured_analysis import analyze_usgs, can_analyze_structured
@@ -274,6 +274,7 @@ def run_pipeline(
             else:
                 skipped_for_model += 1
                 continue
+            analysis = normalize_analysis_geography(analysis)
             if analysis.get("section_id") == "next24h" and not any(item.get("source_role") == "official_calendar" for item in row["cluster"].get("items", [])):
                 raise ValueError("next24h item lacks an approved official calendar source")
             event = make_event(row["cluster"], analysis, sources, as_of, analysis_method, row["gate"])

@@ -13,6 +13,7 @@ from app.analyze import AnalysisRequestRejected, BudgetExceeded, DailyBudget, Op
 from app.cluster import cluster_candidates
 from app.collect import in_fresh_window, in_future_window, parse_ics_candidates, parse_rss_candidates
 from app.common import load_json, load_yaml
+from app.normalize import normalize_analysis_geography
 from app.pipeline import environment_gate_enabled, run_pipeline, select_analysis_candidates
 from app.verify import assess_cluster, coverage_report
 
@@ -187,6 +188,19 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertFalse(report["region_target_met"])
         self.assertFalse(report["topic_target_met"])
         self.assertTrue(report["gaps"])
+
+    def test_known_countries_override_unsupported_model_regions(self):
+        analysis = {
+            "countries": ["吉布提", "美国"],
+            "region_ids": ["east_asia", "north_america"],
+        }
+        normalized = normalize_analysis_geography(analysis)
+        self.assertEqual(normalized["region_ids"], ["north_america", "sub_saharan_africa"])
+        self.assertEqual(analysis["region_ids"], ["east_asia", "north_america"])
+
+    def test_unknown_country_does_not_force_partial_region_mapping(self):
+        analysis = {"countries": ["美国", "未收录国家"], "region_ids": ["global"]}
+        self.assertIs(normalize_analysis_geography(analysis), analysis)
 
     def test_only_explicitly_reviewed_sources_are_open(self):
         config = load_yaml(ROOT / "config" / "production_sources.yaml")
