@@ -101,6 +101,24 @@ sources:
     allow_public_summary: false
     article_fetch: false
 
+  - id: nasa
+    url: "https://www.nasa.gov/news-release/feed/"
+    interface_type: rss
+    role: primary_institution
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+    license_note: >-
+      NASA permits factual educational/informational use without explicit
+      permission when NASA is acknowledged. Do not use protected identifiers,
+      imply endorsement, or reuse marked third-party material. This pipeline
+      publishes no feed images and sends only the official text excerpt.
+    attribution_required: "NASA"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
   - id: un_news
     url: "https://news.un.org/feed/subscribe/en/news/all/rss.xml"
     interface_type: rss

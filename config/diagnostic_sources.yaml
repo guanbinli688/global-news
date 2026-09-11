@@ -99,10 +99,10 @@ sources:
   allow_local_preview: true
 - id: nasa
   interface_type: rss
-  url: https://www.jpl.nasa.gov/feeds/news/
-  documentation_url: https://www.jpl.nasa.gov/rss/
+  url: https://www.nasa.gov/news-release/feed/
+  documentation_url: https://www.nasa.gov/rss-feeds/
   documentation_status: official_documentation
-  license_status: nasa_media_guidelines_and_third_party_assets_review_required
+  license_status: approved_for_attributed_factual_text_summary_no_images
   allow_local_preview: true
 - id: fed
   interface_type: rss

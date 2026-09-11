@@ -1098,18 +1098,21 @@ sources:
   priority: core
   ingestion_enabled: false
   public_republication_enabled: false
-  runtime_test_status: not_tested
-  rights_status: review_required
+  runtime_test_status: official_news_release_feed_tested_2026-09-10
+  rights_status: approved_for_attributed_factual_text_summary_no_images
   access_method: discover_documented_feed_or_api_else_review_permitted_web_access
-  endpoints: []
+  endpoints:
+      - url: https://www.nasa.gov/news-release/feed/
+        format: rss
+        status: official_feed_tested_2026-09-10
   notes:
   - 证明该机构发布了什么；机构、政府、企业的主张不自动等于事件本身已经独立证实。
-  - 官方RSS目录已核对；由Codex从目录解析现行端点，不猜测接口地址。图片和第三方素材单独审查使用权。
+  - 官方RSS目录与News Releases端点已核对；只使用文字摘录生成署名摘要，不复制图片、标志或标注的第三方材料。
   reference_review:
     status: official_page_or_documentation_reviewed
     checked_on: '2026-09-10'
     url: https://www.nasa.gov/rss-feeds/
-    note: 页面/文档核对不等于采集器联通、完整性或公开再利用授权已经通过。
+    note: 官方指南允许署名的信息性使用；仍需排除第三方版权材料、受保护标志及任何暗示NASA背书的表达。
 - id: esa
   name: ESA 欧洲空间局
   homepage_url: https://www.esa.int/

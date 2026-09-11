@@ -103,6 +103,7 @@ def source_run_stats(
     candidates: list[dict[str, Any]],
     eligible: list[dict[str, Any]],
     events: list[dict[str, Any]],
+    analysis_queue: list[dict[str, Any]],
 ) -> dict[str, Any]:
     eligible_ids = {
         item.get("source_id")
@@ -125,8 +126,36 @@ def source_run_stats(
         "cited_sources": len(used_publishers),
         "fetched_candidates": len(candidates),
         "evidence_eligible_events": len(eligible),
+        "analysis_candidates_selected": len(analysis_queue),
         "analyzed_events": len(events),
     }
+
+
+def select_analysis_candidates(
+    eligible: list[dict[str, Any]], maximum_events: int, max_per_source_group: int,
+) -> list[dict[str, Any]]:
+    """Apply the source-group cap before paid analysis, preserving input order."""
+    selected: list[dict[str, Any]] = []
+    group_counts: dict[str, int] = {}
+    for row in eligible:
+        substantive_items = [
+            item for item in row["cluster"].get("items", [])
+            if item.get("rights_review") == "approved"
+            and item.get("allow_public_summary") is True
+            and item.get("evidence_text")
+        ]
+        groups = {
+            str(item.get("independence_group") or item.get("upstream_origin") or item.get("source_id"))
+            for item in substantive_items
+        }
+        if groups and any(group_counts.get(group, 0) >= max_per_source_group for group in groups):
+            continue
+        selected.append(row)
+        for group in groups:
+            group_counts[group] = group_counts.get(group, 0) + 1
+        if len(selected) >= maximum_events:
+            break
+    return selected
 
 
 def write_source_health(source_health: list[dict[str, Any]], as_of: str, paid_ai_used: bool) -> None:
@@ -184,6 +213,11 @@ def run_pipeline(
     clusters = cluster_candidates(candidates, float(settings["title_similarity_threshold"]), int(settings["cluster_window_hours"]))
     assessments = [{"cluster": cluster, "gate": assess_cluster(cluster, settings)} for cluster in clusters]
     eligible = [row for row in assessments if row["gate"]["passed"]]
+    analysis_queue = select_analysis_candidates(
+        eligible,
+        int(pipeline_config["publication"]["maximum_events"]),
+        int(pipeline_config["coverage"]["max_events_per_source_group"]),
+    )
 
     ai_config = pipeline_config["ai"]
     state_config = pipeline_config.get("state", {})
@@ -207,7 +241,7 @@ def run_pipeline(
     skipped_for_model = 0
     cache_hits = 0
     cache_misses = 0
-    for row in eligible[: int(pipeline_config["publication"]["maximum_events"])]:
+    for row in analysis_queue:
         try:
             cache_write: tuple[str, str] | None = None
             if can_analyze_structured(row["cluster"]):
@@ -287,12 +321,13 @@ def run_pipeline(
     publish_enabled = environment_gate_enabled(publication_gate_name)
     production_bundle_built = publish_ready and publish_enabled
     budget_report = active_analyzer.budget_report() if active_analyzer is not None and hasattr(active_analyzer, "budget_report") else active_analyzer.budget.report() if active_analyzer is not None and hasattr(active_analyzer, "budget") else None
-    source_stats = source_run_stats(source_health, candidates, eligible, valid_events)
+    source_stats = source_run_stats(source_health, candidates, eligible, valid_events, analysis_queue)
     report = {
         "schema_version": "1.0", "as_of": as_of,
         "status": "production_built" if production_bundle_built else "publish_ready" if publish_ready else "blocked",
         "publish_ready": publish_ready, "candidate_count": len(candidates), "cluster_count": len(clusters),
         "evidence_eligible_count": len(eligible), "event_count": len(valid_events), "minimum_event_count": minimum,
+        "analysis_queue_count": len(analysis_queue),
         "ai_enabled": ai_enabled, "analysis_errors": analysis_errors[:30], "coverage": coverage,
         "source_stats": source_stats,
         "analysis_cache": {"hits": cache_hits, "misses": cache_misses},

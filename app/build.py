@@ -48,6 +48,11 @@ def e(value: Any) -> str:
     return html.escape(str(value if value is not None else ""), quote=True)
 
 
+def write_html(path: Path, content: str) -> None:
+    normalized = "\n".join(line.rstrip() for line in content.splitlines()).rstrip() + "\n"
+    path.write_text(normalized, encoding="utf-8", newline="\n")
+
+
 def display_beijing(value: str | None, precision: str) -> str:
     if not value:
         return "时间未知"
@@ -332,9 +337,9 @@ def build(production: bool = False, candidate: bool = False) -> dict[str, Any]:
     <div class="digest-layout"><aside class="section-index"><span>今日目录</span>{''.join(f'<a href="#section-{e(row["id"])}"><b>{i:02d}</b>{e(row["name"])}</a>' for i, row in enumerate(site_config['sections'], 1))}</aside><div class="digest-content">{section_markup(site_config, events, cards, publication_mode)}</div></div>
     <section class="methodology"><p class="eyebrow">METHOD NOTE</p><h2>这份版本刻意保留了“空白”</h2><div><p>{'AI 只接收许可范围内的证据包，输出必须通过 JSON Schema 与逐条来源引用校验；证据不足的候选不会进入站点。' if production else '当前中文稿只改写获授权的结构化公共数据，字段、局限和来源均可复核；没有把元数据标题扩写成报道。' if candidate else '没有模型配置，因此不翻译、不改写、不补背景；标题内容不自动升级为事实。证据不足的暗线、争议、更正与未来日历均保持空栏。'}</p><p>转载媒体不增加独立证据数；日期缺少时分秒就不虚构时间；接口失败只代表本轮覆盖缺口，不代表当地没有新闻。</p></div></section>
     <dialog id="evidence-dialog"><button class="dialog-close" type="button" aria-label="关闭">×</button><div id="evidence-content"></div></dialog>"""
-    (SITE_DIR / "index.html").write_text(page_shell("今日雷达", body, "digest", as_of, publication_mode), encoding="utf-8", newline="\n")
-    (SITE_DIR / "source-health.html").write_text(health_page(health, source_stats, publication_mode).replace("window.NEWS_STALE_HOURS=30", f"window.NEWS_STALE_HOURS={int(pipeline_config['publication']['stale_after_hours'])}"), encoding="utf-8", newline="\n")
-    (SITE_DIR / "coverage.html").write_text(coverage_page(site_config, coverage, source_stats, as_of, publication_mode), encoding="utf-8", newline="\n")
+    write_html(SITE_DIR / "index.html", page_shell("今日雷达", body, "digest", as_of, publication_mode))
+    write_html(SITE_DIR / "source-health.html", health_page(health, source_stats, publication_mode).replace("window.NEWS_STALE_HOURS=30", f"window.NEWS_STALE_HOURS={int(pipeline_config['publication']['stale_after_hours'])}"))
+    write_html(SITE_DIR / "coverage.html", coverage_page(site_config, coverage, source_stats, as_of, publication_mode))
     history = history_index(str(pipeline_config["archive"]["directory"]))
     history_rows = "".join(f'<article class="archive-row"><time>{e(row.get("as_of"))}</time><strong>{e(row.get("event_count"))} 条</strong><span>{e("；".join(row.get("coverage", {}).get("gaps", [])) or "覆盖目标已达到")}</span></article>' for row in history)
     history_content = history_rows or '<section class="empty-page"><span>01</span><h2>暂无历史版本</h2><p>只有完整通过发布闸门的版本才会进入归档。</p></section>'
@@ -342,8 +347,8 @@ def build(production: bool = False, candidate: bool = False) -> dict[str, Any]:
     correction_rows = [correction for event in events for correction in event.get("corrections", [])]
     correction_content = "".join(f'<article class="archive-row"><time>{e(row.get("at"))}</time><strong>{e(row.get("old_claim"))}</strong><span>{e(row.get("new_claim"))} · {e(row.get("reason"))}</span></article>' for row in correction_rows) or '<section class="empty-page"><span>00</span><h2>暂无更正记录</h2><p>更正必须保留旧主张、新主张、原因、时间和证据来源。</p></section>'
     corrections_body = f'<section class="page-hero compact"><p class="eyebrow">CORRECTION LOG</p><h1>更正日志</h1><p>删除不是更正机制；重要指控仍需人工审核。</p></section><section class="archive-list">{correction_content}</section>'
-    (SITE_DIR / "history.html").write_text(page_shell("历史记录", history_body, "history", as_of, publication_mode), encoding="utf-8", newline="\n")
-    (SITE_DIR / "corrections.html").write_text(page_shell("更正日志", corrections_body, "corrections", as_of, publication_mode), encoding="utf-8", newline="\n")
+    write_html(SITE_DIR / "history.html", page_shell("历史记录", history_body, "history", as_of, publication_mode))
+    write_html(SITE_DIR / "corrections.html", page_shell("更正日志", corrections_body, "corrections", as_of, publication_mode))
     return {"events": len(events), "as_of": as_of, "validation_checks": len(validation["checks"]), "output": str(SITE_DIR)}
 
 

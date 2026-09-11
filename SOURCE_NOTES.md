@@ -12,8 +12,9 @@
   https://www.usgs.gov/data-management/data-licensing
 - EBC 当前说明 Agência Brasil 内容可在注明来源时免费转载；生产白名单只使用 RSS 摘录，不抓文章页，并保留署名与原链。
   https://www.ebc.com.br/sobre/agencia-brasil
-- NASA有官方RSS目录，分新闻发布、最近内容及任务/主题。
+- NASA有官方RSS目录，分新闻发布、最近内容及任务/主题。官方媒体指南允许新闻媒体和信息性网站在注明NASA、不暗示背书并排除标注的第三方版权材料时使用NASA内容；本站仅使用News Releases文字摘录生成署名摘要，不复制图片或标志。
   https://www.nasa.gov/rss-feeds/
+  https://www.nasa.gov/nasa-brand-center/images-and-media/
 - 美联储有公告、演讲、数据等RSS目录。
   https://www.federalreserve.gov/feeds/feeds.htm
 - UNESCO世界遗产中心列有新闻RSS，但syndication条款对再发布要求事先书面授权；RSS存在不是公开转载许可。

@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-10T23:35:16.502661Z",
+  "as_of": "2026-09-11T00:31:49.248626Z",
   "publication_mode": "candidate",
   "events": [
     {
@@ -29,10 +29,10 @@
         "original_text": "1789080854162",
         "timezone": "UTC"
       },
-      "fetched_at": "2026-09-10T23:35:16.502661Z",
-      "as_of": "2026-09-10T23:35:16.502661Z",
-      "edition_cutoff": "2026-09-10T23:35:16.502661Z",
-      "generated_at": "2026-09-10T23:35:16.502661Z",
+      "fetched_at": "2026-09-11T00:31:49.248626Z",
+      "as_of": "2026-09-11T00:31:49.248626Z",
+      "edition_cutoff": "2026-09-11T00:31:49.248626Z",
+      "generated_at": "2026-09-11T00:31:49.248626Z",
       "published_success_at": null,
       "material_update": "USGS过去24小时目录新增或更新了这条4.9级地震记录。",
       "summary_zh": "美国地质调查局（USGS）的过去24小时地震数据记录显示，瓦努阿图 Sola以北偏西北65公里发生4.9级地震，震源深度约49.9公里，数据审核状态为“reviewed”。该数据条目的海啸标记为0。该记录不包含人员伤亡或设施损失结论。",
@@ -83,7 +83,7 @@
           "access_level": "authorized_feed",
           "upstream_origin": "usgs",
           "independence_group": "usgs",
-          "retrieved_at": "2026-09-10T23:35:16.502661Z",
+          "retrieved_at": "2026-09-11T00:31:49.248626Z",
           "evidence_method": "USGS GeoJSON字段抽取",
           "evidence_excerpt": "{\"event_id\":\"us7000tghk\",\"magnitude\":4.9,\"magnitude_type\":\"mb\",\"place\":\"65 km NNW of Sola, Vanuatu\",\"event_type\":\"earthquake\",\"review_status\":\"reviewed\",\"updated_at\":\"2026-09-10T23:18:39.040000Z\",\"longitude\":167.3321,\"latitude\":-13.3249,\"depth_km\":49.877,\"felt_reports\":null,\"community_intensity\":null,\"estimated_intensity\":null,\"alert\":null,\"tsunami_flag\":0,\"significance\":369}",
           "attribution": "U.S. Geological Survey",
@@ -141,10 +141,10 @@
         "original_text": "1789065880243",
         "timezone": "UTC"
       },
-      "fetched_at": "2026-09-10T23:35:16.502661Z",
-      "as_of": "2026-09-10T23:35:16.502661Z",
-      "edition_cutoff": "2026-09-10T23:35:16.502661Z",
-      "generated_at": "2026-09-10T23:35:16.502661Z",
+      "fetched_at": "2026-09-11T00:31:49.248626Z",
+      "as_of": "2026-09-11T00:31:49.248626Z",
+      "edition_cutoff": "2026-09-11T00:31:49.248626Z",
+      "generated_at": "2026-09-11T00:31:49.248626Z",
       "published_success_at": null,
       "material_update": "USGS过去24小时目录新增或更新了这条5.3级地震记录。",
       "summary_zh": "美国地质调查局（USGS）的过去24小时地震数据记录显示，东帝汶 Lospalos以东83公里发生5.3级地震，震源深度约10公里，数据审核状态为“reviewed”。该数据条目的海啸标记为0。该记录不包含人员伤亡或设施损失结论。",
@@ -195,7 +195,7 @@
           "access_level": "authorized_feed",
           "upstream_origin": "usgs",
           "independence_group": "usgs",
-          "retrieved_at": "2026-09-10T23:35:16.502661Z",
+          "retrieved_at": "2026-09-11T00:31:49.248626Z",
           "evidence_method": "USGS GeoJSON字段抽取",
           "evidence_excerpt": "{\"event_id\":\"us7000tgf2\",\"magnitude\":5.3,\"magnitude_type\":\"mb\",\"place\":\"83 km E of Lospalos, Timor Leste\",\"event_type\":\"earthquake\",\"review_status\":\"reviewed\",\"updated_at\":\"2026-09-10T19:04:20.040000Z\",\"longitude\":127.7505,\"latitude\":-8.5914,\"depth_km\":10,\"felt_reports\":null,\"community_intensity\":null,\"estimated_intensity\":null,\"alert\":null,\"tsunami_flag\":0,\"significance\":432}",
           "attribution": "U.S. Geological Survey",
@@ -227,43 +227,41 @@
       }
     },
     {
-      "event_id": "evt_f7be0c44a6369328",
-      "title_zh": "USGS记录：墨西哥 Puerto Madero以西南84公里发生4.5级地震",
-      "original_title": "M 4.5 - 84 km SW of Puerto Madero, Mexico",
+      "event_id": "evt_6dc61e83855c31e7",
+      "title_zh": "USGS记录：南部东太平洋海隆发生5.4级地震",
+      "original_title": "M 5.4 - southern East Pacific Rise",
       "topic_ids": [
         "disasters",
         "science"
       ],
       "region_ids": [
-        "north_america"
+        "oceania_pacific"
       ],
-      "countries": [
-        "墨西哥"
-      ],
+      "countries": [],
       "section_id": "society_world",
       "event_time": {
-        "value": "2026-09-10T13:29:03.015000Z",
+        "value": "2026-09-10T18:21:18.934000Z",
         "precision": "datetime",
-        "original_text": "1789046943015",
+        "original_text": "1789064478934",
         "timezone": "UTC"
       },
       "publication_time": {
-        "value": "2026-09-10T14:12:37.040000Z",
+        "value": "2026-09-10T20:31:21.259000Z",
         "precision": "datetime",
-        "original_text": "1789046943015",
+        "original_text": "1789064478934",
         "timezone": "UTC"
       },
-      "fetched_at": "2026-09-10T23:35:16.502661Z",
-      "as_of": "2026-09-10T23:35:16.502661Z",
-      "edition_cutoff": "2026-09-10T23:35:16.502661Z",
-      "generated_at": "2026-09-10T23:35:16.502661Z",
+      "fetched_at": "2026-09-11T00:31:49.248626Z",
+      "as_of": "2026-09-11T00:31:49.248626Z",
+      "edition_cutoff": "2026-09-11T00:31:49.248626Z",
+      "generated_at": "2026-09-11T00:31:49.248626Z",
       "published_success_at": null,
-      "material_update": "USGS过去24小时目录新增或更新了这条4.5级地震记录。",
-      "summary_zh": "美国地质调查局（USGS）的过去24小时地震数据记录显示，墨西哥 Puerto Madero以西南84公里发生4.5级地震，震源深度约10公里，数据审核状态为“reviewed”。该数据条目的海啸标记为0。该记录不包含人员伤亡或设施损失结论。",
+      "material_update": "USGS过去24小时目录新增或更新了这条5.4级地震记录。",
+      "summary_zh": "美国地质调查局（USGS）的过去24小时地震数据记录显示，南部东太平洋海隆发生5.4级地震，震源深度约10公里，数据审核状态为“reviewed”。该数据条目的海啸标记为0。该记录不包含人员伤亡或设施损失结论。",
       "claims": [
         {
           "id": "claim_1",
-          "text_zh": "USGS记录的地震震级为4.5，位置为墨西哥 Puerto Madero以西南84公里。",
+          "text_zh": "USGS记录的地震震级为5.4，位置为南部东太平洋海隆。",
           "kind": "fact",
           "source_ids": [
             "src_usgs_1"
@@ -296,20 +294,20 @@
         {
           "id": "src_usgs_1",
           "publisher": "美国地质调查局（USGS）",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tgb4",
-          "title": "M 4.5 - 84 km SW of Puerto Madero, Mexico",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tgey",
+          "title": "M 5.4 - southern East Pacific Rise",
           "source_time": {
-            "value": "2026-09-10T14:12:37.040000Z",
+            "value": "2026-09-10T20:31:21.259000Z",
             "precision": "datetime",
-            "original_text": "1789046943015",
+            "original_text": "1789064478934",
             "timezone": "UTC"
           },
           "access_level": "authorized_feed",
           "upstream_origin": "usgs",
           "independence_group": "usgs",
-          "retrieved_at": "2026-09-10T23:35:16.502661Z",
+          "retrieved_at": "2026-09-11T00:31:49.248626Z",
           "evidence_method": "USGS GeoJSON字段抽取",
-          "evidence_excerpt": "{\"event_id\":\"us7000tgb4\",\"magnitude\":4.5,\"magnitude_type\":\"mb\",\"place\":\"84 km SW of Puerto Madero, Mexico\",\"event_type\":\"earthquake\",\"review_status\":\"reviewed\",\"updated_at\":\"2026-09-10T14:12:37.040000Z\",\"longitude\":-92.8815,\"latitude\":14.0976,\"depth_km\":10,\"felt_reports\":null,\"community_intensity\":null,\"estimated_intensity\":null,\"alert\":null,\"tsunami_flag\":0,\"significance\":312}",
+          "evidence_excerpt": "{\"event_id\":\"us7000tgey\",\"magnitude\":5.4,\"magnitude_type\":\"mww\",\"place\":\"southern East Pacific Rise\",\"event_type\":\"earthquake\",\"review_status\":\"reviewed\",\"updated_at\":\"2026-09-10T20:31:21.259000Z\",\"longitude\":-109.1514,\"latitude\":-34.8341,\"depth_km\":10,\"felt_reports\":null,\"community_intensity\":null,\"estimated_intensity\":0,\"alert\":\"green\",\"tsunami_flag\":0,\"significance\":449}",
           "attribution": "U.S. Geological Survey",
           "license_url": "https://www.usgs.gov/data-management/data-licensing"
         }
@@ -318,7 +316,7 @@
       "analysis": {
         "why_it_matters": "这是一条可复核的地震监测记录，可用于定位需要继续关注的区域；单条地震目录不能证明已经造成人员伤亡或基础设施损失。",
         "mechanism": "震级描述释放能量的规模，震源深度和距聚居地位置会影响震感与潜在影响，但这些字段不足以单独判断灾情。",
-        "affected_groups": "墨西哥 Puerto Madero以西南84公里周边居民、交通与应急部门可能需要关注后续信息；实际影响范围尚无充分证据。",
+        "affected_groups": "南部东太平洋海隆周边居民、交通与应急部门可能需要关注后续信息；实际影响范围尚无充分证据。",
         "counter_evidence": "USGS会随更多台站数据修订震级、位置和深度；未出现人员报告或警报字段，不能据此断言当地没有影响。",
         "watch_next": "继续核对USGS事件页的参数修订，并等待当地应急部门关于震感、损失或预警的独立信息。"
       },
@@ -340,9 +338,9 @@
     }
   ],
   "source_health": {
-    "total": 13,
-    "preview_eligible": 2,
-    "ok": 13,
+    "total": 14,
+    "preview_eligible": 3,
+    "ok": 14,
     "empty": 0,
     "partial": 0,
     "not_configured": 0,
@@ -351,22 +349,22 @@
     "failed": 0
   },
   "source_stats": {
-    "planned_sources": 13,
-    "attempted_sources": 13,
-    "successful_sources": 13,
-    "time_eligible_sources": 13,
-    "evidence_eligible_sources": 1,
+    "planned_sources": 14,
+    "attempted_sources": 14,
+    "successful_sources": 14,
+    "time_eligible_sources": 14,
+    "evidence_eligible_sources": 2,
     "cited_sources": 1,
-    "fetched_candidates": 185,
-    "evidence_eligible_events": 8,
+    "fetched_candidates": 191,
+    "evidence_eligible_events": 15,
+    "analysis_candidates_selected": 6,
     "analyzed_events": 3
   },
   "coverage": {
-    "region_count": 3,
+    "region_count": 2,
     "topic_count": 2,
     "section_count": 1,
     "regions": [
-      "north_america",
       "oceania_pacific",
       "southeast_asia"
     ],
@@ -382,7 +380,7 @@
     "tech_business_share": 0.0,
     "tech_business_share_target_met": true,
     "gaps": [
-      "地区覆盖 3/5",
+      "地区覆盖 2/5",
       "领域覆盖 2/7"
     ]
   },

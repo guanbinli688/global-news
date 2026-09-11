@@ -1,25 +1,26 @@
 # 信息源健康诊断
 
-运行时间（UTC）：2026-09-10T23:35:16.502661Z
+运行时间（UTC）：2026-09-11T00:31:49.248626Z
 
 本报告只验证本地环境中的接口响应、格式和日期解析。它不构成转载许可，也不把候选源改为正式启用。测试只保存标题、链接和时间等元数据。
 
-- 已测试/检查：13 个
-- 可用于本地元数据预览：2 个
-- 正常：13 个；合法空列表：0 个；部分可用：0 个
+- 已测试/检查：14 个
+- 可用于本地元数据预览：3 个
+- 正常：14 个；合法空列表：0 个；部分可用：0 个
 - 未配置：0 个；需许可：0 个；过期：0 个；失败：0 个
 
 | 来源 | 接口 | 状态 | HTTP | 条目 | 日期可解析 | 最新时间 | 许可/使用边界 | 失败原因 |
 |---|---|---:|---:|---:|---:|---|---|---|
 | [BBC News](https://feeds.bbci.co.uk/news/world/rss.xml) | rss | ok | 200 | 23 | 23 | 2026-09-10T20:44:51Z | rights_review=pending; public_summary=False |  |
-| [The Guardian 卫报](https://www.theguardian.com/world/rss) | rss | ok | 200 | 40 | 40 | 2026-09-10T23:24:50Z | rights_review=pending; public_summary=False |  |
+| [The Guardian 卫报](https://www.theguardian.com/world/rss) | rss | ok | 200 | 40 | 40 | 2026-09-11T00:16:23Z | rights_review=pending; public_summary=False |  |
 | [Deutsche Welle 德国之声](https://rss.dw.com/rdf/rss-en-world) | rss | ok | 200 | 13 | 13 | 2026-09-10T19:08:00Z | rights_review=pending; public_summary=False |  |
 | [France 24](https://www.france24.com/en/rss) | rss | ok | 200 | 23 | 23 | 2026-09-10T22:55:18Z | rights_review=pending; public_summary=False |  |
-| [Al Jazeera 半岛电视台](https://www.aljazeera.com/xml/rss/all.xml) | rss | ok | 200 | 25 | 25 | 2026-09-10T23:08:55Z | rights_review=pending; public_summary=False |  |
+| [Al Jazeera 半岛电视台](https://www.aljazeera.com/xml/rss/all.xml) | rss | ok | 200 | 25 | 25 | 2026-09-11T00:24:24Z | rights_review=pending; public_summary=False |  |
 | [Dawn 黎明报](https://www.dawn.com/feeds/home) | rss | ok | 200 | 25 | 25 | 2026-09-10T18:11:55Z | rights_review=pending; public_summary=False |  |
 | [Africanews](https://www.africanews.com/feed/) | rss | ok | 200 | 40 | 40 | 2026-09-10T20:50:46Z | rights_review=pending; public_summary=False |  |
-| [Agência Brasil 巴西通讯社](https://agenciabrasil.ebc.com.br/rss/ultimasnoticias/feed.xml) | rss | ok | 200 | 10 | 10 | 2026-09-10T22:58:00Z | rights_review=approved; public_summary=True |  |
-| [RNZ Pacific](https://www.rnz.co.nz/rss/world.xml) | rss | ok | 200 | 3 | 3 | 2026-09-10T23:23:55Z | rights_review=pending; public_summary=False |  |
+| [Agência Brasil 巴西通讯社](https://agenciabrasil.ebc.com.br/rss/ultimasnoticias/feed.xml) | rss | ok | 200 | 10 | 10 | 2026-09-10T23:25:00Z | rights_review=approved; public_summary=True |  |
+| [RNZ Pacific](https://www.rnz.co.nz/rss/world.xml) | rss | ok | 200 | 2 | 2 | 2026-09-10T23:23:55Z | rights_review=pending; public_summary=False |  |
+| [NASA](https://www.nasa.gov/news-release/feed/) | rss | ok | 200 | 10 | 10 | 2026-09-10T21:11:32Z | rights_review=approved; public_summary=True |  |
 | [UN News 联合国新闻](https://news.un.org/feed/subscribe/en/news/all/rss.xml) | rss | ok | 200 | 30 | 30 | 2026-09-10T12:00:00Z | rights_review=pending; public_summary=False |  |
 | [Mongabay](https://news.mongabay.com/feed/) | rss | ok | 200 | 32 | 32 | 2026-09-10T20:38:33Z | rights_review=pending; public_summary=False |  |
 | [美联储](https://www.federalreserve.gov/feeds/press_all.xml) | rss | ok | 200 | 20 | 20 | 2026-09-10T20:00:00Z | rights_review=pending; public_summary=False |  |

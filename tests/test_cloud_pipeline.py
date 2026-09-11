@@ -13,7 +13,7 @@ from app.analyze import BudgetExceeded, DailyBudget, OpenAIAnalyzer
 from app.cluster import cluster_candidates
 from app.collect import in_fresh_window, in_future_window, parse_ics_candidates, parse_rss_candidates
 from app.common import load_json, load_yaml
-from app.pipeline import environment_gate_enabled, run_pipeline
+from app.pipeline import environment_gate_enabled, run_pipeline, select_analysis_candidates
 from app.verify import assess_cluster, coverage_report
 
 
@@ -166,7 +166,7 @@ class CloudPipelineTests(unittest.TestCase):
     def test_only_explicitly_reviewed_sources_are_open(self):
         config = load_yaml(ROOT / "config" / "production_sources.yaml")
         approved = {source["id"] for source in config["sources"] if source["rights_review"] == "approved"}
-        self.assertEqual(approved, {"agencia_brasil", "usgs"})
+        self.assertEqual(approved, {"agencia_brasil", "nasa", "usgs"})
         for source in config["sources"]:
             if source["id"] in approved:
                 self.assertTrue(source["allow_substantive_analysis"])
@@ -175,6 +175,28 @@ class CloudPipelineTests(unittest.TestCase):
             else:
                 self.assertFalse(source["allow_substantive_analysis"])
                 self.assertFalse(source["allow_public_summary"])
+
+    def test_source_group_cap_is_applied_before_paid_analysis(self):
+        rows = [
+            {"cluster": {"items": [candidate(f"same-{index}", f"Story {index}", group="wire")]}}
+            for index in range(6)
+        ]
+        rows.extend([
+            {"cluster": {"items": [candidate("official-a", "Official A", group="agency-a", role="primary_document")]}},
+            {"cluster": {"items": [candidate("official-b", "Official B", group="agency-b", role="primary_document")]}},
+        ])
+        selected = select_analysis_candidates(rows, maximum_events=10, max_per_source_group=3)
+        groups = [row["cluster"]["items"][0]["independence_group"] for row in selected]
+        self.assertEqual(groups.count("wire"), 3)
+        self.assertIn("agency-a", groups)
+        self.assertIn("agency-b", groups)
+
+        mixed = {"cluster": {"items": [
+            candidate("wire-mixed", "Mixed wire", group="wire"),
+            candidate("agency-c", "Mixed official", group="agency-c", role="primary_document"),
+        ]}}
+        selected_with_mixed = select_analysis_candidates(rows[:3] + [mixed], maximum_events=10, max_per_source_group=3)
+        self.assertEqual(len(selected_with_mixed), 3)
 
     def test_workflow_has_schedule_gates_retention_and_failure_alert(self):
         path = ROOT / ".github" / "workflows" / "daily-news.yml"

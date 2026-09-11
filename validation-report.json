@@ -55,12 +55,12 @@
     {
       "name": "production IDs are registered",
       "passed": true,
-      "detail": "production_count=13"
+      "detail": "production_count=14"
     },
     {
       "name": "production IDs unique",
       "passed": true,
-      "detail": "production_count=13"
+      "detail": "production_count=14"
     },
     {
       "name": "calendar IDs are registered",

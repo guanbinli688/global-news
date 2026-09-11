@@ -15,7 +15,7 @@
    - 只有审核通过的来源才能改成 `rights_review: approved`。
    - 只有允许把内容送入模型时才设 `allow_substantive_analysis: true`；只有允许公开自写摘要时才设 `allow_public_summary: true`。
    - 只有明确允许页面抓取时才设 `article_fetch: true`。否则保持仅 RSS/API 或元数据模式。
-   - 当前仅 Agência Brasil（署名转载）与 USGS（公共数据）已按官方条款放行；其余 11 个候选保持 `pending`，只能用于发现线索和交叉核验，不能进入正文或 AI 证据包。
+   - 当前 Agência Brasil（须署名）、NASA News Releases（只用署名文字摘录）与 USGS（公共数据）已按当前用途放行；其余候选保持 `pending`，只能用于发现线索和交叉核验，不能进入正文或 AI 证据包。
    - 放行来源仍须满足独立双来源或一手资料规则；授权本身不等于证据充分。
    - “未来24小时”还需要在 `config/calendar_sources.yaml` 添加经过审核的官方 RSS/Atom/ICS 日历；空配置时该栏目保持空白。
 
