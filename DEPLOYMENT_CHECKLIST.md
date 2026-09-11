@@ -78,7 +78,7 @@
 1. 上传上述文件，但保持三个 `ENABLE_*` 变量为 `false`。
 2. 手动运行 `workflow_dispatch → validate`，检查 24 小时采集和 diagnostics artifact。此时不会调用 AI 或部署。
 3. 完成来源许可审核，填写模型、价格、token 与美元预算，把 `ENABLE_AI_ANALYSIS` 改为 `true`，仍保持 `ENABLE_PUBLISH=false`。
-4. 手动运行 `workflow_dispatch → production`。检查生成事件、逐条引用、覆盖缺口和预算报告；因为发布开关仍关闭，不会部署。
+4. 手动运行 `workflow_dispatch → production`。从 diagnostics artifact 的 `state/candidate-edition.json` 检查生成事件、逐条引用、覆盖缺口和预算报告；因为发布开关仍关闭，不会部署。
 5. 把结果交给你确认。确认后才把 `ENABLE_PUBLISH=true`，再次手动运行 production，完成首次 Pages 发布。
 6. 首次发布验证通过后，才把 `ENABLE_SCHEDULED_PUBLISH=true`。计划时间为 UTC 23:37，即北京时间次日 07:37；GitHub schedule 不是准点 SLA。
 

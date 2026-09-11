@@ -124,6 +124,7 @@ jobs:
           path: |
             state/run-report.json
             state/run-source-health.json
+            state/candidate-edition.json
             source-health.json
             source-health.md
             validation-report.json

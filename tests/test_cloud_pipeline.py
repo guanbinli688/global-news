@@ -288,6 +288,7 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertEqual(parsed["jobs"]["pipeline"]["env"]["ENABLE_PUBLISH"], "${{ vars.ENABLE_PUBLISH }}")
         self.assertIn("retention-days: 90", raw)
         self.assertIn("name: runtime-state", raw)
+        self.assertIn("state/candidate-edition.json", raw)
         self.assertIn("state/budget-ledger.json", raw)
         self.assertIn("state/analysis-cache.json", raw)
         self.assertIn("issues: write", raw)
