@@ -39,6 +39,23 @@ class BudgetExceeded(RuntimeError):
     pass
 
 
+class AnalysisRequestRejected(RuntimeError):
+    """A request rejected before generation, with no billable model usage."""
+
+
+def structured_output_schema(schema: Any) -> Any:
+    """Remove API-unsupported constraints while retaining local validation."""
+    if isinstance(schema, dict):
+        return {
+            key: structured_output_schema(value)
+            for key, value in schema.items()
+            if key != "uniqueItems"
+        }
+    if isinstance(schema, list):
+        return [structured_output_schema(value) for value in schema]
+    return schema
+
+
 def enabled_from_environment(ai_config: dict[str, Any]) -> bool:
     return os.environ.get(str(ai_config["provider_enabled_env"]), "").casefold() == "true"
 
@@ -105,6 +122,11 @@ class DailyBudget:
         self.input_tokens += input_tokens
         self.output_tokens += output_tokens
 
+    def release(self, input_tokens: int, output_tokens: int) -> None:
+        self.events = max(0, self.events - 1)
+        self.input_tokens = max(0, self.input_tokens - input_tokens)
+        self.output_tokens = max(0, self.output_tokens - output_tokens)
+
     def record_actual(self, input_tokens: int, output_tokens: int) -> None:
         self.actual_input_tokens += input_tokens
         self.actual_output_tokens += output_tokens
@@ -164,7 +186,9 @@ class OpenAIAnalyzer:
                 if not should_retry or attempt >= retries:
                     message = exc.read(2000).decode("utf-8", errors="replace")
                     exc.close()
-                    raise RuntimeError(f"OpenAI API HTTP {exc.code}: {message}")
+                    rejected_statuses = {400, 401, 403, 404, 405, 413, 415, 422}
+                    error_type = AnalysisRequestRejected if exc.code in rejected_statuses else RuntimeError
+                    raise error_type(f"OpenAI API HTTP {exc.code}: {message}")
                 retry_after = exc.headers.get("Retry-After") if exc.headers else None
                 delay = min(30, int(retry_after)) if retry_after and retry_after.isdigit() else 2 ** attempt
                 exc.close()
@@ -260,9 +284,15 @@ class OpenAIAnalyzer:
             "instructions": instructions,
             "input": prompt,
             "max_output_tokens": output_limit,
-            "text": {"format": {"type": "json_schema", "name": "news_analysis", "schema": self.schema, "strict": True}},
+            "text": {"format": {"type": "json_schema", "name": "news_analysis", "schema": structured_output_schema(self.schema), "strict": True}},
         }
-        response = self._request(body)
+        try:
+            response = self._request(body)
+        except AnalysisRequestRejected:
+            self.budget.release(reserved_input, reserved_output)
+            if ledger is not None:
+                ledger.release(ledger_key)
+            raise
         if response.get("status") != "completed":
             raise RuntimeError(f"analysis response was not completed: {response.get('status')}")
         output_text = response.get("output_text")

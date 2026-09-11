@@ -128,6 +128,11 @@ class NextBuildTests(unittest.TestCase):
             restored.commit("event", 80, 40, 1.0, 1.0)
             self.assertEqual(restored.report()["completed_events"], 1)
 
+            release_ledger = BudgetLedger(root / "release.json", now, "Asia/Shanghai", "model")
+            release_ledger.reserve("rejected", 100, 100, 1.0, 1.0, limits)
+            release_ledger.release("rejected")
+            self.assertEqual(release_ledger.report()["pending_reservations"], 0)
+
     def test_archive_directory_uses_beijing_edition_date(self):
         instant = datetime(2026, 9, 10, 23, 37, tzinfo=timezone.utc)
         target = archive_target(Path("history"), instant, "Asia/Shanghai")

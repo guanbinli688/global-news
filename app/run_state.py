@@ -138,6 +138,11 @@ class BudgetLedger:
         self.payload["completed_events"] = int(self.payload.get("completed_events", 0)) + 1
         write_json(self.path, self.payload)
 
+    def release(self, key: str) -> None:
+        """Release a reservation only when the provider rejected before generation."""
+        if self.payload["pending_reservations"].pop(key, None) is not None:
+            write_json(self.path, self.payload)
+
     def report(self) -> dict[str, Any]:
         pending_input, pending_output, pending_cost = self._pending_totals()
         return {

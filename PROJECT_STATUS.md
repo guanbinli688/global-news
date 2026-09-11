@@ -21,16 +21,17 @@
 
 ## 实际验收结果
 
-- 完整本地测试：`40/40` 通过；配置检查：`23/23` 通过。
-- 新增 NASA 后的真实联网候选运行：截止 `2026-09-11T00:31:49.248626Z`，14/14 个配置源成功响应，取得 191 个 24 小时候选，聚为 178 个事件，15 个通过证据门槛；付费前队列按 USGS/NASA 各最多三条压缩到 6 个，零付费模式最终保留 3 条真实 USGS 中文候选。
+- 完整本地测试：`41/41` 通过；配置检查：`23/23` 通过。
+- 新增 NASA 后的真实联网候选运行：截止 `2026-09-11T00:50:53.381514Z`，14/14 个配置源成功响应，取得 191 个 24 小时候选，聚为 178 个事件，15 个通过证据门槛；付费前队列按 USGS/NASA 各最多三条压缩到 6 个，零付费模式最终保留 3 条真实 USGS 中文候选。
 - 当前候选覆盖：东南亚、大洋洲/太平洋；领域为灾害与科学。地区 `2/5`、领域 `2/7`，不足之处已显示，不凑数。
 - `ENABLE_AI_ANALYSIS=false`、`ENABLE_PUBLISH=false`；付费调用 0 次，费用 0 美元，Cookie 0，全文发布 0。由于仅 3 条，低于 5 条门槛，`publish_ready=false`，未生成正式日报、未归档为成功版、未部署。
 - 本地 HTTP：`index.html`、`data.json`、`coverage.html`、`source-health.html` 均返回 200。当前环境没有可连接的浏览器实例，因此桌面/手机真实截图与交互式视觉验收仍标为未验证；DOM/CSS/JS 自动测试已通过。
 - GitHub 首次 `workflow_dispatch` 运行 `34544476818` 实际为 `run_mode=validate`，Ubuntu/Python 3.13 的安装、采集、检查和诊断 artifact 均成功；它取得 185 个候选、生成 3 条确定性 USGS 中文候选，但 `publish_ready=false`，未调用 AI、未生成正式 bundle、未部署。
+- 首次 `production` 运行 `34547840146` 正确启用了 AI、模型和预算，但 OpenAI 在生成前以 HTTP 400 拒绝 schema 中不支持的 `uniqueItems`；实际输入/输出 token 均为 0、估算费用为 0。质量闸门阻止了 Pages，失败 Issue 告警成功。修复后 API schema 会去除该不支持关键字，本地 schema 仍执行数组唯一性校验；workflow 也已补齐 `ENABLE_PUBLISH` 环境变量。
 
 ## 尚未真实验证 / 外部阻塞
 
 - Agência Brasil、NASA 与 USGS 已通过当前用途审核；Agência Brasil 的单一报道仍需独立证据，不能因许可已通过就自动入选。其余生产候选源保持许可待审。
-- GitHub 仓库目前没有 Actions Secrets 或 Variables；`OPENAI_API_KEY`、精确模型、价格与事件/token/美元预算均缺失。
-- GitHub Pages 尚未启用，`github-pages` 环境不存在；workflow 的 deploy job 已声明 `pages:write` 与 `id-token:write`，但首次 Pages 创建/公开部署尚未执行。
-- `production` 模式、真实 AI、Pages 部署和真正的 `schedule` 均未运行。定时发布变量保持缺失/关闭。
+- GitHub 已配置 `OPENAI_API_KEY` Secret，以及 `gpt-5.6-terra`、3 个事件、75,000 输入 token、14,400 输出 token、0.35 美元等预算 Variables；Secret 值未进入仓库或日志。
+- GitHub Pages 已按 Actions workflow 模式创建；workflow 的 deploy job 已声明 `pages:write` 与 `id-token:write`，但尚无通过质量闸门的首次公开部署。
+- `production` 模式和 AI 接口已真实运行，但首次请求在生成前被 schema 校验拒绝，尚无真实 AI 输出或 Pages 部署。`ENABLE_SCHEDULED_PUBLISH=false`，真正的 `schedule` 仍未运行。

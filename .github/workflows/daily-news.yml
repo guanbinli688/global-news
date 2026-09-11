@@ -34,6 +34,7 @@ jobs:
     env:
       PYTHONUTF8: "1"
       ENABLE_AI_ANALYSIS: ${{ vars.ENABLE_AI_ANALYSIS }}
+      ENABLE_PUBLISH: ${{ vars.ENABLE_PUBLISH }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       NEWS_AI_MODEL: ${{ vars.NEWS_AI_MODEL }}
       NEWS_AI_MAX_EVENTS: ${{ vars.NEWS_AI_MAX_EVENTS }}

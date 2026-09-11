@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 import yaml
 
-from app.analyze import BudgetExceeded, DailyBudget, OpenAIAnalyzer
+from app.analyze import AnalysisRequestRejected, BudgetExceeded, DailyBudget, OpenAIAnalyzer
 from app.cluster import cluster_candidates
 from app.collect import in_fresh_window, in_future_window, parse_ics_candidates, parse_rss_candidates
 from app.common import load_json, load_yaml
@@ -141,9 +141,34 @@ class CloudPipelineTests(unittest.TestCase):
         result, sources = analyzer.analyze(cluster, "2026-09-10T13:00:00Z", ["controversies", "corrections"])
         self.assertFalse(analyzer.sent["store"])
         self.assertEqual(analyzer.sent["text"]["format"]["type"], "json_schema")
+        self.assertNotIn("uniqueItems", json.dumps(analyzer.sent["text"]["format"]["schema"]))
+        self.assertTrue(analyzer.schema["properties"]["topic_ids"]["uniqueItems"])
         self.assertEqual(result["claims"][0]["source_ids"], ["src_1", "src_2"])
         self.assertEqual(len(sources), 2)
         self.assertNotIn(analyzer.api_key, json.dumps(analyzer.sent))
+
+    def test_rejected_request_releases_nonbillable_reservation(self):
+        class Ledger:
+            pending = False
+
+            def reserve(self, *args, **kwargs):
+                self.pending = True
+
+            def release(self, key):
+                self.pending = False
+
+        analyzer = StubAnalyzer()
+        analyzer.ledger = Ledger()
+
+        def reject(body):
+            raise AnalysisRequestRejected("OpenAI API HTTP 400: invalid schema")
+
+        analyzer._request = reject
+        cluster = {"items": [candidate("one", "Policy decision"), candidate("two", "Policy decision")]}
+        with self.assertRaises(AnalysisRequestRejected):
+            analyzer.analyze(cluster, "2026-09-10T13:00:00Z", ["controversies", "corrections"])
+        self.assertEqual(analyzer.budget.events, 0)
+        self.assertFalse(analyzer.ledger.pending)
 
     def test_validate_mode_can_force_ai_off_even_if_repository_variable_is_on(self):
         with patch.dict(os.environ, {"ENABLE_AI_ANALYSIS": "true"}, clear=False):
@@ -205,6 +230,7 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertIn("schedule", parsed["on"])
         self.assertIn("ENABLE_SCHEDULED_PUBLISH", raw)
         self.assertIn("ENABLE_PUBLISH", raw)
+        self.assertEqual(parsed["jobs"]["pipeline"]["env"]["ENABLE_PUBLISH"], "${{ vars.ENABLE_PUBLISH }}")
         self.assertIn("retention-days: 90", raw)
         self.assertIn("name: runtime-state", raw)
         self.assertIn("state/budget-ledger.json", raw)
