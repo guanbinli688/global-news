@@ -1,7 +1,7 @@
 schema_version: '1.0'
 prepared_on: '2026-09-10'
 purpose: 国际综合新闻站候选信息源目录，不是已经连通的爬虫配置。
-source_entry_count: 70
+source_entry_count: 78
 global_policy:
   enable_only_after_runtime_and_rights_review: true
   do_not_guess_api_endpoints: true
@@ -1781,6 +1781,190 @@ sources:
     status: candidate_not_individually_verified
     checked_on: null
     url: https://www.unwomen.org/en/news-stories
+- id: doj
+  name: 美国司法部
+  homepage_url: https://www.justice.gov/news
+  source_type: institution
+  suggested_regions: [north_america]
+  suggested_topics: [law, politics, business]
+  publisher_group_hint: doj
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: official_feed_tested_2026-09-10
+  rights_status: approved_for_attributed_public_domain_text_no_media
+  access_method: official_rss
+  endpoints:
+  - url: https://www.justice.gov/news/rss?m=1
+    format: rss
+    status: tested_200_and_parsed_2026-09-10
+  notes:
+  - 只证明司法部的行动、文件或表述；指控、起诉与争议事实仍须归因并默认排除无人值守发布。
+  reference_review:
+    status: official_rights_page_and_feed_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.justice.gov/legalpolicies
+- id: fda
+  name: 美国食品药品监督管理局
+  homepage_url: https://www.fda.gov/news-events/fda-newsroom
+  source_type: institution
+  suggested_regions: [north_america, global]
+  suggested_topics: [health, food, science]
+  publisher_group_hint: fda
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: official_feed_tested_2026-09-10
+  rights_status: approved_for_attributed_public_domain_text_no_media
+  access_method: official_rss
+  endpoints:
+  - url: https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml
+    format: rss
+    status: tested_200_and_parsed_2026-09-10
+  notes:
+  - 医疗与药品信息必须保留监管语境，不改写为个人医疗建议。
+  reference_review:
+    status: official_rights_page_and_feed_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.fda.gov/about-fda/about-website/website-policies
+- id: nih
+  name: 美国国立卫生研究院
+  homepage_url: https://www.nih.gov/news-events/news-releases
+  source_type: institution
+  suggested_regions: [north_america, global]
+  suggested_topics: [health, science]
+  publisher_group_hint: nih
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: feed_reachable_but_dates_unparsed_2026-09-10
+  rights_status: approved_for_attributed_public_domain_text_no_media
+  access_method: official_rss
+  endpoints:
+  - url: https://www.nih.gov/news-releases/feed.xml
+    format: rss
+    status: tested_200_dates_missing_excluded_from_24h
+  notes:
+  - RSS 缺少机器可读发布时间时不进入24小时候选，不能以抓取时间代替发布时间。
+  reference_review:
+    status: official_rights_page_and_feed_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.nih.gov/about-nih/frequently-asked-questions
+- id: gov_uk
+  name: 英国政府 GOV.UK
+  homepage_url: https://www.gov.uk/search/news-and-communications
+  source_type: institution
+  suggested_regions: [europe_russia, global]
+  suggested_topics: [politics, economy, society, education, law]
+  publisher_group_hint: gov_uk
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: official_atom_feed_tested_2026-09-10
+  rights_status: approved_under_open_government_licence_v3
+  access_method: official_atom
+  endpoints:
+  - url: https://www.gov.uk/search/news-and-communications.atom
+    format: atom
+    status: tested_200_and_parsed_2026-09-10
+  notes:
+  - 政府声明属于一手机构材料，不自动构成对其政策效果或争议事实的独立核验。
+  reference_review:
+    status: official_rights_page_and_feed_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.gov.uk/help/reuse-govuk-content
+- id: european_commission
+  name: 欧盟委员会
+  homepage_url: https://commission.europa.eu/news-and-media/highlighted-news_en
+  source_type: institution
+  suggested_regions: [europe_russia, global]
+  suggested_topics: [politics, economy, business, climate, society]
+  publisher_group_hint: european_commission
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: official_feed_tested_2026-09-10
+  rights_status: approved_under_cc_by_4_0_for_eu_owned_text
+  access_method: official_rss
+  endpoints:
+  - url: https://commission.europa.eu/node/29665/rss_en
+    format: rss
+    status: tested_200_and_parsed_2026-09-10
+  notes:
+  - 只使用欧盟自有文字并署名；排除图片、标志及另有权利说明的第三方材料。
+  reference_review:
+    status: official_reuse_policy_and_feed_reviewed
+    checked_on: '2026-09-10'
+    url: https://digital-strategy.ec.europa.eu/en/news/rules-reuse-commission-information
+- id: horizon_magazine
+  name: Horizon 欧盟科研杂志
+  homepage_url: https://projects.research-and-innovation.ec.europa.eu/en/horizon-magazine
+  source_type: newsroom
+  suggested_regions: [europe_russia, global]
+  suggested_topics: [science, health, climate, energy]
+  publisher_group_hint: horizon_magazine
+  priority: supplementary
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: official_feed_tested_2026-09-10
+  rights_status: approved_under_cc_by_4_0_with_byline
+  access_method: official_rss
+  endpoints:
+  - url: https://projects.research-and-innovation.ec.europa.eu/horizon-magazine/articles.xml
+    format: rss
+    status: tested_200_and_parsed_2026-09-10
+  notes:
+  - 必须保留作者署名、原文链接和Horizon来源说明；不使用未单独核权的图片。
+  reference_review:
+    status: official_republication_terms_and_feed_reviewed
+    checked_on: '2026-09-10'
+    url: https://projects.research-and-innovation.ec.europa.eu/en/horizon-magazine/republish-our-stories
+- id: global_voices
+  name: Global Voices
+  homepage_url: https://globalvoices.org/
+  source_type: newsroom
+  suggested_regions: [global]
+  suggested_topics: [society, culture, politics, law]
+  publisher_group_hint: global_voices
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: official_feed_tested_2026-09-10
+  rights_status: approved_under_cc_by_3_0_with_byline
+  access_method: official_rss
+  endpoints:
+  - url: https://globalvoices.org/feed/
+    format: rss
+    status: tested_200_and_parsed_2026-09-10
+  notes:
+  - 必须同时署名作者与Global Voices并链接原文；转载来源仍按其真正上游出处判断独立性。
+  reference_review:
+    status: site_license_and_feed_reviewed
+    checked_on: '2026-09-10'
+    url: https://globalvoices.org/
+- id: nist
+  name: 美国国家标准与技术研究院
+  homepage_url: https://www.nist.gov/news-events/news
+  source_type: institution
+  suggested_regions: [north_america, global]
+  suggested_topics: [science, business, energy]
+  publisher_group_hint: nist
+  priority: core
+  ingestion_enabled: false
+  public_republication_enabled: false
+  runtime_test_status: official_feed_and_article_fetch_tested_2026-09-10
+  rights_status: approved_for_attributed_nist_text_unless_marked
+  access_method: official_rss_plus_robots_permitted_article
+  endpoints:
+  - url: https://www.nist.gov/news-events/news/rss.xml
+    format: rss
+    status: tested_200_and_parsed_2026-09-10
+  notes:
+  - 正文仅从语义化main/article区域提取；不使用页面图片、导航、标志或标明版权的第三方材料。
+  reference_review:
+    status: official_rights_page_feed_and_robots_reviewed
+    checked_on: '2026-09-10'
+    url: https://www.nist.gov/copyrights-disclaimers
 optional_social_discovery:
 - platform: X
   purpose: 线索与传播观察，不能单独确认重大争议事实

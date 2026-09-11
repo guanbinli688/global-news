@@ -22,7 +22,7 @@ from .run_state import AnalysisCache, evidence_cache_key
 from .source_diagnostics import markdown_report
 from .structured_analysis import analyze_usgs, can_analyze_structured
 from .validate import validate_configuration
-from .verify import assess_cluster, balance_events, coverage_report, editorial_event_safe, preview_payload_safe, validate_claim_evidence, validate_claim_sources, validate_event_times
+from .verify import assess_cluster, balance_events, coverage_report, editorial_event_safe, preview_payload_safe, publication_quality_gate, validate_claim_evidence, validate_claim_sources, validate_event_times
 
 
 def utc_now() -> datetime:
@@ -321,11 +321,13 @@ def run_pipeline(
     coverage = coverage_report(valid_events, pipeline_config["coverage"])
     minimum = int(pipeline_config["publication"]["minimum_publishable_events"])
     allowed_methods = set(pipeline_config["publication"].get("allowed_analysis_methods", []))
-    publish_ready = (
-        len(valid_events) >= minimum
-        and all(event.get("analysis_method") in allowed_methods for event in valid_events)
-        and not any(event["human_review_required"] for event in valid_events)
-    )
+    quality_gate = publication_quality_gate(valid_events, coverage, pipeline_config["publication"])
+    gate_reasons = list(quality_gate["reasons"])
+    if not all(event.get("analysis_method") in allowed_methods for event in valid_events):
+        gate_reasons.append("one or more analysis methods are not approved for publication")
+    if any(event["human_review_required"] for event in valid_events):
+        gate_reasons.append("one or more events require human review")
+    publish_ready = not gate_reasons
     publication_gate_name = str(pipeline_config["publication"]["publication_gate_env"])
     publish_enabled = environment_gate_enabled(publication_gate_name)
     production_bundle_built = publish_ready and publish_enabled
@@ -336,6 +338,7 @@ def run_pipeline(
         "status": "production_built" if production_bundle_built else "publish_ready" if publish_ready else "blocked",
         "publish_ready": publish_ready, "candidate_count": len(candidates), "cluster_count": len(clusters),
         "evidence_eligible_count": len(eligible), "event_count": len(valid_events), "minimum_event_count": minimum,
+        "publication_quality_gate": {**quality_gate, "passed": publish_ready, "reasons": gate_reasons},
         "analysis_queue_count": len(analysis_queue),
         "ai_enabled": ai_enabled, "analysis_errors": analysis_errors[:30], "coverage": coverage,
         "source_stats": source_stats,

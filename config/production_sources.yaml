@@ -149,6 +149,148 @@ sources:
     allow_public_summary: false
     article_fetch: false
 
+  - id: doj
+    url: "https://www.justice.gov/news/rss?m=1"
+    interface_type: rss
+    role: primary_institution
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://www.justice.gov/legalpolicies"
+    license_note: >-
+      DOJ states that its website information is public domain unless otherwise
+      indicated. Use only DOJ-authored text excerpts, attribute the department,
+      and do not reuse seals, logos, photos, graphics, or third-party material.
+      Charges, accusations, and other unresolved allegations remain excluded
+      from unattended publication.
+    attribution_required: "U.S. Department of Justice"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
+  - id: fda
+    url: "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml"
+    interface_type: rss
+    role: primary_institution
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://www.fda.gov/about-fda/about-website/website-policies"
+    license_note: >-
+      FDA states that its website text and graphics are public domain unless
+      otherwise noted. This pipeline uses attributed text excerpts only and
+      excludes agency marks, images, and third-party material.
+    attribution_required: "U.S. Food and Drug Administration"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
+  - id: nih
+    url: "https://www.nih.gov/news-releases/feed.xml"
+    interface_type: rss
+    role: primary_institution
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://www.nih.gov/about-nih/frequently-asked-questions"
+    license_note: >-
+      NIH says most NIH.gov information is public domain. Use attributed text
+      excerpts only; exclude third-party material and images. Items without a
+      machine-readable publication datetime fail the 24-hour gate.
+    attribution_required: "U.S. National Institutes of Health"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
+  - id: gov_uk
+    url: "https://www.gov.uk/search/news-and-communications.atom"
+    interface_type: atom
+    role: primary_institution
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://www.gov.uk/help/reuse-govuk-content"
+    license_note: >-
+      GOV.UK content is reusable under the Open Government Licence subject to
+      its attribution and exception terms. Use attributed feed text only and
+      exclude third-party material, personal data, and protected marks.
+    attribution_required: "GOV.UK / Open Government Licence v3.0"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
+  - id: european_commission
+    url: "https://commission.europa.eu/node/29665/rss_en"
+    interface_type: rss
+    role: primary_institution
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://digital-strategy.ec.europa.eu/en/news/rules-reuse-commission-information"
+    license_note: >-
+      European Commission-owned content is reusable by default under CC BY 4.0,
+      with attribution and without implying endorsement. Use text excerpts only
+      and exclude third-party works, marks, images, and personal-data material.
+    attribution_required: "European Commission / CC BY 4.0"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
+  - id: horizon_magazine
+    url: "https://projects.research-and-innovation.ec.europa.eu/horizon-magazine/articles.xml"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://projects.research-and-innovation.ec.europa.eu/en/horizon-magazine/republish-our-stories"
+    license_note: >-
+      Horizon Magazine expressly licenses its articles under CC BY 4.0 and
+      requires the journalist byline, original link, and publication credit.
+      The collector preserves the feed author when supplied and uses no images.
+    attribution_required: "Horizon, the EU Research and Innovation Magazine"
+    credit_feed_author: true
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
+  - id: global_voices
+    url: "https://globalvoices.org/feed/"
+    interface_type: rss
+    role: independent_newsroom
+    content_mode: feed_excerpt
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://globalvoices.org/"
+    license_note: >-
+      Global Voices marks the site CC BY 3.0 and requires attribution to the
+      author and Global Voices with a link to the original. The collector keeps
+      the feed author credit and uses text excerpts only.
+    attribution_required: "Global Voices / CC BY 3.0"
+    credit_feed_author: true
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: false
+
+  - id: nist
+    url: "https://www.nist.gov/news-events/news/rss.xml"
+    interface_type: rss
+    role: primary_institution
+    content_mode: article_html
+    rights_review: approved
+    rights_checked_on: "2026-09-10"
+    terms_url: "https://www.nist.gov/copyrights-disclaimers"
+    license_note: >-
+      NIST says unmarked NIST site information may be copied or distributed
+      with appropriate credit. Fetch only NIST-hosted news pages allowed by
+      robots.txt, extract semantic article text, and exclude marked copyrighted
+      or third-party material and all images.
+    attribution_required: "National Institute of Standards and Technology"
+    allow_substantive_analysis: true
+    allow_public_summary: true
+    article_fetch: true
+    allowed_article_hosts: ["www.nist.gov"]
+
   - id: usgs
     url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson"
     interface_type: usgs_geojson

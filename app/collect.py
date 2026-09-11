@@ -55,6 +55,34 @@ class TextExtractor(HTMLParser):
             self.parts.append(data)
 
 
+class ArticleTextExtractor(HTMLParser):
+    """Prefer semantic main/article content so navigation is not evidence."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.parts: list[str] = []
+        self.scope = 0
+        self.ignored = 0
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        name = tag.casefold()
+        if name in {"main", "article"}:
+            self.scope += 1
+        if name in {"script", "style", "noscript", "svg", "template"}:
+            self.ignored += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        name = tag.casefold()
+        if name in {"script", "style", "noscript", "svg", "template"} and self.ignored:
+            self.ignored -= 1
+        if name in {"main", "article"} and self.scope:
+            self.scope -= 1
+
+    def handle_data(self, data: str) -> None:
+        if self.scope and not self.ignored:
+            self.parts.append(data)
+
+
 def plain_text(raw: str, limit: int) -> str:
     parser = TextExtractor()
     parser.feed(raw or "")
@@ -63,10 +91,33 @@ def plain_text(raw: str, limit: int) -> str:
     return value[:limit]
 
 
+def article_text(raw: str, limit: int) -> str:
+    parser = ArticleTextExtractor()
+    parser.feed(raw or "")
+    value = html.unescape(" ".join(parser.parts))
+    value = re.sub(r"\s+", " ", value).strip()
+    return value[:limit] if value else plain_text(raw, limit)
+
+
 def _child_text(node: ET.Element, names: set[str]) -> str:
     for child in node.iter():
         if child.tag.rsplit("}", 1)[-1].casefold() in names and child.text:
             return child.text.strip()
+    return ""
+
+
+def _feed_author(node: ET.Element) -> str:
+    """Return an RSS dc:creator or Atom author/name without trusting markup."""
+    for child in node.iter():
+        name = child.tag.rsplit("}", 1)[-1].casefold()
+        if name == "creator" and child.text:
+            return plain_text(child.text, 240)
+        if name == "author":
+            nested_name = _child_text(child, {"name"})
+            if nested_name:
+                return plain_text(nested_name, 240)
+            if child.text and child.text.strip():
+                return plain_text(child.text, 240)
     return ""
 
 
@@ -88,6 +139,7 @@ def parse_rss_candidates(payload: bytes, max_items: int, excerpt_chars: int) -> 
             "time_precision": precision,
             "original_time": raw_time or None,
             "feed_excerpt": plain_text(raw_excerpt, excerpt_chars),
+            "author": _feed_author(node) or None,
         })
     return result
 
@@ -285,7 +337,7 @@ def _article_text(url: str, source: dict[str, Any], settings: dict[str, Any]) ->
     if not robots.can_fetch(str(settings["user_agent"]), url):
         return ""
     payload, _, _, _ = request_with_retry(url, settings, accept="text/html,application/xhtml+xml", allowed_hosts=allowed_hosts)
-    return plain_text(payload.decode("utf-8", errors="replace"), int(settings["max_article_chars"]))
+    return article_text(payload.decode("utf-8", errors="replace"), int(settings["max_article_chars"]))
 
 
 def collect_sources(
@@ -329,14 +381,20 @@ def collect_sources(
                 if not in_fresh_window(raw, now, int(settings["fresh_hours"])):
                     continue
                 evidence_text = ""
+                evidence_method = None
                 if source.get("rights_review") == "approved" and source.get("allow_substantive_analysis"):
                     if source.get("content_mode") in {"feed_excerpt", "structured_public_data"}:
                         evidence_text = raw.get("feed_excerpt", "")
+                        evidence_method = "approved RSS/API evidence excerpt"
                     elif source.get("content_mode") == "article_html":
                         evidence_text = _article_text(str(raw.get("url") or ""), source, settings)
+                        evidence_method = "approved web article text excerpt" if evidence_text else None
                 meta = catalog[source_id]
+                attribution = str(source.get("attribution_required") or meta["name"])
+                if source.get("credit_feed_author") and raw.get("author"):
+                    attribution = f"{raw['author']} / {attribution}"
                 candidates.append({
-                    **{key: raw.get(key) for key in ("title", "url", "published_at", "source_updated_at", "time_precision", "original_time", "structured_data")},
+                    **{key: raw.get(key) for key in ("title", "url", "published_at", "source_updated_at", "time_precision", "original_time", "structured_data", "author")},
                     "source_id": source_id,
                     "source": meta["name"],
                     # Article-level tags are assigned from evidence by the
@@ -351,7 +409,9 @@ def collect_sources(
                     "allow_public_summary": bool(source.get("allow_public_summary")),
                     "license_url": source.get("terms_url"),
                     "evidence_text": evidence_text,
-                    "access_level": "authorized_feed" if evidence_text else "metadata_only",
+                    "evidence_method": evidence_method,
+                    "attribution": attribution,
+                    "access_level": "excerpt" if evidence_text and source.get("content_mode") == "article_html" else "authorized_feed" if evidence_text else "metadata_only",
                 })
             row["fresh_items"] = sum(1 for item in candidates if item["source_id"] == source_id)
             row["status"] = "ok" if parsed else "empty"

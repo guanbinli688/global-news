@@ -99,7 +99,9 @@
     const sourceList = document.createElement('ul');
     record.sources.forEach((source) => {
       const row = document.createElement('li');
-      const link = addText('a', `${source.id} · ${source.publisher} · ${source.title}`, row);
+      const credit = source.attribution && source.attribution !== source.publisher
+        ? ` · 署名：${source.attribution}` : '';
+      const link = addText('a', `${source.id} · ${source.publisher}${credit} · ${source.title}`, row);
       try {
         const parsed = new URL(source.url);
         if (['http:', 'https:'].includes(parsed.protocol)) link.href = parsed.href;

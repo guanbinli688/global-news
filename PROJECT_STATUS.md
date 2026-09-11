@@ -21,7 +21,7 @@
 
 ## 实际验收结果
 
-- 完整本地测试：`43/43` 通过；配置检查：`23/23` 通过。
+- 旧版完整本地测试：`43/43` 通过；配置检查：`23/23` 通过。
 - 新增 NASA 后的真实联网候选运行：截止 `2026-09-11T01:08:54.819812Z`，14/14 个配置源成功响应，取得 190 个 24 小时候选，聚为 177 个事件，15 个通过证据门槛；付费前队列按 USGS/NASA 各最多三条压缩到 6 个，零付费模式最终保留 3 条真实 USGS 中文候选。
 - 当前候选覆盖：东南亚、大洋洲/太平洋；领域为灾害与科学。地区 `2/5`、领域 `2/7`，不足之处已显示，不凑数。
 - `ENABLE_AI_ANALYSIS=false`、`ENABLE_PUBLISH=false`；付费调用 0 次，费用 0 美元，Cookie 0，全文发布 0。由于仅 3 条，低于 5 条门槛，`publish_ready=false`，未生成正式日报、未归档为成功版、未部署。
@@ -32,9 +32,17 @@
 - 第三次 `production` 运行 `34549139124` 首次通过 pipeline 与 Pages deploy，共发布 5 条（2 条 NASA AI 分析、3 条 USGS 确定性稿件）；当日累计实际用量 3,745 输入 token、2,590 输出 token，估算 0.03857 美元。发布后人工核查发现“吉布提签署”稿被模型误标为东亚，因此新增国家别名到地区的确定性校正；国家全部命中映射时以映射结果覆盖模型地区，并已加入误标与未知国家测试。
 - 纠正版 `production` 运行 `34549575046` 使用 2 条缓存 AI 分析，新增 AI token 与费用均为 0；pipeline 与 deploy 均成功。公网 `index.html`、`data.json`、`coverage.html`、`source-health.html` 均返回 200，线上为 `publication_mode=production`、共 5 条；吉布提稿地区已校正为撒哈拉以南非洲，并保留活动地点美国对应的北美标签。
 
+## 5 条新闻问题复盘与扩源修正
+
+- 旧版并非只找到 5 条：当时抓到 190 个 24 小时候选、15 个事件通过证据门槛，但正文许可白名单只有 3 个来源，分析队列又按来源组最多 3 条截断，最终成为 2 条 NASA 加 3 条 USGS。最低 5 条只能防止空版，不能保证多样性，因而错误地让地震占 60%。
+- 新增并实际连通 8 个合规来源：美国司法部、FDA、NIH、GOV.UK、European Commission、Horizon Magazine、Global Voices 与 NIST；连同原有 3 个，正文许可白名单为 11 个。对需要署名的来源保留作者/机构署名；NIST 只在 robots 允许时抓取语义正文；NIH 缺少可解析发布时间的条目继续被 24 小时闸门拒绝。
+- 发布质量闸门从单一的 `5 条` 升级为：至少 10 条、5 个被引用来源组、4 个有内容栏目、4 个地区、6 个主题；单一来源组最多 2 条，灾害主题最多 2 条。证据不足或覆盖不足时不发布，也不覆盖现有 Pages。
+- 扩源版本地测试 `45/45` 通过，配置检查 `27/27` 通过。免费真实联网验收截止 `2026-09-11T01:38:30.201019Z`：22/22 个生产源成功响应，取得 222 个 24 小时候选，聚为 208 个事件，44 个通过证据闸门，11 个进入分析队列，覆盖 6 个可用证据来源组。
+- 该次验收显式保持 `ENABLE_AI_ANALYSIS=false`、`ENABLE_PUBLISH=false`，付费调用 0、部署 0。只有 USGS 能在无模型时确定性生成 2 条候选，因此质量闸门按 `2/10 条、1/5 来源组、1/4 栏目、2/4 地区、2/6 主题` 正确阻断。这 2 条不是付费生产版的预计条数；队列中另有 9 个文本事件需要模型生成与逐条验证。
+
 ## 尚未真实验证 / 外部阻塞
 
-- Agência Brasil、NASA 与 USGS 已通过当前用途审核；Agência Brasil 的单一报道仍需独立证据，不能因许可已通过就自动入选。其余生产候选源保持许可待审。
-- GitHub 已配置 `OPENAI_API_KEY` Secret，以及 `gpt-5.6-terra`、5 个累计事件、75,000 输入 token、14,400 输出 token、0.35 美元等预算 Variables；Secret 值未进入仓库或日志。
+- 11 个正文来源已通过当前用途审核；Agência Brasil、Horizon Magazine 与 Global Voices 的单一新闻编辑部报道仍需独立证据，不能因许可已通过就自动入选。其余生产候选源保持许可待审。
+- GitHub 已配置 `OPENAI_API_KEY` Secret，以及 `gpt-5.6-terra`、5 个累计事件、75,000 输入 token、14,400 输出 token、0.35 美元等预算 Variables；Secret 值未进入仓库或日志。扩源版同一北京时间日期若要分析 9 个新事件，累计事件上限需从 5 提高到至少 14，并重新确认付费和公开覆盖。
 - GitHub Pages 已按 Actions workflow 模式发布至 `https://guanbinli688.github.io/global-news/`；workflow 的 deploy job 使用 `pages:write` 与 `id-token:write`。
 - 手动 `production`、AI、缓存恢复、历史归档、失败告警、质量闸门和 Pages 部署均已真实运行。一次性发布完成后 `ENABLE_AI_ANALYSIS=false`、`ENABLE_PUBLISH=false`、`ENABLE_SCHEDULED_PUBLISH=false`；真正的 `schedule` 仍未运行。

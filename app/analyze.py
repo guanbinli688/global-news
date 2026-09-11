@@ -225,6 +225,7 @@ class OpenAIAnalyzer:
                 "published_at": item.get("published_at"),
                 "source_role": item.get("source_role"),
                 "independence_group": item.get("independence_group"),
+                "author": item.get("author"),
                 "evidence_text": item.get("evidence_text") or None,
             })
             source_records.append({
@@ -240,9 +241,9 @@ class OpenAIAnalyzer:
                 "upstream_origin": item.get("upstream_origin"),
                 "independence_group": item.get("independence_group"),
                 "retrieved_at": as_of,
-                "evidence_method": "approved RSS/API evidence excerpt",
+                "evidence_method": item.get("evidence_method") or "approved RSS/API evidence excerpt",
                 "evidence_excerpt": str(item.get("evidence_text") or "")[:1200] or None,
-                "attribution": str(item.get("source") or item.get("source_id")),
+                "attribution": str(item.get("attribution") or item.get("source") or item.get("source_id")),
                 "license_url": item.get("license_url"),
             })
         evidence_json = json.dumps({"as_of": as_of, "sources": source_packets}, ensure_ascii=False)

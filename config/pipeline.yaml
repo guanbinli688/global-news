@@ -24,17 +24,27 @@ evidence:
     - unverified video
     - allegation
     - allegedly
+    - charged with
+    - charges against
+    - indicted
+    - accused of
   blocked_auto_sections: [controversies, corrections]
 
 coverage:
   target_regions: 5
   target_topics: 7
-  max_events_per_source_group: 3
+  max_events_per_source_group: 2
+  max_events_by_topic:
+    disasters: 2
   max_frontpage_tech_business_share: 0.35
   report_gaps_without_fabricating: true
 
 publication:
-  minimum_publishable_events: 5
+  minimum_publishable_events: 10
+  minimum_cited_source_groups: 5
+  minimum_populated_sections: 4
+  minimum_regions: 4
+  minimum_topics: 6
   maximum_events: 26
   stale_after_hours: 30
   allowed_analysis_methods: [deterministic_public_data, openai, cached_openai]

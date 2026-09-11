@@ -15,7 +15,7 @@
    - 只有审核通过的来源才能改成 `rights_review: approved`。
    - 只有允许把内容送入模型时才设 `allow_substantive_analysis: true`；只有允许公开自写摘要时才设 `allow_public_summary: true`。
    - 只有明确允许页面抓取时才设 `article_fetch: true`。否则保持仅 RSS/API 或元数据模式。
-   - 当前 Agência Brasil（须署名）、NASA News Releases（只用署名文字摘录）与 USGS（公共数据）已按当前用途放行；其余候选保持 `pending`，只能用于发现线索和交叉核验，不能进入正文或 AI 证据包。
+   - 当前按用途放行 11 个来源：Agência Brasil（须署名）、NASA News Releases（只用署名文字摘录）、USGS（公共数据）、美国司法部、FDA、NIH、GOV.UK、European Commission、Horizon Magazine、Global Voices 与 NIST。Horizon/Global Voices 必须保留作者与许可署名；NIST 只抓 robots 允许的正文并公开自写摘录。其余候选保持 `pending`，只能用于发现线索和交叉核验，不能进入正文或 AI 证据包。
    - 放行来源仍须满足独立双来源或一手资料规则；授权本身不等于证据充分。
    - “未来24小时”还需要在 `config/calendar_sources.yaml` 添加经过审核的官方 RSS/Atom/ICS 日历；空配置时该栏目保持空白。
 
@@ -46,7 +46,7 @@
 
 价格变量缺失、非正数或预计超预算时，分析器会停止，不会“先调用后记账”。
 
-首次配置已于 2026-09-11 完成并通过手动生产验收：模型为 `gpt-5.6-terra`，当日累计事件上限 5、输入 75,000 token、输出 14,400 token、美元硬上限 0.35；首次发布结束后三个 `ENABLE_*` 开关已重新设为 `false`。
+首次配置已于 2026-09-11 完成并通过手动生产验收：模型为 `gpt-5.6-terra`，输入 75,000 token、输出 14,400 token、美元硬上限 0.35；首次发布结束后三个 `ENABLE_*` 开关已重新设为 `false`。预算账本按北京时间日期跨 runner 累计，扩源版同一天再次运行预计需要最多 9 个新 AI 事件；因账本已记录 5 个完成事件，`NEWS_AI_MAX_EVENTS` 必须在再次生产前提高到至少 14，否则会在调用前被预算闸门阻断。不得清空账本规避限制。
 
 ## 三、GitHub Secret
 
@@ -82,7 +82,7 @@
 5. 把结果交给你确认。确认后才把 `ENABLE_PUBLISH=true`，再次手动运行 production，完成首次 Pages 发布。
 6. 首次发布验证通过后，才把 `ENABLE_SCHEDULED_PUBLISH=true`。计划时间为 UTC 23:37，即北京时间次日 07:37；GitHub schedule 不是准点 SLA。
 
-截至 2026-09-11，第 5 步已完成并通过公网验收；第 6 步仍未执行，定时发布保持关闭。
+截至 2026-09-11，旧的 5 条版已完成公网验收；扩源修正版尚未付费生成或覆盖 Pages，第 6 步仍未执行，定时发布保持关闭。
 
 GitHub Pages 工作流采用官方的 `configure-pages`、`upload-pages-artifact` 和 `deploy-pages` 流程，配置依据见 [GitHub Pages 自定义 Actions 工作流](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。工作流中的官方 Action 已在 2026-09-10 通过各自 GitHub Releases API 核对并锁定到具体版本；上传前仍应复核一次兼容性和安全公告。
 

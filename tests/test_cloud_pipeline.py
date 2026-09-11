@@ -11,11 +11,11 @@ import yaml
 
 from app.analyze import AnalysisRequestRejected, BudgetExceeded, DailyBudget, OpenAIAnalyzer
 from app.cluster import cluster_candidates
-from app.collect import in_fresh_window, in_future_window, parse_ics_candidates, parse_rss_candidates
+from app.collect import article_text, in_fresh_window, in_future_window, parse_ics_candidates, parse_rss_candidates
 from app.common import load_json, load_yaml
 from app.normalize import normalize_analysis_geography
 from app.pipeline import environment_gate_enabled, run_pipeline, select_analysis_candidates
-from app.verify import assess_cluster, coverage_report
+from app.verify import assess_cluster, balance_events, coverage_report, publication_quality_gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -89,10 +89,15 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertFalse(in_fresh_window({"published_at": "2026-09-10", "time_precision": "date"}, now, 24))
 
     def test_feed_excerpt_is_sanitized_and_bounded(self):
-        feed = b"""<rss><channel><item><title>Policy update</title><link>https://example.com/a</link><pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate><description><![CDATA[<p>Useful evidence.</p><script>ignore me</script>]]></description></item></channel></rss>"""
+        feed = b"""<rss xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><item><title>Policy update</title><link>https://example.com/a</link><dc:creator>Jane Reporter</dc:creator><pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate><description><![CDATA[<p>Useful evidence.</p><script>ignore me</script>]]></description></item></channel></rss>"""
         rows = parse_rss_candidates(feed, 5, 50)
         self.assertEqual(rows[0]["feed_excerpt"], "Useful evidence.")
+        self.assertEqual(rows[0]["author"], "Jane Reporter")
         self.assertNotIn("script", rows[0]["feed_excerpt"])
+
+    def test_article_extraction_prefers_main_over_navigation(self):
+        markup = "<nav>Menu noise</nav><main><h1>Evidence title</h1><p>Substantive evidence.</p><script>ignore</script></main><footer>Footer noise</footer>"
+        self.assertEqual(article_text(markup, 200), "Evidence title Substantive evidence.")
 
     def test_official_ics_calendar_keeps_timezone_and_future_window(self):
         calendar = b"""BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nDTSTART;TZID=Asia/Shanghai:20260911T080000\r\nSUMMARY:Official briefing\r\nURL:https://example.gov/event\r\nDESCRIPTION:Published by the organizer\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"""
@@ -205,7 +210,10 @@ class CloudPipelineTests(unittest.TestCase):
     def test_only_explicitly_reviewed_sources_are_open(self):
         config = load_yaml(ROOT / "config" / "production_sources.yaml")
         approved = {source["id"] for source in config["sources"] if source["rights_review"] == "approved"}
-        self.assertEqual(approved, {"agencia_brasil", "nasa", "usgs"})
+        self.assertEqual(approved, {
+            "agencia_brasil", "doj", "european_commission", "fda", "global_voices",
+            "gov_uk", "horizon_magazine", "nasa", "nih", "nist", "usgs",
+        })
         for source in config["sources"]:
             if source["id"] in approved:
                 self.assertTrue(source["allow_substantive_analysis"])
@@ -224,9 +232,9 @@ class CloudPipelineTests(unittest.TestCase):
             {"cluster": {"items": [candidate("official-a", "Official A", group="agency-a", role="primary_document")]}},
             {"cluster": {"items": [candidate("official-b", "Official B", group="agency-b", role="primary_document")]}},
         ])
-        selected = select_analysis_candidates(rows, maximum_events=10, max_per_source_group=3)
+        selected = select_analysis_candidates(rows, maximum_events=10, max_per_source_group=2)
         groups = [row["cluster"]["items"][0]["independence_group"] for row in selected]
-        self.assertEqual(groups.count("wire"), 3)
+        self.assertEqual(groups.count("wire"), 2)
         self.assertIn("agency-a", groups)
         self.assertIn("agency-b", groups)
 
@@ -234,8 +242,8 @@ class CloudPipelineTests(unittest.TestCase):
             candidate("wire-mixed", "Mixed wire", group="wire"),
             candidate("agency-c", "Mixed official", group="agency-c", role="primary_document"),
         ]}}
-        selected_with_mixed = select_analysis_candidates(rows[:3] + [mixed], maximum_events=10, max_per_source_group=3)
-        self.assertEqual(len(selected_with_mixed), 3)
+        selected_with_mixed = select_analysis_candidates(rows[:3] + [mixed], maximum_events=10, max_per_source_group=2)
+        self.assertEqual(len(selected_with_mixed), 2)
 
         short = {"cluster": {"items": [candidate("short", "Short evidence")]}}
         short["cluster"]["items"][0]["evidence_text"] = "too short"
@@ -243,6 +251,28 @@ class CloudPipelineTests(unittest.TestCase):
             select_analysis_candidates([short], 10, 3, minimum_model_evidence_chars=160),
             [],
         )
+
+    def test_publication_gate_rejects_thin_edition_and_caps_disasters(self):
+        def event(index, group, topic="economy", section="headlines", region="north_america"):
+            return {
+                "event_id": f"event-{index}", "topic_ids": [topic], "section_id": section,
+                "region_ids": [region], "sources": [{"independence_group": group}],
+            }
+
+        events = [event(index, f"source-{index}") for index in range(5)]
+        coverage = coverage_report(events, {"target_regions": 5, "target_topics": 7})
+        gate = publication_quality_gate(events, coverage, load_yaml(ROOT / "config" / "pipeline.yaml")["publication"])
+        self.assertFalse(gate["passed"])
+        self.assertIn("publishable events 5/10", gate["reasons"])
+
+        disasters = [event(index, f"source-{index}", "disasters", "science_technology") for index in range(4)]
+        selected = balance_events(
+            disasters,
+            {"max_events_per_source_group": 2, "max_events_by_topic": {"disasters": 2}},
+            [{"id": "science_technology", "target_max": 5}],
+            5,
+        )
+        self.assertEqual(len(selected), 2)
 
     def test_workflow_has_schedule_gates_retention_and_failure_alert(self):
         path = ROOT / ".github" / "workflows" / "daily-news.yml"

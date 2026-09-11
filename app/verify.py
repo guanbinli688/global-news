@@ -194,9 +194,11 @@ def balance_events(events: list[dict[str, Any]], config: dict[str, Any], section
     topics: set[str] = set()
     section_ids: set[str] = set()
     group_counts: dict[str, int] = {}
+    topic_counts: dict[str, int] = {}
     section_counts: dict[str, int] = {}
     caps = {row["id"]: int(row["target_max"]) for row in sections}
     max_per_group = int(config.get("max_events_per_source_group", 3))
+    topic_caps = {str(key): int(value) for key, value in config.get("max_events_by_topic", {}).items()}
     while remaining and len(selected) < maximum:
         choices: list[tuple[int, int, dict[str, Any]]] = []
         for index, event in enumerate(remaining):
@@ -208,6 +210,9 @@ def balance_events(events: list[dict[str, Any]], config: dict[str, Any], section
                 for source in event.get("sources", [])
             }
             if groups and all(group_counts.get(group, 0) >= max_per_group for group in groups):
+                continue
+            event_topics = {str(value) for value in event.get("topic_ids", [])}
+            if any(topic_counts.get(topic, 0) >= topic_caps[topic] for topic in event_topics if topic in topic_caps):
                 continue
             new_regions = {value for value in event.get("region_ids", []) if value != "global"} - regions
             new_topics = set(event.get("topic_ids", [])) - topics
@@ -224,8 +229,51 @@ def balance_events(events: list[dict[str, Any]], config: dict[str, Any], section
         section_ids.add(section)
         regions.update(value for value in chosen.get("region_ids", []) if value != "global")
         topics.update(chosen.get("topic_ids", []))
+        for topic in chosen.get("topic_ids", []):
+            topic_counts[str(topic)] = topic_counts.get(str(topic), 0) + 1
         for source in chosen.get("sources", []):
             group = str(source.get("independence_group") or source.get("upstream_origin") or source.get("publisher"))
             group_counts[group] = group_counts.get(group, 0) + 1
 
     return selected
+
+
+def publication_quality_gate(
+    events: list[dict[str, Any]],
+    coverage: dict[str, Any],
+    publication: dict[str, Any],
+) -> dict[str, Any]:
+    """Apply product-quality floors in addition to per-event evidence checks."""
+    source_groups = {
+        str(source.get("independence_group") or source.get("upstream_origin") or source.get("publisher"))
+        for event in events
+        for source in event.get("sources", [])
+        if source.get("independence_group") or source.get("upstream_origin") or source.get("publisher")
+    }
+    actual = {
+        "events": len(events),
+        "cited_source_groups": len(source_groups),
+        "populated_sections": int(coverage.get("section_count", 0)),
+        "regions": int(coverage.get("region_count", 0)),
+        "topics": int(coverage.get("topic_count", 0)),
+    }
+    required = {
+        "events": int(publication.get("minimum_publishable_events", 1)),
+        "cited_source_groups": int(publication.get("minimum_cited_source_groups", 1)),
+        "populated_sections": int(publication.get("minimum_populated_sections", 1)),
+        "regions": int(publication.get("minimum_regions", 1)),
+        "topics": int(publication.get("minimum_topics", 1)),
+    }
+    labels = {
+        "events": "publishable events",
+        "cited_source_groups": "cited source groups",
+        "populated_sections": "populated sections",
+        "regions": "covered regions",
+        "topics": "covered topics",
+    }
+    reasons = [
+        f"{labels[key]} {actual[key]}/{minimum}"
+        for key, minimum in required.items()
+        if actual[key] < minimum
+    ]
+    return {"passed": not reasons, "actual": actual, "required": required, "reasons": reasons}

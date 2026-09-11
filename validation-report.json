@@ -25,12 +25,12 @@
     {
       "name": "declared source count",
       "passed": true,
-      "detail": "declared=70, actual=70"
+      "detail": "declared=78, actual=78"
     },
     {
       "name": "unique source IDs",
       "passed": true,
-      "detail": "count=70"
+      "detail": "count=78"
     },
     {
       "name": "all candidate ingestion disabled",
@@ -55,12 +55,12 @@
     {
       "name": "production IDs are registered",
       "passed": true,
-      "detail": "production_count=14"
+      "detail": "production_count=22"
     },
     {
       "name": "production IDs unique",
       "passed": true,
-      "detail": "production_count=14"
+      "detail": "production_count=22"
     },
     {
       "name": "calendar IDs are registered",
@@ -90,7 +90,27 @@
     {
       "name": "publication has evidence minimum",
       "passed": true,
+      "detail": "10"
+    },
+    {
+      "name": "publication has source diversity floor",
+      "passed": true,
       "detail": "5"
+    },
+    {
+      "name": "publication has section diversity floor",
+      "passed": true,
+      "detail": "4"
+    },
+    {
+      "name": "publication has region and topic floors",
+      "passed": true,
+      "detail": "regions=4, topics=6"
+    },
+    {
+      "name": "disaster topic has a front-page cap",
+      "passed": true,
+      "detail": "2"
     },
     {
       "name": "AI response storage disabled",
