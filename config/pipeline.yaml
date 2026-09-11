@@ -28,6 +28,8 @@ evidence:
     - charges against
     - indicted
     - accused of
+    - files complaint
+    - filed complaint
   blocked_auto_sections: [controversies, corrections]
 
 coverage:

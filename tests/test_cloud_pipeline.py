@@ -134,6 +134,10 @@ class CloudPipelineTests(unittest.TestCase):
         decision = assess_cluster(cluster, settings)
         self.assertFalse(decision["passed"])
         self.assertTrue(decision["human_review_required"])
+        complaint = {"items": [candidate("doj", "Department files complaint against company", group="doj", role="primary_document")]}
+        decision = assess_cluster(complaint, settings)
+        self.assertFalse(decision["passed"])
+        self.assertTrue(decision["human_review_required"])
 
     def test_budget_stops_before_overspend(self):
         budget = DailyBudget(1, 100, 100, .0001, 10.0, 10.0)

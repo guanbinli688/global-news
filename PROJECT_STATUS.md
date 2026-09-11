@@ -39,10 +39,12 @@
 - 发布质量闸门从单一的 `5 条` 升级为：至少 10 条、5 个被引用来源组、4 个有内容栏目、4 个地区、6 个主题；单一来源组最多 2 条，灾害主题最多 2 条。证据不足或覆盖不足时不发布，也不覆盖现有 Pages。
 - 扩源版本地测试 `45/45` 通过，配置检查 `27/27` 通过。免费真实联网验收截止 `2026-09-11T01:38:30.201019Z`：22/22 个生产源成功响应，取得 222 个 24 小时候选，聚为 208 个事件，44 个通过证据闸门，11 个进入分析队列，覆盖 6 个可用证据来源组。
 - 该次验收显式保持 `ENABLE_AI_ANALYSIS=false`、`ENABLE_PUBLISH=false`，付费调用 0、部署 0。只有 USGS 能在无模型时确定性生成 2 条候选，因此质量闸门按 `2/10 条、1/5 来源组、1/4 栏目、2/4 地区、2/6 主题` 正确阻断。这 2 条不是付费生产版的预计条数；队列中另有 9 个文本事件需要模型生成与逐条验证。
+- 修正版提交 `beb9abe` 已推送到 `main`；GitHub `validate` 运行 `34551954460` 在 Ubuntu/Python 3.13 上成功。云端实际取得 223 个候选、209 个聚类、44 个证据合格事件、11 个分析候选；`ai_enabled=false`，AI 缓存命中/调用均为 0，Pages 配置、artifact 上传与 deploy 全部跳过，原有公开版未被覆盖。云端 27 项配置检查全部通过。
+- 把“files/filed complaint”加入无人值守敏感指控排除后，无 AI 预算探针仍选出 9 个模型候选，并用另一条已裁决/和解事项替换诉状。单次输入估算合计 25,928 token；按最多三次尝试预留为 77,784 输入、43,200 输出、0.673968 美元。为保留小幅波动空间，再次生产建议硬上限为累计 14 个事件、85,000 输入、45,000 输出、0.70 美元。
 
 ## 尚未真实验证 / 外部阻塞
 
 - 11 个正文来源已通过当前用途审核；Agência Brasil、Horizon Magazine 与 Global Voices 的单一新闻编辑部报道仍需独立证据，不能因许可已通过就自动入选。其余生产候选源保持许可待审。
-- GitHub 已配置 `OPENAI_API_KEY` Secret，以及 `gpt-5.6-terra`、5 个累计事件、75,000 输入 token、14,400 输出 token、0.35 美元等预算 Variables；Secret 值未进入仓库或日志。扩源版同一北京时间日期若要分析 9 个新事件，累计事件上限需从 5 提高到至少 14，并重新确认付费和公开覆盖。
+- GitHub 已配置 `OPENAI_API_KEY` Secret，以及 `gpt-5.6-terra`、5 个累计事件、75,000 输入 token、14,400 输出 token、0.35 美元等预算 Variables；Secret 值未进入仓库或日志。当前这些上限不足以跑完扩源队列；生产前需确认是否改为 14、85,000、45,000、0.70 美元，并重新确认付费和公开覆盖。
 - GitHub Pages 已按 Actions workflow 模式发布至 `https://guanbinli688.github.io/global-news/`；workflow 的 deploy job 使用 `pages:write` 与 `id-token:write`。
 - 手动 `production`、AI、缓存恢复、历史归档、失败告警、质量闸门和 Pages 部署均已真实运行。一次性发布完成后 `ENABLE_AI_ANALYSIS=false`、`ENABLE_PUBLISH=false`、`ENABLE_SCHEDULED_PUBLISH=false`；真正的 `schedule` 仍未运行。
