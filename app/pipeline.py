@@ -133,6 +133,7 @@ def source_run_stats(
 
 def select_analysis_candidates(
     eligible: list[dict[str, Any]], maximum_events: int, max_per_source_group: int,
+    minimum_model_evidence_chars: int = 0,
 ) -> list[dict[str, Any]]:
     """Apply the source-group cap before paid analysis, preserving input order."""
     selected: list[dict[str, Any]] = []
@@ -144,6 +145,12 @@ def select_analysis_candidates(
             and item.get("allow_public_summary") is True
             and item.get("evidence_text")
         ]
+        if (
+            not can_analyze_structured(row["cluster"])
+            and max((len(str(item.get("evidence_text") or "").strip()) for item in substantive_items), default=0)
+            < minimum_model_evidence_chars
+        ):
+            continue
         groups = {
             str(item.get("independence_group") or item.get("upstream_origin") or item.get("source_id"))
             for item in substantive_items
@@ -217,6 +224,7 @@ def run_pipeline(
         eligible,
         int(pipeline_config["publication"]["maximum_events"]),
         int(pipeline_config["coverage"]["max_events_per_source_group"]),
+        int(pipeline_config["ai"].get("minimum_evidence_chars", 0)),
     )
 
     ai_config = pipeline_config["ai"]
@@ -288,7 +296,7 @@ def run_pipeline(
                 analysis_cache.put(cache_write[0], cache_write[1], as_of, analysis, sources)
         except BudgetExceeded as exc:
             analysis_errors.append(str(exc))
-            break
+            continue
         except Exception as exc:
             analysis_errors.append(f"{type(exc).__name__}: {exc}")
     if skipped_for_model:

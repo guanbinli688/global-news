@@ -223,6 +223,13 @@ class CloudPipelineTests(unittest.TestCase):
         selected_with_mixed = select_analysis_candidates(rows[:3] + [mixed], maximum_events=10, max_per_source_group=3)
         self.assertEqual(len(selected_with_mixed), 3)
 
+        short = {"cluster": {"items": [candidate("short", "Short evidence")]}}
+        short["cluster"]["items"][0]["evidence_text"] = "too short"
+        self.assertEqual(
+            select_analysis_candidates([short], 10, 3, minimum_model_evidence_chars=160),
+            [],
+        )
+
     def test_workflow_has_schedule_gates_retention_and_failure_alert(self):
         path = ROOT / ".github" / "workflows" / "daily-news.yml"
         raw = path.read_text(encoding="utf-8")

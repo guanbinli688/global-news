@@ -55,6 +55,7 @@ state:
 
 ai:
   provider: openai
+  minimum_evidence_chars: 160
   provider_enabled_env: ENABLE_AI_ANALYSIS
   api_key_env: OPENAI_API_KEY
   model_env: NEWS_AI_MODEL
