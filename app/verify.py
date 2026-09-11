@@ -257,8 +257,17 @@ def publication_quality_gate(
         "regions": int(coverage.get("region_count", 0)),
         "topics": int(coverage.get("topic_count", 0)),
     }
+    target_events = int(
+        publication.get(
+            "target_publishable_events",
+            publication.get("minimum_publishable_events", 1),
+        )
+    )
     required = {
-        "events": int(publication.get("minimum_publishable_events", 1)),
+        # Event count is an editorial target, not an evidence substitute. A
+        # shorter edition may publish when all evidence and diversity floors
+        # still pass; it must be labelled as a compact edition.
+        "events": target_events,
         "cited_source_groups": int(publication.get("minimum_cited_source_groups", 1)),
         "populated_sections": int(publication.get("minimum_populated_sections", 1)),
         "regions": int(publication.get("minimum_regions", 1)),
@@ -271,9 +280,24 @@ def publication_quality_gate(
         "regions": "covered regions",
         "topics": "covered topics",
     }
+    hard_gate_keys = ("cited_source_groups", "populated_sections", "regions", "topics")
     reasons = [
         f"{labels[key]} {actual[key]}/{minimum}"
         for key, minimum in required.items()
+        if key in hard_gate_keys
         if actual[key] < minimum
     ]
-    return {"passed": not reasons, "actual": actual, "required": required, "reasons": reasons}
+    compact = actual["events"] < target_events
+    warnings = (
+        [f"compact edition: publishable events {actual['events']}/{target_events}; no stories were fabricated to fill the target"]
+        if compact else []
+    )
+    return {
+        "passed": not reasons,
+        "actual": actual,
+        "required": required,
+        "hard_gate_keys": list(hard_gate_keys),
+        "reasons": reasons,
+        "warnings": warnings,
+        "edition_format": "compact" if compact else "standard",
+    }

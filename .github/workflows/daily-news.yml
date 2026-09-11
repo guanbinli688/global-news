@@ -11,6 +11,11 @@ on:
         options:
           - validate
           - production
+      reuse_run_id:
+        description: "Optional prior diagnostics run ID; revalidates its candidate without collection or AI"
+        required: false
+        default: ""
+        type: string
   schedule:
     # 07:37 Beijing time. The scheduled job remains skipped until the
     # repository variable ENABLE_SCHEDULED_PUBLISH is explicitly set to true.
@@ -90,6 +95,22 @@ jobs:
             done
           fi
 
+      - name: Restore an explicitly selected candidate
+        if: github.event_name == 'workflow_dispatch' && inputs.reuse_run_id != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REUSE_RUN_ID: ${{ inputs.reuse_run_id }}
+        run: |
+          if ! [[ "$REUSE_RUN_ID" =~ ^[0-9]+$ ]]; then
+            echo "reuse_run_id must contain digits only" >&2
+            exit 2
+          fi
+          gh run download "$REUSE_RUN_ID" --name "run-diagnostics-$REUSE_RUN_ID" --dir reused-candidate
+          test -f reused-candidate/state/candidate-edition.json
+          if [ -f reused-candidate/source-health.json ]; then cp reused-candidate/source-health.json source-health.json; fi
+          if [ -f reused-candidate/source-health.md ]; then cp reused-candidate/source-health.md source-health.md; fi
+
       - name: Validate configuration
         run: python -m app.validate
 
@@ -97,10 +118,16 @@ jobs:
         id: pipeline_run
         continue-on-error: true
         shell: bash
+        env:
+          REUSE_RUN_ID: ${{ inputs.reuse_run_id }}
         run: |
           mode="${{ github.event.inputs.run_mode }}"
           if [ "${{ github.event_name }}" = "schedule" ]; then mode="production"; fi
-          python -m app.pipeline --mode "$mode"
+          if [ -n "$REUSE_RUN_ID" ]; then
+            python -m app.pipeline --mode "$mode" --reuse-candidate reused-candidate/state/candidate-edition.json
+          else
+            python -m app.pipeline --mode "$mode"
+          fi
 
       - name: Read publication gate
         id: gate
@@ -125,6 +152,8 @@ jobs:
             state/run-report.json
             state/run-source-health.json
             state/candidate-edition.json
+            state/review-quarantine.json
+            state/publishable-events.json
             source-health.json
             source-health.md
             validation-report.json

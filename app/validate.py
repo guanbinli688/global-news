@@ -50,7 +50,7 @@ def validate_configuration() -> dict[str, Any]:
     check("article fetch requires approved rights", all(not row.get("article_fetch") or (row.get("rights_review") == "approved" and row.get("terms_url") and row.get("allowed_article_hosts")) for row in production_rows), "no pending or unscoped source permits article fetch")
     check("analysis text requires approved public-summary rights", all(not row.get("allow_substantive_analysis") or (row.get("rights_review") == "approved" and row.get("allow_public_summary") is True) for row in production_rows), "only explicitly approved sources may provide substantive inputs")
     check("24-hour collection window", pipeline.get("collection", {}).get("fresh_hours") == 24, str(pipeline.get("collection", {}).get("fresh_hours")))
-    check("publication has evidence minimum", int(pipeline.get("publication", {}).get("minimum_publishable_events", 0)) > 0, str(pipeline.get("publication", {}).get("minimum_publishable_events")))
+    check("publication has an editorial event target", int(pipeline.get("publication", {}).get("target_publishable_events", 0)) > 0, str(pipeline.get("publication", {}).get("target_publishable_events")))
     publication = pipeline.get("publication", {})
     check("publication has source diversity floor", int(publication.get("minimum_cited_source_groups", 0)) >= 3, str(publication.get("minimum_cited_source_groups")))
     check("publication has section diversity floor", int(publication.get("minimum_populated_sections", 0)) >= 3, str(publication.get("minimum_populated_sections")))

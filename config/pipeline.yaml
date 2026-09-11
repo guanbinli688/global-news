@@ -42,7 +42,7 @@ coverage:
   report_gaps_without_fabricating: true
 
 publication:
-  minimum_publishable_events: 10
+  target_publishable_events: 10
   minimum_cited_source_groups: 5
   minimum_populated_sections: 4
   minimum_regions: 4
@@ -64,6 +64,7 @@ state:
   analysis_cache_file: state/analysis-cache.json
   budget_ledger_file: state/budget-ledger.json
   candidate_edition_file: state/candidate-edition.json
+  review_quarantine_file: state/review-quarantine.json
 
 ai:
   provider: openai

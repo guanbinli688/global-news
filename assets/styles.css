@@ -81,6 +81,9 @@ h1 em { color: var(--blue); font-weight: 400; }
 .hero-status p { margin: 0 0 .8rem; color: var(--muted); font-size: .82rem; }
 .hero-status a { color: var(--blue); font-weight: 700; font-size: .82rem; text-decoration: none; }
 .status-ribbon, .metric-strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); background: rgba(255, 253, 248, .75); box-shadow: var(--shadow); }
+.edition-warning { margin: 0 0 1rem; padding: 1rem 1.25rem; color: #6f4310; background: #fff0c7; border: 1px solid #e2c16f; }
+.edition-warning strong { font: 700 1rem Georgia, "Noto Serif SC", serif; }
+.edition-warning p { margin: .2rem 0 0; font-size: .76rem; }
 .status-ribbon > div, .metric-strip > div { padding: 1.05rem 1.25rem; border-right: 1px solid var(--line); font-size: .78rem; }
 .status-ribbon > div:last-child, .metric-strip > div:last-child { border: 0; }
 .status-ribbon strong { margin-right: .25rem; }

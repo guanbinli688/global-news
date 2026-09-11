@@ -122,11 +122,19 @@ class NextBuildTests(unittest.TestCase):
             ledger.reserve("event", 100, 100, 1.0, 1.0, limits)
             restored = BudgetLedger(ledger_path, now, "Asia/Shanghai", "model")
             self.assertEqual(restored.day, "2026-09-11")
-            self.assertEqual(restored.report()["pending_reservations"], 1)
+            self.assertEqual(restored.report()["pending_reservations"], 0)
+            self.assertEqual(restored.report()["unreconciled_usage"]["responses"], 1)
+            self.assertEqual(restored.report()["actual_usage"]["responses"], 0)
             with self.assertRaises(RuntimeError):
                 restored.reserve("another", 100, 100, 1.0, 1.0, limits)
-            restored.commit("event", 80, 40, 1.0, 1.0)
-            self.assertEqual(restored.report()["completed_events"], 1)
+
+            completed = BudgetLedger(root / "completed.json", now, "Asia/Shanghai", "model")
+            completed.reserve("event", 100, 100, 1.0, 1.0, limits)
+            completed.commit("event", 80, 40, 1.0, 1.0, response_id="resp_test")
+            completed_report = completed.report()
+            self.assertEqual(completed_report["completed_events"], 1)
+            self.assertEqual(completed_report["actual_usage"]["input_tokens"], 80)
+            self.assertEqual(completed_report["unreconciled_usage"]["responses"], 0)
 
             release_ledger = BudgetLedger(root / "release.json", now, "Asia/Shanghai", "model")
             release_ledger.reserve("rejected", 100, 100, 1.0, 1.0, limits)

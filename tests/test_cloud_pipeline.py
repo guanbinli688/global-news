@@ -14,7 +14,7 @@ from app.cluster import cluster_candidates
 from app.collect import article_text, in_fresh_window, in_future_window, parse_ics_candidates, parse_rss_candidates
 from app.common import load_json, load_yaml
 from app.normalize import normalize_analysis_geography
-from app.pipeline import environment_gate_enabled, run_pipeline, select_analysis_candidates
+from app.pipeline import event_reuse_freshness_errors, environment_gate_enabled, run_pipeline, select_analysis_candidates
 from app.verify import assess_cluster, balance_events, coverage_report, publication_quality_gate
 
 
@@ -87,6 +87,15 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertFalse(in_fresh_window({"published_at": "2026-09-09T11:59:59Z", "time_precision": "datetime"}, now, 24))
         self.assertFalse(in_fresh_window({"published_at": "2026-09-10T12:06:00Z", "time_precision": "datetime"}, now, 24))
         self.assertFalse(in_fresh_window({"published_at": "2026-09-10", "time_precision": "date"}, now, 24))
+
+    def test_reuse_freshness_uses_event_time_not_page_modified_time(self):
+        now = datetime(2026, 9, 10, 12, tzinfo=timezone.utc)
+        event = {
+            "section_id": "headlines",
+            "event_time": {"value": "2026-09-09T11:59:59Z", "precision": "datetime"},
+            "publication_time": {"value": "2026-09-10T12:00:00Z", "precision": "datetime"},
+        }
+        self.assertEqual(event_reuse_freshness_errors(event, now, 24), ["reused event is older than 24 hours"])
 
     def test_feed_excerpt_is_sanitized_and_bounded(self):
         feed = b"""<rss xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><item><title>Policy update</title><link>https://example.com/a</link><dc:creator>Jane Reporter</dc:creator><pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate><description><![CDATA[<p>Useful evidence.</p><script>ignore me</script>]]></description></item></channel></rss>"""
@@ -180,6 +189,149 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertEqual(analyzer.budget.events, 0)
         self.assertFalse(analyzer.ledger.pending)
 
+    def test_returned_response_usage_is_recorded_before_editorial_checks(self):
+        class Ledger:
+            def __init__(self):
+                self.committed = None
+
+            def reserve(self, *args, **kwargs):
+                return None
+
+            def commit(self, key, actual_input, actual_output, input_price, output_price, response_id=None):
+                self.committed = (actual_input, actual_output, response_id)
+
+            def mark_usage_missing(self, *args, **kwargs):
+                raise AssertionError("usage was present")
+
+        analyzer = StubAnalyzer()
+        analyzer.ledger = Ledger()
+        analyzer._request = lambda body: {
+            "id": "resp_accounted_before_review",
+            "status": "failed",
+            "usage": {"input_tokens": 321, "output_tokens": 123},
+        }
+        cluster = {"items": [candidate("one", "Policy decision"), candidate("two", "Policy decision")]}
+        with self.assertRaisesRegex(RuntimeError, "not completed"):
+            analyzer.analyze(cluster, "2026-09-10T13:00:00Z", ["controversies", "corrections"])
+        self.assertEqual(analyzer.ledger.committed, (321, 123, "resp_accounted_before_review"))
+        self.assertEqual(analyzer.budget.report()["actual_usage"]["responses"], 1)
+
+    def test_incomplete_analysis_gets_one_repair_and_does_not_block_other_items(self):
+        class NoCache:
+            def get(self, key):
+                return None
+
+            def put(self, *args, **kwargs):
+                return None
+
+        class RepairAnalyzer:
+            model = "repair-orchestration-test-model"
+
+            def __init__(self):
+                self.calls = []
+
+            def analyze(self, cluster, as_of, blocked_sections, reservation_key=None, repair_draft=None):
+                self.calls.append(repair_draft)
+                analysis = {
+                    "title_zh": "Evidence-bound policy update",
+                    "summary_zh": "The approved primary source describes a policy update and its stated mechanism.",
+                    "section_id": "business",
+                    "topic_ids": ["economy"],
+                    "region_ids": ["europe_russia"],
+                    "countries": [],
+                    "material_update": "A primary institution published a new policy update.",
+                    "claims": [{
+                        "text_zh": "The institution published the update.",
+                        "kind": "fact",
+                        "source_ids": ["src_1"],
+                        "attribution": "Primary institution",
+                        "verification_note": "Verified against the approved primary source.",
+                    }],
+                    "analysis": {
+                        "why_it_matters": "It changes the stated policy conditions.",
+                        "mechanism": "The policy changes the applicable rule." if repair_draft is not None else None,
+                        "affected_groups": "Regulated participants.",
+                        "counter_evidence": None,
+                        "watch_next": "Watch implementation notices.",
+                    },
+                    "unknowns": ["Implementation outcomes are not yet known."],
+                }
+                source = {
+                    "id": "src_1", "publisher": "Primary institution", "url": cluster["items"][0]["url"],
+                    "title": cluster["items"][0]["title"],
+                    "source_time": {"value": cluster["items"][0]["published_at"], "precision": "datetime", "original_text": cluster["items"][0]["original_time"], "timezone": "UTC"},
+                    "access_level": "authorized_feed", "upstream_origin": "primary", "independence_group": "primary",
+                    "retrieved_at": as_of, "evidence_method": "approved primary feed excerpt",
+                    "evidence_excerpt": cluster["items"][0]["evidence_text"][:1200], "attribution": "Primary institution", "license_url": None,
+                }
+                return analysis, [source]
+
+            def budget_report(self):
+                return {"actual_usage": {"responses": len(self.calls)}, "events": len(self.calls)}
+
+        row = candidate("primary", "Substantive policy decision", role="primary_document")
+        row["evidence_text"] = "Documented policy evidence. " * 20
+        analyzer = RepairAnalyzer()
+        with (
+            patch("app.pipeline.collect_sources", return_value=([row], [])),
+            patch("app.pipeline.collect_calendar_sources", return_value=([], [])),
+            patch("app.pipeline.AnalysisCache", return_value=NoCache()),
+            patch.dict(os.environ, {"ENABLE_PUBLISH": "false", "ENABLE_AI_ANALYSIS": "false"}, clear=False),
+        ):
+            report = run_pipeline(now=datetime(2026, 9, 10, 13, tzinfo=timezone.utc), analyzer=analyzer)
+        self.assertEqual(len(analyzer.calls), 2)
+        self.assertIsNone(analyzer.calls[0])
+        self.assertIsNotNone(analyzer.calls[1])
+        self.assertEqual(report["analysis_repair"], {"attempts": 1, "repaired": 1, "skipped_after_repair": 0})
+        self.assertEqual(report["event_count"], 1)
+
+    def test_controversy_draft_is_quarantined_without_blocking_the_edition(self):
+        class NoCache:
+            def get(self, key):
+                return None
+
+            def put(self, *args, **kwargs):
+                return None
+
+        class ControversyAnalyzer:
+            model = "controversy-quarantine-test-model"
+
+            def analyze(self, cluster, as_of, blocked_sections, reservation_key=None, repair_draft=None):
+                analysis = {
+                    "title_zh": "Review-required public controversy",
+                    "summary_zh": "This draft remains outside automatic publication pending human review.",
+                    "section_id": "controversies", "topic_ids": ["society"],
+                    "region_ids": ["north_america"], "countries": [],
+                    "material_update": "A review-required draft was generated.",
+                    "claims": [{"text_zh": "An institution issued a statement.", "kind": "attributed_claim", "source_ids": ["src_1"], "attribution": "Institution", "verification_note": "Human review is still required."}],
+                    "analysis": {"why_it_matters": "Public interest.", "mechanism": "A public statement.", "affected_groups": "Readers.", "counter_evidence": None, "watch_next": "Human verification."},
+                    "unknowns": ["Independent verification is pending."],
+                }
+                source = {
+                    "id": "src_1", "publisher": "Institution", "url": cluster["items"][0]["url"], "title": cluster["items"][0]["title"],
+                    "source_time": {"value": cluster["items"][0]["published_at"], "precision": "datetime", "original_text": cluster["items"][0]["original_time"], "timezone": "UTC"},
+                    "access_level": "authorized_feed", "upstream_origin": "institution", "independence_group": "institution", "retrieved_at": as_of,
+                    "evidence_method": "approved primary feed excerpt", "evidence_excerpt": cluster["items"][0]["evidence_text"][:1200], "attribution": "Institution", "license_url": None,
+                }
+                return analysis, [source]
+
+            def budget_report(self):
+                return {"actual_usage": {"responses": 1}, "events": 1}
+
+        row = candidate("institution", "Public statement requiring review", role="primary_document")
+        row["evidence_text"] = "Documented statement evidence. " * 20
+        with (
+            patch("app.pipeline.collect_sources", return_value=([row], [])),
+            patch("app.pipeline.collect_calendar_sources", return_value=([], [])),
+            patch("app.pipeline.AnalysisCache", return_value=NoCache()),
+            patch.dict(os.environ, {"ENABLE_PUBLISH": "false", "ENABLE_AI_ANALYSIS": "false"}, clear=False),
+        ):
+            report = run_pipeline(now=datetime(2026, 9, 10, 13, tzinfo=timezone.utc), analyzer=ControversyAnalyzer())
+        self.assertEqual(report["review_quarantine"]["count"], 1)
+        self.assertEqual(report["event_count"], 0)
+        quarantine = load_json(ROOT / report["review_quarantine"]["file"])
+        self.assertEqual(quarantine["items"][0]["section_id"], "controversies")
+
     def test_validate_mode_can_force_ai_off_even_if_repository_variable_is_on(self):
         with patch.dict(os.environ, {"ENABLE_AI_ANALYSIS": "true"}, clear=False):
             report = run_pipeline(collect=False, analysis_allowed=False)
@@ -256,7 +408,7 @@ class CloudPipelineTests(unittest.TestCase):
             [],
         )
 
-    def test_publication_gate_rejects_thin_edition_and_caps_disasters(self):
+    def test_publication_gate_allows_compact_edition_but_keeps_coverage_hard(self):
         def event(index, group, topic="economy", section="headlines", region="north_america"):
             return {
                 "event_id": f"event-{index}", "topic_ids": [topic], "section_id": section,
@@ -267,7 +419,22 @@ class CloudPipelineTests(unittest.TestCase):
         coverage = coverage_report(events, {"target_regions": 5, "target_topics": 7})
         gate = publication_quality_gate(events, coverage, load_yaml(ROOT / "config" / "pipeline.yaml")["publication"])
         self.assertFalse(gate["passed"])
-        self.assertIn("publishable events 5/10", gate["reasons"])
+        self.assertEqual(gate["edition_format"], "compact")
+        self.assertIn("publishable events 5/10", gate["warnings"][0])
+        self.assertNotIn("publishable events 5/10", gate["reasons"])
+
+        sections = ["headlines", "business", "science_technology", "society_world"]
+        regions = ["north_america", "europe_russia", "east_asia", "southeast_asia"]
+        topics = ["economy", "science", "society", "law", "health", "energy"]
+        compact_events = [
+            event(index, f"source-{index}", topics[index % len(topics)], sections[index % len(sections)], regions[index % len(regions)])
+            for index in range(9)
+        ]
+        compact_coverage = coverage_report(compact_events, {"target_regions": 5, "target_topics": 7})
+        compact_gate = publication_quality_gate(compact_events, compact_coverage, load_yaml(ROOT / "config" / "pipeline.yaml")["publication"])
+        self.assertTrue(compact_gate["passed"])
+        self.assertEqual(compact_gate["edition_format"], "compact")
+        self.assertTrue(compact_gate["warnings"])
 
         disasters = [event(index, f"source-{index}", "disasters", "science_technology") for index in range(4)]
         selected = balance_events(
@@ -291,6 +458,8 @@ class CloudPipelineTests(unittest.TestCase):
         self.assertIn("state/candidate-edition.json", raw)
         self.assertIn("state/budget-ledger.json", raw)
         self.assertIn("state/analysis-cache.json", raw)
+        self.assertIn("reuse_run_id", raw)
+        self.assertIn("--reuse-candidate", raw)
         self.assertIn("issues: write", raw)
         self.assertIn("actions/checkout@v7.0.1", raw)
         self.assertIn("actions/setup-python@v7.0.0", raw)

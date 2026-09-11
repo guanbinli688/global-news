@@ -282,6 +282,8 @@ def build(production: bool = False, candidate: bool = False) -> dict[str, Any]:
     publication_mode = "production" if production else "candidate" if candidate else "preview"
     coverage: dict[str, Any] = {}
     source_stats: dict[str, Any] = {}
+    edition_format = "standard"
+    edition_warnings: list[str] = []
     if production or candidate:
         pipeline_config = load_yaml(CONFIG_DIR / "pipeline.yaml")
         bundle_path = ROOT / "state" / "publishable-events.json" if production else ROOT / str(pipeline_config.get("state", {}).get("candidate_edition_file", "state/candidate-edition.json"))
@@ -292,6 +294,8 @@ def build(production: bool = False, candidate: bool = False) -> dict[str, Any]:
         events = list(bundle.get("events", []))
         coverage = dict(bundle.get("coverage", {}))
         source_stats = dict(bundle.get("source_stats", {}))
+        edition_format = str(bundle.get("edition_format") or "standard")
+        edition_warnings = [str(value) for value in bundle.get("edition_warnings", [])]
         if not events:
             raise ValueError(f"{publication_mode} build requires at least one event")
     else:
@@ -319,7 +323,7 @@ def build(production: bool = False, candidate: bool = False) -> dict[str, Any]:
     (SITE_DIR / "assets").mkdir(parents=True, exist_ok=True)
     write_json(ROOT / "state" / "events.json", {"schema_version": "1.0", "publication_mode": publication_mode, "as_of": as_of, "events": events})
     pipeline_config = load_yaml(CONFIG_DIR / "pipeline.yaml")
-    write_json(SITE_DIR / "data.json", {"as_of": as_of, "publication_mode": publication_mode, "events": events, "source_health": health["summary"], "source_stats": source_stats, "coverage": coverage, "stale_after_hours": pipeline_config["publication"]["stale_after_hours"]})
+    write_json(SITE_DIR / "data.json", {"as_of": as_of, "publication_mode": publication_mode, "edition_format": edition_format, "edition_warnings": edition_warnings, "events": events, "source_health": health["summary"], "source_stats": source_stats, "coverage": coverage, "stale_after_hours": pipeline_config["publication"]["stale_after_hours"]})
     shutil.copy2(ROOT / "assets" / "styles.css", SITE_DIR / "assets" / "styles.css")
     shutil.copy2(ROOT / "assets" / "app.js", SITE_DIR / "assets" / "app.js")
 
@@ -331,7 +335,12 @@ def build(production: bool = False, candidate: bool = False) -> dict[str, Any]:
     analysis_count = sum(1 for event in events if event.get("analysis_method") != "metadata_preview")
     item_label = "合格候选" if candidate else "已发布新闻" if production else "元数据样本"
     publish_label = "可发布版本" if production else "尚未发布"
+    edition_notice = (
+        f'<aside class="edition-warning"><strong>精简版 · {len(events)} 条</strong><p>本期达到证据、时效与覆盖硬门槛，但未达到 {int(pipeline_config["publication"]["target_publishable_events"])} 条编辑目标；不编造新闻凑数。</p></aside>'
+        if edition_format == "compact" else ""
+    )
     body = f"""<section class="page-hero"><div><p class="eyebrow">{hero_kicker}</p><h1>看见世界，<br><em>不抢跑结论。</em></h1><p class="hero-copy">{hero_copy}</p></div><div class="hero-status"><span>AS OF · UTC</span><strong>{e(as_of.replace('T', ' ')[:16])}</strong><p>{e(display_beijing(as_of, 'datetime'))}</p><a href="source-health.html">查看完整来源诊断 →</a></div></section>
+    {edition_notice}
     <section class="status-ribbon"><div><span class="pulse"></span><strong>{health['summary']['preview_eligible']} 个</strong> 合规可用来源</div><div><strong>{len(events)} 条</strong> {item_label}</div><div><strong>{analysis_count} 条</strong> 结构化中文解读</div><div><strong>{publish_label}</strong> 当前状态</div></section>
     <section class="filter-panel"><button class="filter-toggle" type="button" aria-expanded="true" aria-controls="filter-body">收起 / 展开筛选</button><div class="filter-body" id="filter-body"><div><span class="filter-label">议题</span><div class="chip-row" data-topic-filters>{filter_buttons(site_config['coverage']['topics'], 'topic')}</div></div><div><span class="filter-label">地区</span><div class="chip-row" data-region-filters>{filter_buttons(site_config['coverage']['regions'], 'region')}</div></div><p class="filter-note">{'地区与议题来自本条证据内容或结构化数据，不沿用媒体总部标签。' if candidate or production else '标签来自候选源覆盖配置，仅用于浏览，不代表已完成文章级分类。'}</p></div></section>
     <div class="digest-layout"><aside class="section-index"><span>今日目录</span>{''.join(f'<a href="#section-{e(row["id"])}"><b>{i:02d}</b>{e(row["name"])}</a>' for i, row in enumerate(site_config['sections'], 1))}</aside><div class="digest-content">{section_markup(site_config, events, cards, publication_mode)}</div></div>

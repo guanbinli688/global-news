@@ -92,6 +92,8 @@ class DailyBudget:
     output_tokens: int = 0
     actual_input_tokens: int = 0
     actual_output_tokens: int = 0
+    actual_responses: int = 0
+    usage_missing_responses: int = 0
 
     @classmethod
     def from_environment(cls, config: dict[str, Any]) -> "DailyBudget":
@@ -130,14 +132,36 @@ class DailyBudget:
     def record_actual(self, input_tokens: int, output_tokens: int) -> None:
         self.actual_input_tokens += input_tokens
         self.actual_output_tokens += output_tokens
+        self.actual_responses += 1
+
+    def record_usage_missing(self) -> None:
+        self.usage_missing_responses += 1
 
     def report(self) -> dict[str, Any]:
+        actual_cost = (
+            self.actual_input_tokens * self.input_usd_per_million
+            + self.actual_output_tokens * self.output_usd_per_million
+        ) / 1_000_000
         return {
             "events": self.events,
             "reserved_input_tokens": self.input_tokens,
             "reserved_output_tokens": self.output_tokens,
             "actual_input_tokens": self.actual_input_tokens,
             "actual_output_tokens": self.actual_output_tokens,
+            "actual_usage": {
+                "responses": self.actual_responses,
+                "input_tokens": self.actual_input_tokens,
+                "output_tokens": self.actual_output_tokens,
+                "estimated_cost_usd": round(actual_cost, 6),
+                "cost_basis": "actual response usage multiplied by configured token prices",
+            },
+            "pre_call_reservations": {
+                "responses": self.events,
+                "input_tokens": self.input_tokens,
+                "output_tokens": self.output_tokens,
+                "worst_case_estimated_cost_usd": round(self.projected_cost(0, 0), 6),
+            },
+            "usage_missing_responses": self.usage_missing_responses,
             "worst_case_reserved_usd": round(self.projected_cost(0, 0), 6),
             "limits": {"events": self.max_events, "input_tokens": self.max_input_tokens, "output_tokens": self.max_output_tokens, "usd": self.max_usd},
         }
@@ -205,6 +229,7 @@ class OpenAIAnalyzer:
         as_of: str,
         blocked_sections: list[str],
         reservation_key: str | None = None,
+        repair_draft: dict[str, Any] | None = None,
     ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         source_packets: list[dict[str, Any]] = []
         source_records: list[dict[str, Any]] = []
@@ -259,6 +284,13 @@ class OpenAIAnalyzer:
             "输出简洁中文；section_id 必须符合 schema。"
         )
         prompt = "请依据以下证据包生成结构化新闻记录。证据包开始：\n" + evidence_json + "\n证据包结束。"
+        if repair_draft is not None:
+            prompt += (
+                "\n以下草稿仅因必需的深度分析字段不完整而未通过。只使用同一证据包修复一次，"
+                "不得增加证据未支持的事实。草稿开始：\n"
+                + json.dumps(repair_draft, ensure_ascii=False)
+                + "\n草稿结束。"
+            )
         estimated_input = estimate_tokens(instructions + prompt)
         output_limit = min(1600, self.budget.max_output_tokens - self.budget.output_tokens)
         if output_limit <= 0:
@@ -297,6 +329,36 @@ class OpenAIAnalyzer:
             if ledger is not None:
                 ledger.release(ledger_key)
             raise
+        # Record provider usage before any schema or editorial decision. A
+        # rejected draft can still be a billable, successfully returned API
+        # response and must remain visible in the ledger.
+        usage = response.get("usage")
+        response_id = str(response.get("id")) if response.get("id") else None
+        if (
+            isinstance(usage, dict)
+            and usage.get("input_tokens") is not None
+            and usage.get("output_tokens") is not None
+        ):
+            actual_input = int(usage["input_tokens"])
+            actual_output = int(usage["output_tokens"])
+            self.budget.record_actual(actual_input, actual_output)
+            if ledger is not None:
+                ledger.commit(
+                    ledger_key,
+                    actual_input,
+                    actual_output,
+                    self.budget.input_usd_per_million,
+                    self.budget.output_usd_per_million,
+                    response_id=response_id,
+                )
+        else:
+            self.budget.record_usage_missing()
+            if ledger is not None:
+                ledger.mark_usage_missing(
+                    ledger_key,
+                    response_id,
+                    "provider response omitted input_tokens or output_tokens",
+                )
         if response.get("status") != "completed":
             raise RuntimeError(f"analysis response was not completed: {response.get('status')}")
         output_text = response.get("output_text")
@@ -310,20 +372,9 @@ class OpenAIAnalyzer:
             raise RuntimeError("analysis response contained no output_text")
         result = json.loads(output_text)
         jsonschema.Draft202012Validator(self.schema, format_checker=jsonschema.FormatChecker()).validate(result)
-        if result["section_id"] in set(blocked_sections):
-            raise RuntimeError(f"section requires human review: {result['section_id']}")
-        usage = response.get("usage") or {}
-        actual_input = int(usage.get("input_tokens") or estimated_input)
-        actual_output = int(usage.get("output_tokens") or estimate_tokens(output_text))
-        self.budget.record_actual(actual_input, actual_output)
-        if ledger is not None:
-            ledger.commit(
-                ledger_key,
-                actual_input,
-                actual_output,
-                self.budget.input_usd_per_million,
-                self.budget.output_usd_per_million,
-            )
+        # The caller quarantines blocked sections after retaining the returned
+        # draft. Keeping this argument preserves the analyzer interface.
+        _ = blocked_sections
         return result, source_records
 
     def budget_report(self) -> dict[str, Any]:
