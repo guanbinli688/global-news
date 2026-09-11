@@ -46,6 +46,8 @@
 
 价格变量缺失、非正数或预计超预算时，分析器会停止，不会“先调用后记账”。
 
+首次配置已于 2026-09-11 完成并通过手动生产验收：模型为 `gpt-5.6-terra`，当日累计事件上限 5、输入 75,000 token、输出 14,400 token、美元硬上限 0.35；首次发布结束后三个 `ENABLE_*` 开关已重新设为 `false`。
+
 ## 三、GitHub Secret
 
 只需要在 Actions Secrets 中增加：
@@ -79,6 +81,8 @@
 4. 手动运行 `workflow_dispatch → production`。检查生成事件、逐条引用、覆盖缺口和预算报告；因为发布开关仍关闭，不会部署。
 5. 把结果交给你确认。确认后才把 `ENABLE_PUBLISH=true`，再次手动运行 production，完成首次 Pages 发布。
 6. 首次发布验证通过后，才把 `ENABLE_SCHEDULED_PUBLISH=true`。计划时间为 UTC 23:37，即北京时间次日 07:37；GitHub schedule 不是准点 SLA。
+
+截至 2026-09-11，第 5 步已完成并通过公网验收；第 6 步仍未执行，定时发布保持关闭。
 
 GitHub Pages 工作流采用官方的 `configure-pages`、`upload-pages-artifact` 和 `deploy-pages` 流程，配置依据见 [GitHub Pages 自定义 Actions 工作流](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。工作流中的官方 Action 已在 2026-09-10 通过各自 GitHub Releases API 核对并锁定到具体版本；上传前仍应复核一次兼容性和安全公告。
 

@@ -30,10 +30,11 @@
 - 首次 `production` 运行 `34547840146` 正确启用了 AI、模型和预算，但 OpenAI 在生成前以 HTTP 400 拒绝 schema 中不支持的 `uniqueItems`；实际输入/输出 token 均为 0、估算费用为 0。质量闸门阻止了 Pages，失败 Issue 告警成功。修复后 API schema 会去除该不支持关键字，本地 schema 仍执行数组唯一性校验；workflow 也已补齐 `ENABLE_PUBLISH` 环境变量。
 - 第二次 `production` 运行 `34548706403` 成功取得 3 个结构化 AI 响应，实际使用 2,129 输入 token、1,408 输出 token，按配置单价估算 0.021154 美元；三个响应的 `why_it_matters`/`mechanism` 不完整，均被深度分析闸门拒绝，Pages 未部署。后续修复不降低该闸门：只选择至少 160 字符证据的模型候选，并要求对一手机构材料近距离改写证据明确支持的影响与机制；预算不足时继续处理无需付费的结构化公共数据。
 - 第三次 `production` 运行 `34549139124` 首次通过 pipeline 与 Pages deploy，共发布 5 条（2 条 NASA AI 分析、3 条 USGS 确定性稿件）；当日累计实际用量 3,745 输入 token、2,590 输出 token，估算 0.03857 美元。发布后人工核查发现“吉布提签署”稿被模型误标为东亚，因此新增国家别名到地区的确定性校正；国家全部命中映射时以映射结果覆盖模型地区，并已加入误标与未知国家测试。
+- 纠正版 `production` 运行 `34549575046` 使用 2 条缓存 AI 分析，新增 AI token 与费用均为 0；pipeline 与 deploy 均成功。公网 `index.html`、`data.json`、`coverage.html`、`source-health.html` 均返回 200，线上为 `publication_mode=production`、共 5 条；吉布提稿地区已校正为撒哈拉以南非洲，并保留活动地点美国对应的北美标签。
 
 ## 尚未真实验证 / 外部阻塞
 
 - Agência Brasil、NASA 与 USGS 已通过当前用途审核；Agência Brasil 的单一报道仍需独立证据，不能因许可已通过就自动入选。其余生产候选源保持许可待审。
-- GitHub 已配置 `OPENAI_API_KEY` Secret，以及 `gpt-5.6-terra`、3 个事件、75,000 输入 token、14,400 输出 token、0.35 美元等预算 Variables；Secret 值未进入仓库或日志。
-- GitHub Pages 已按 Actions workflow 模式创建；workflow 的 deploy job 已声明 `pages:write` 与 `id-token:write`，但尚无通过质量闸门的首次公开部署。
-- `production` 模式和 AI 接口已真实运行并产生结构化输出，但这些输出尚未通过全部内容质量闸门，Pages 尚未部署。`ENABLE_SCHEDULED_PUBLISH=false`，真正的 `schedule` 仍未运行。
+- GitHub 已配置 `OPENAI_API_KEY` Secret，以及 `gpt-5.6-terra`、5 个累计事件、75,000 输入 token、14,400 输出 token、0.35 美元等预算 Variables；Secret 值未进入仓库或日志。
+- GitHub Pages 已按 Actions workflow 模式发布至 `https://guanbinli688.github.io/global-news/`；workflow 的 deploy job 使用 `pages:write` 与 `id-token:write`。
+- 手动 `production`、AI、缓存恢复、历史归档、失败告警、质量闸门和 Pages 部署均已真实运行。一次性发布完成后 `ENABLE_AI_ANALYSIS=false`、`ENABLE_PUBLISH=false`、`ENABLE_SCHEDULED_PUBLISH=false`；真正的 `schedule` 仍未运行。
